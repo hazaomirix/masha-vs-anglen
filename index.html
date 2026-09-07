@@ -3,1193 +3,574 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CASINO RPO-326</title>
+<title>RP36 | CASINO</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  :root {
-    --gold: #ffd93d;
-    --gold-dark: #ffaa00;
-    --green: #00e676;
-    --red: #ff3b5c;
-    --bg: #0a0a12;
-    --card: #16161f;
-    --blue: #3bc9ff;
-  }
-  html, body { height: 100%; }
-  body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background: var(--bg);
-    color: #fff;
-    overflow-x: hidden;
-    background-image: radial-gradient(900px circle at 10% 5%, rgba(255,217,61,0.12), transparent 50%), radial-gradient(800px circle at 90% 10%, rgba(255,59,92,0.09), transparent 50%);
-  }
-  .topbar {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(10,10,18,0.88); backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  .topbar-inner {
-    max-width: 780px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;
-    height: 54px; padding: 0 16px;
-  }
-  .logo {
-    font-weight: 900; font-size: 1.05rem; letter-spacing: 2px; white-space: nowrap;
-    background: linear-gradient(90deg, var(--gold), #fff, var(--gold));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-size: 200% 100%; animation: shine 4s linear infinite;
-  }
-  @keyframes shine { 0% { background-position: 0% 0; } 100% { background-position: 200% 0; } }
-  .topbar-r { display: flex; align-items: center; gap: 8px; }
-  .ni {
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 30px; padding: 6px 12px; color: #fff; font-size: 0.82rem; width: 110px; outline: none;
-  }
-  .ni:focus { border-color: var(--gold); }
-  .bal {
-    background: rgba(255,217,61,0.1); border: 1px solid rgba(255,217,61,0.35);
-    border-radius: 30px; padding: 5px 14px; font-weight: 900; color: var(--gold);
-    font-size: 0.95rem; white-space: nowrap; font-variant-numeric: tabular-nums;
-  }
-  .bal.bump { animation: balB 0.5s ease; }
-  @keyframes balB { 0% { transform: scale(1); } 40% { transform: scale(1.18); } 100% { transform: scale(1); } }
-  .app {
-    max-width: 780px; margin: 0 auto; padding: 68px 16px 40px;
-    animation: appF 0.8s ease 0.3s both;
-  }
-  @keyframes appF { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,215,0,0.25);border-radius:10px}
+:root{--gold:#ffd700;--gold-dark:#daa520;--gold-light:#ffe44d;--red:#ff3355;--green:#00e676;--blue:#3bc9ff;--bg:#07070d;--card:#11111d}
+html,body{height:100%}
+body{
+  font-family:'Inter','Segoe UI',sans-serif;
+  background:var(--bg);
+  color:#fff;
+  overflow-x:hidden;
+  background-image:radial-gradient(1000px circle at 5% -10%, rgba(255,215,0,0.07), transparent 50%), radial-gradient(800px circle at 95% 5%, rgba(255,50,80,0.05), transparent 50%);
+}
 
-  .screen { display: none; }
-  .screen.active { display: block; animation: scIn 0.4s cubic-bezier(0.22,1,0.36,1) both; }
-  @keyframes scIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+/* ─── ШАПКА ─── */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:linear-gradient(180deg, rgba(7,7,13,0.97) 0%, rgba(7,7,13,0.85) 100%);
+  backdrop-filter:blur(24px) saturate(1.2);
+  border-bottom:1px solid rgba(255,215,0,0.08);
+  transition:transform .3s;
+}
+.topbar-inner{
+  max-width:1300px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  height:72px;padding:0 24px;
+}
+.logo-wrap{display:flex;align-items:center;gap:12px;text-decoration:none;cursor:pointer}
+.logo-img{
+  height:46px;width:46px;border-radius:12px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:1.1rem;color:#000;
+  box-shadow:0 0 30px rgba(255,215,0,0.3);
+  transition:box-shadow .3s,transform .3s;
+  overflow:hidden;
+}
+.logo-img img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+.logo-img:hover{transform:rotate(-3deg) scale(1.05);box-shadow:0 0 50px rgba(255,215,0,0.5)}
+.logo-text{
+  font-weight:900;font-size:1.5rem;letter-spacing:3px;
+  background:linear-gradient(90deg,var(--gold),#fff,var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-size:200% 100%;animation:shine 4s linear infinite;
+}
+@keyframes shine{0%{background-position:0% 0}100%{background-position:200% 0}}
+.topbar-center{display:flex;align-items:center;gap:4px}
+.tbn{
+  padding:8px 20px;border-radius:30px;font-size:.82rem;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;color:#999;cursor:pointer;transition:.25s;position:relative;
+}
+.tbn::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:0;height:2px;background:var(--gold);border-radius:4px;transition:.3s;}
+.tbn:hover{color:var(--gold)}
+.tbn:hover::after{width:40%}
+.topbar-right{display:flex;align-items:center;gap:14px}
+.ni{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);border-radius:30px;
+  padding:10px 18px;color:#fff;font-size:.85rem;font-weight:600;
+  width:140px;outline:none;transition:border-color .3s,box-shadow .3s;
+}
+.ni:focus{border-color:var(--gold);box-shadow:0 0 25px rgba(255,215,0,0.06)}
+.bal-container{
+  position:relative;
+  background:linear-gradient(135deg, rgba(255,215,0,0.12), rgba(218,165,32,0.05));
+  border:1px solid rgba(255,215,0,0.4);
+  border-radius:40px;padding:10px 22px 10px 50px;
+  min-width:160px;cursor:default;
+  transition:border-color .3s,box-shadow .3s;
+}
+.bal-container:hover{border-color:rgba(255,215,0,0.6);box-shadow:0 0 35px rgba(255,215,0,0.07)}
+.bal-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:1.3rem}
+.bal{font-weight:900;color:var(--gold);font-size:1.15rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.bal.bump{animation:balBump .5s ease}
+@keyframes balBump{0%{transform:scale(1)}40%{transform:scale(1.18);color:#fff}100%{transform:scale(1)}}
 
-  .stitle { text-align: center; font-size: 1.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 4px; }
-  .stitle span { color: var(--gold); text-shadow: 0 0 25px rgba(255,217,61,0.3); }
-  .ssub { text-align: center; color: #888; font-size: 0.85rem; margin-bottom: 20px; }
-  .br { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-  .bb {
-    background: none; border: 1px solid rgba(255,255,255,0.15); color: #aaa;
-    padding: 6px 14px; border-radius: 30px; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: 0.2s;
-  }
-  .bb:hover { border-color: var(--gold); color: var(--gold); }
+.app{max-width:1300px;margin:0 auto;padding:88px 24px 40px;animation:appF 1s ease .1s both}
+@keyframes appF{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
 
-  .ss { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 22px; }
-  .sc { background: var(--card); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 10px; text-align: center; }
-  .sc .sl { font-size: 0.6rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; }
-  .sc .sv { font-size: 1.05rem; font-weight: 800; margin-top: 2px; color: var(--gold); }
+/* ─── КАРУСЕЛЬ ─── */
+.carousel{
+  position:relative;border-radius:28px;overflow:hidden;margin-bottom:36px;
+  height:300px;animation:carIn 1.4s ease both;
+}
+@keyframes carIn{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.carousel-track{
+  display:flex;height:100%;
+  transition:transform .7s cubic-bezier(.22,1,.36,1);
+  will-change:transform;
+}
+.carousel-slide{
+  min-width:100%;height:100%;
+  display:flex;align-items:center;padding:0 50px;
+  position:relative;overflow:hidden;
+}
+.slide-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+}
+.slide-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg, rgba(7,7,13,0.85) 0%, rgba(7,7,13,0.3) 60%, transparent 100%);}
+.slide-img-cont{
+  position:absolute;right:40px;top:50%;transform:translateY(-50%);
+  width:180px;height:180px;border-radius:20px;
+  overflow:hidden;box-shadow:0 0 50px rgba(255,215,0,0.25);
+  background:rgba(255,255,255,0.05);
+  display:flex;align-items:center;justify-content:center;
+  font-size:4rem;
+}
+.slide-img-cont img{width:100%;height:100%;object-fit:cover}
+.slide-content{position:relative;z-index:2;max-width:600px}
+.slide-tag{
+  display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  padding:4px 14px;border-radius:20px;
+  background:rgba(255,215,0,0.15);color:var(--gold);border:1px solid rgba(255,215,0,0.3);margin-bottom:10px;
+}
+.slide-title{
+  font-size:2.8rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;line-height:1.1;
+  background:linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;
+}
+.slide-desc{font-size:1.05rem;color:#ccc;line-height:1.5;max-width:500px}
+.slide-desc b{color:var(--gold)}
+.slide-btn{
+  display:inline-block;margin-top:16px;
+  padding:12px 32px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#000;font-weight:900;font-size:.95rem;letter-spacing:2px;text-transform:uppercase;
+  border:none;border-radius:40px;cursor:pointer;
+  box-shadow:0 0 40px rgba(255,215,0,0.3);transition:transform .2s,box-shadow .2s;
+}
+.slide-btn:hover{transform:translateY(-3px);box-shadow:0 0 60px rgba(255,215,0,0.5)}
+.carousel-arrows{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:10;
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(7,7,13,0.7);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,215,0,0.2);color:var(--gold);font-size:1.5rem;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.25s;
+}
+.carousel-arrows:hover{background:rgba(255,215,0,0.15);border-color:var(--gold);transform:translateY(-50%) scale(1.1)}
+.carousel-arrows.left{left:12px}
+.carousel-arrows.right{right:12px}
+.carousel-dots{
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+  display:flex;gap:8px;z-index:10;
+}
+.carousel-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:rgba(255,255,255,0.2);cursor:pointer;transition:.3s;
+}
+.carousel-dot.active{width:28px;border-radius:6px;background:var(--gold);box-shadow:0 0 12px rgba(255,215,0,0.4)}
 
-  .mg { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .mc {
-    background: var(--card); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px;
-    padding: 24px 14px; text-align: center; cursor: pointer;
-    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), border-color 0.3s, box-shadow 0.3s;
-    position: relative; overflow: hidden;
-  }
-  .mc:hover { transform: translateY(-5px) scale(1.02); border-color: rgba(255,217,61,0.5); box-shadow: 0 0 30px rgba(255,217,61,0.12); }
-  .mc:active { transform: scale(0.96); }
-  .mc .mce { font-size: 2.8rem; display: block; margin-bottom: 8px; }
-  .mc .mcn { font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; }
-  .mc .mcd { font-size: 0.75rem; color: #888; margin-top: 5px; line-height: 1.4; }
-  .mc .mct {
-    display: inline-block; margin-top: 8px; font-size: 0.6rem; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 20px;
-  }
-  .mc .mct.hot { background: rgba(255,59,92,0.15); color: var(--red); border: 1px solid rgba(255,59,92,0.35); }
-  .mc .mct.luck { background: rgba(0,230,118,0.12); color: var(--green); border: 1px solid rgba(0,230,118,0.3); }
-  .mc .mct.poker { background: rgba(59,201,255,0.15); color: var(--blue); border: 1px solid rgba(59,201,255,0.35); }
-  .mc.new-c { border-color: rgba(59,201,255,0.4); }
-  .mc .mcnew {
-    position: absolute; top: 8px; right: 8px;
-    background: linear-gradient(135deg, var(--blue), #00b0ff); color: #000;
-    font-size: 0.55rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;
-    padding: 2px 8px; border-radius: 20px;
-  }
-  .mc .mcbg { position: absolute; bottom: -15px; right: -15px; font-size: 5rem; opacity: 0.04; pointer-events: none; }
+/* ─── СТАТИСТИКА ─── */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
+.stat-card{
+  background:var(--card);border:1px solid rgba(255,255,255,0.05);border-radius:18px;
+  padding:18px;text-align:center;transition:transform .3s,border-color .3s;position:relative;overflow:hidden;
+}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),transparent);opacity:0;transition:.3s;}
+.stat-card:hover{transform:translateY(-3px);border-color:rgba(255,215,0,0.2)}
+.stat-card:hover::before{opacity:1}
+.stat-card .sl{font-size:.62rem;color:#888;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.stat-card .sv{font-size:1.5rem;font-weight:900;color:var(--gold);font-variant-numeric:tabular-nums}
 
-  .gv { animation: gvIn 0.45s ease both; }
-  @keyframes gvIn { from { opacity: 0; transform: translateX(25px); } to { opacity: 1; transform: translateX(0); } }
-  .gt { text-align: center; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
-  .gd { text-align: center; color: #888; font-size: 0.82rem; margin-bottom: 16px; line-height: 1.5; }
-  .gd b { color: var(--gold); }
+/* ─── ВИДЖЕТЫ 2×2 ПО ЦЕНТРУ ─── */
+.widgets-section{max-width:800px;margin:0 auto 32px;text-align:center}
+.widgets-title{font-size:1.4rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;margin-bottom:24px;text-align:center}
+.widgets-title span{color:var(--gold);text-shadow:0 0 30px rgba(255,215,0,0.3)}
 
-  .sr { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
-  .si {
-    flex: 1; min-width: 110px;
-    background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.12);
-    border-radius: 14px; padding: 12px 14px; color: #fff; font-size: 1.1rem; font-weight: 700; outline: none;
-  }
-  .si:focus { border-color: var(--gold); }
-  .qb {
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: #ccc;
-    border-radius: 12px; padding: 10px 14px; font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: 0.2s;
-  }
-  .qb:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-1px); }
-  .qb.all { color: var(--red); border-color: rgba(255,59,92,0.35); }
-  .qb.all:hover { border-color: var(--red); color: var(--red); }
+.widgets-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  max-width:680px;
+  margin:0 auto;
+}
 
-  .pb {
-    width: 100%; padding: 15px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-    color: #000; font-weight: 900; font-size: 1.15rem; letter-spacing: 2px;
-    text-transform: uppercase; border: none; border-radius: 16px; cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 0 25px rgba(255,217,61,0.25);
-  }
-  .pb:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(255,217,61,0.4); }
-  .pb:active { transform: scale(0.97); }
-  .pb:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-  .pb.blue { background: linear-gradient(135deg, var(--blue), #0099e6); box-shadow: 0 0 25px rgba(59,201,255,0.25); }
-  .pb.blue:hover { box-shadow: 0 0 40px rgba(59,201,255,0.4); }
+/* КАРТОЧКА С ПЕРЕВОРОТОМ */
+.flip-card{
+  perspective:1200px;
+  height:240px;
+  cursor:pointer;
+  width:100%;
+}
+.flip-card-inner{
+  position:relative;
+  width:100%;height:100%;
+  transition:transform .7s cubic-bezier(.23,1,.32,1);
+  transform-style:preserve-3d;
+  border-radius:24px;
+}
+.flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
+.flip-card-front,.flip-card-back{
+  position:absolute;inset:0;
+  backface-visibility:hidden;
+  border-radius:24px;
+  padding:24px 16px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,0.06);
+  overflow:hidden;
+}
+.flip-card-front{
+  background:linear-gradient(145deg, var(--card) 0%, #17172a 100%);
+  text-align:center;
+}
+.flip-card-front::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(400px circle at 50% -20%, rgba(255,215,0,0.06), transparent 60%);
+  pointer-events:none;
+}
+.flip-card-back{
+  background:linear-gradient(145deg, #0f0f20 0%, #1a1a30 100%);
+  transform:rotateY(180deg);
+  text-align:center;
+}
 
-  .res {
-    margin-top: 14px; min-height: 50px; background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 12px;
-    text-align: center; font-size: 1rem; font-weight: 700; display: flex; align-items: center; justify-content: center;
-  }
-  .res.w { border-color: rgba(0,230,118,0.5); color: var(--green); background: rgba(0,230,118,0.08); animation: resW 0.6s ease; }
-  .res.l { border-color: rgba(255,59,92,0.5); color: var(--red); background: rgba(255,59,92,0.07); animation: resL 0.4s ease; }
-  @keyframes resW { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-  @keyframes resL { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-6px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(4px); } }
+.flip-card .wc-img{
+  width:80px;height:80px;border-radius:16px;margin-bottom:10px;
+  object-fit:cover;background:#1a1a28;
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.8rem;
+}
+.flip-card .wc-img img{width:100%;height:100%;object-fit:cover;border-radius:16px}
+.flip-card .wc-n{font-size:1.15rem;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.flip-card .wc-d{font-size:.82rem;color:#888;line-height:1.4;margin-bottom:8px}
+.flip-card .wc-t{
+  display:inline-block;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;
+  padding:4px 14px;border-radius:20px;
+}
+.flip-card .wc-t.hot{background:rgba(255,50,80,0.15);color:var(--red);border:1px solid rgba(255,50,80,0.3)}
+.flip-card .wc-t.luck{background:rgba(0,230,118,0.12);color:var(--green);border:1px solid rgba(0,230,118,0.3)}
+.flip-card .wc-t.cool{background:rgba(59,201,255,0.15);color:var(--blue);border:1px solid rgba(59,201,255,0.3)}
+.flip-card .wc-big{font-size:4rem;margin-bottom:8px}
+.flip-card .wc-sub{font-size:.9rem;color:#aaa;line-height:1.5}
 
-  /* ─── Слоты ─── */
-  .slot-m { background: linear-gradient(180deg,#131322,#0d0d18); border: 1px solid rgba(255,217,61,0.2); border-radius: 18px; padding: 20px 12px 14px; margin-bottom: 16px; text-align: center; }
-  .slot-r { display: flex; justify-content: center; gap: 10px; }
-  .rw { width: 86px; height: 96px; background: #1c1c2c; border: 2px solid rgba(255,217,61,0.3); border-radius: 14px; overflow: hidden; box-shadow: inset 0 0 25px rgba(0,0,0,0.7); }
-  .rw.win { border-color: var(--green); box-shadow: 0 0 20px rgba(0,230,118,0.25), inset 0 0 25px rgba(0,0,0,0.7); }
-  .rw.spin { border-color: rgba(255,217,61,0.7); box-shadow: 0 0 15px rgba(255,217,61,0.2), inset 0 0 25px rgba(0,0,0,0.7); }
-  .ri { display: flex; flex-direction: column; transition: transform 0.6s cubic-bezier(0.15,0.85,0.35,1); }
-  .rip { height: 96px; display: flex; align-items: center; justify-content: center; font-size: 3rem; flex-shrink: 0; }
-  .slot-pt { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
-  .pt { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 4px 10px; font-size: 0.65rem; color: #aaa; }
-  .pt b { color: var(--gold); }
+.flip-card:hover .flip-card-front{border-color:rgba(255,215,0,0.3);box-shadow:0 0 40px rgba(255,215,0,0.08)}
+.flip-card:hover .flip-card-back{border-color:rgba(255,215,0,0.3);box-shadow:0 0 40px rgba(255,215,0,0.08)}
+.flip-card.glowing .flip-card-front{
+  border-color:var(--gold);
+  box-shadow:0 0 50px rgba(255,215,0,0.2), inset 0 0 30px rgba(255,215,0,0.03);
+}
+.flip-card.glowing .flip-card-back{
+  border-color:var(--gold);
+  box-shadow:0 0 50px rgba(255,215,0,0.2), inset 0 0 30px rgba(255,215,0,0.03);
+}
 
-  .dice-b { background: linear-gradient(180deg,#131322,#0d0d18); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 20px; margin-bottom: 16px; text-align: center; }
-  .dice-d { font-size: 3.6rem; min-height: 80px; display: flex; align-items: center; justify-content: center; gap: 18px; }
-  .dice-d.roll { animation: diceR 0.5s ease; }
-  @keyframes diceR { 0% { transform: rotate(0deg); } 25% { transform: rotate(-10deg) scale(1.1); } 50% { transform: rotate(10deg) scale(0.95); } 75% { transform: rotate(-5deg) scale(1.05); } 100% { transform: rotate(0deg) scale(1); } }
-  .dice-s { font-size: 1.2rem; font-weight: 900; color: var(--gold); margin-top: 4px; min-height: 28px; }
-  .dice-c { display: flex; gap: 10px; justify-content: center; margin-top: 12px; }
-  .dice-c button { flex:1; max-width:170px; padding:12px; background:rgba(255,255,255,0.05); border:2px solid rgba(255,255,255,0.15); border-radius:14px; color:#fff; font-weight:800; font-size:0.95rem; cursor:pointer; transition:0.25s; }
-  .dice-c button.act { border-color:var(--gold); color:var(--gold); background:rgba(255,217,61,0.12); }
+@media(max-width:600px){
+  .widgets-grid{grid-template-columns:1fr;max-width:400px}
+  .flip-card{height:200px}
+}
 
-  .coin-b { background: linear-gradient(180deg,#131322,#0d0d18); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 20px; margin-bottom: 16px; text-align: center; }
-  .coin-e { font-size: 4.5rem; display: inline-block; animation: coinIdle 2.5s ease-in-out infinite; }
-  .coin-e.flip { animation: coinFlip 1.2s cubic-bezier(0.45,0.05,0.55,0.95) both; }
-  .coin-e.land { animation: none; }
-  @keyframes coinIdle { 0%,100% { transform: rotate(-10deg) translateY(0); } 50% { transform: rotate(10deg) translateY(-6px); } }
-  @keyframes coinFlip { 0% { transform: rotateY(0) scale(1); } 100% { transform: rotateY(1800deg) scale(1.05); } }
-  .coin-rt { font-size: 1.2rem; font-weight: 900; color: var(--gold); min-height: 32px; margin-top: 8px; }
-  .coin-c { display: flex; gap: 10px; justify-content: center; margin-top: 8px; }
-  .coin-c button { flex:1; max-width:170px; padding:12px; background:rgba(255,255,255,0.05); border:2px solid rgba(255,255,255,0.15); border-radius:14px; color:#fff; font-weight:800; font-size:0.95rem; cursor:pointer; transition:0.25s; }
-  .coin-c button.act { border-color:var(--gold); color:var(--gold); background:rgba(255,217,61,0.12); }
+.screen{display:none}
+.screen.active{display:block;animation:scIn .5s cubic-bezier(.22,1,.36,1) both}
+@keyframes scIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.screen-header{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;
+}
+.screen-back{
+  background:var(--card);border:1px solid rgba(255,255,255,0.08);color:#aaa;
+  padding:10px 22px;border-radius:30px;font-size:.85rem;font-weight:700;cursor:pointer;transition:.2s;
+}
+.screen-back:hover{color:var(--gold);border-color:var(--gold)}
+.screen-title{font-size:1.6rem;font-weight:900;text-transform:uppercase;letter-spacing:2px}
+.screen-title span{color:var(--gold);text-shadow:0 0 25px rgba(255,215,0,0.25)}
 
-  .cube-b { background: linear-gradient(180deg,#131322,#0d0d18); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 20px; margin-bottom: 16px; text-align: center; }
-  .cube-d { font-size: 4.2rem; min-height: 90px; display: flex; align-items: center; justify-content: center; }
-  .cube-p { display: flex; gap: 8px; justify-content: center; margin-top: 12px; flex-wrap: wrap; }
-  .cube-p button { width:46px; height:46px; background:rgba(255,255,255,0.05); border:2px solid rgba(255,255,255,0.15); border-radius:12px; color:#fff; font-size:1.2rem; font-weight:900; cursor:pointer; transition:0.2s; }
-  .cube-p button.act { border-color:var(--gold); color:var(--gold); background:rgba(255,217,61,0.12); transform:scale(1.1); }
+/* ─── ПОКЕР ─── */
+.poker-lobby-c{background:var(--card);border:1px solid rgba(255,255,255,0.05);border-radius:24px;padding:28px}
+.pl-sect{margin-bottom:22px}
+.pl-sect:last-child{margin-bottom:0}
+.pl-sect-title{font-size:.95rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#aaa;margin-bottom:12px}
+.online-l{display:flex;flex-wrap:wrap;gap:6px}
+.ol-i{background:rgba(0,230,118,0.1);border:1px solid rgba(0,230,118,0.3);border-radius:20px;padding:6px 14px;font-size:.82rem;font-weight:700;display:flex;align-items:center;gap:6px}
+.ol-i .ol-d{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;animation:olP 1.5s ease-in-out infinite}
+@keyframes olP{0%,100%{opacity:1}50%{opacity:.2}}
+.room-l{display:flex;flex-direction:column;gap:8px}
+.room-item{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.room-item .ri-n{font-weight:800;font-size:1rem}
+.room-item .ri-i{font-size:.78rem;color:#888}
+.ri-b{padding:7px 16px;border-radius:30px;border:none;font-weight:700;font-size:.8rem;cursor:pointer;transition:.2s}
+.ri-b.join{background:var(--green);color:#000}
+.ri-b.join:hover{transform:scale(1.05)}
+.ri-b.leave{background:rgba(255,50,80,0.2);color:var(--red);border:1px solid rgba(255,50,80,0.35)}
+.cr-r{display:flex;gap:8px;margin-top:12px}
+.cr-r input{flex:1;background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:12px;padding:10px 14px;color:#fff;font-size:.95rem;font-weight:700;outline:none}
+.cr-r input:focus{border-color:var(--gold)}
+.cr-r button{padding:10px 22px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#000;font-weight:900;border:none;border-radius:12px;cursor:pointer;font-size:.9rem}
 
-  .clicker-b { background: linear-gradient(180deg,#131322,#0d0d18); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 24px; margin-bottom: 16px; text-align: center; }
-  .clicker-bt { width:120px; height:120px; border-radius:50%; background:radial-gradient(circle at 35% 30%,#ff6a88,#ff3b5c 70%); color:#fff; font-size:2.8rem; border:none; cursor:pointer; box-shadow:0 0 40px rgba(255,59,92,0.5), inset 0 -6px 15px rgba(0,0,0,0.35); transition:transform 0.12s; display:block; margin:0 auto; }
-  .clicker-bt:hover { transform: scale(1.07); }
-  .clicker-bt:active { transform: scale(0.88); }
-  .clicker-bt:disabled { opacity: 0.5; }
+/* ─── ФУТЕР ─── */
+.footer{border-top:1px solid rgba(255,255,255,0.04);padding:32px 0;margin-top:50px;text-align:center;color:#555;font-size:.82rem;line-height:1.6}
+.footer .spons{color:var(--gold);font-weight:900;letter-spacing:2px;font-size:.95rem}
 
-  /* ════════ ПОКЕР ════════ */
-  .poker-lobby {
-    background: var(--card); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 20px; margin-bottom: 16px;
-  }
-  .pl-section { margin-bottom: 18px; }
-  .pl-section:last-child { margin-bottom: 0; }
-  .pl-title { font-size: 0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #aaa; margin-bottom: 10px; }
-  .online-list { display: flex; flex-wrap: wrap; gap: 6px; }
-  .ol-item {
-    background: rgba(0,230,118,0.1); border: 1px solid rgba(0,230,118,0.3);
-    border-radius: 20px; padding: 5px 12px; font-size: 0.8rem; font-weight: 700;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .ol-item .ol-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); display: inline-block; animation: olPulse 1.5s ease-in-out infinite; }
-  @keyframes olPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+/* ═══ ТОСТ ═══ */
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);background:rgba(255,50,80,0.95);color:#fff;font-weight:700;padding:12px 28px;border-radius:30px;z-index:300;opacity:0;pointer-events:none;transition:.35s;box-shadow:0 10px 40px rgba(0,0,0,0.5);font-size:.95rem}
+.toast.sh{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.g{background:rgba(0,230,118,0.95);color:#000}
 
-  .room-list { display: flex; flex-direction: column; gap: 8px; }
-  .room-item {
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 14px; padding: 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;
-  }
-  .room-item .ri-name { font-weight: 800; font-size: 1rem; }
-  .room-item .ri-info { font-size: 0.75rem; color: #888; }
-  .room-item .ri-actions { display: flex; gap: 6px; }
-  .ri-btn {
-    padding: 6px 14px; border-radius: 30px; border: none; font-weight: 700; font-size: 0.78rem; cursor: pointer; transition: 0.2s;
-  }
-  .ri-btn.join { background: var(--green); color: #000; }
-  .ri-btn.join:hover { transform: scale(1.05); }
-  .ri-btn.inv { background: rgba(59,201,255,0.2); color: var(--blue); border: 1px solid rgba(59,201,255,0.35); }
-  .ri-btn.inv:hover { background: rgba(59,201,255,0.3); }
-  .ri-btn.leave { background: rgba(255,59,92,0.2); color: var(--red); border: 1px solid rgba(255,59,92,0.35); }
-  .ri-btn.leave:hover { background: rgba(255,59,92,0.3); }
-
-  .create-room-row { display: flex; gap: 8px; margin-top: 10px; }
-  .create-room-row input { flex: 1; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 10px 14px; color: #fff; font-size: 0.95rem; font-weight: 700; outline: none; }
-  .create-room-row input:focus { border-color: var(--blue); }
-  .create-room-row button { padding: 10px 20px; background: linear-gradient(135deg, var(--blue), #0099e6); color: #000; font-weight: 900; border: none; border-radius: 12px; cursor: pointer; font-size: 0.9rem; white-space: nowrap; }
-
-  /* ─── Покерный стол ─── */
-  .poker-table {
-    background: radial-gradient(ellipse at center, #1a4a2e 0%, #0f2d1c 50%, #0a0a12 100%);
-    border: 2px solid rgba(255,217,61,0.2);
-    border-radius: 80px;
-    padding: 30px 20px;
-    margin-bottom: 16px;
-    position: relative;
-    min-height: 360px;
-  }
-  .poker-table .pt-community {
-    display: flex; justify-content: center; gap: 8px; margin: 20px 0;
-  }
-  .poker-table .pt-card {
-    width: 56px; height: 80px;
-    background: linear-gradient(145deg, #fff, #e8e8e8);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.3rem; font-weight: 900;
-    color: #000;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.5);
-  }
-  .poker-table .pt-card.back { background: linear-gradient(145deg, #1a3a6b, #0f2040); color: transparent; }
-  .poker-table .pt-card.back::after { content: '🎴'; color: #fff; font-size: 1.5rem; }
-  .poker-table .pt-card.red { color: var(--red); }
-  .poker-table .pt-pot { text-align: center; font-size: 1.1rem; font-weight: 900; color: var(--gold); margin: 10px 0; }
-  .poker-table .pt-pot sub { font-size: 0.7rem; color: #888; }
-
-  .poker-seats {
-    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
-  }
-  .poker-seat {
-    background: rgba(0,0,0,0.4);
-    border: 2px solid rgba(255,255,255,0.15);
-    border-radius: 14px;
-    padding: 10px;
-    min-width: 110px;
-    text-align: center;
-    transition: 0.3s;
-  }
-  .poker-seat.active { border-color: var(--gold); box-shadow: 0 0 20px rgba(255,217,61,0.25); }
-  .poker-seat .ps-name { font-size: 0.8rem; font-weight: 800; }
-  .poker-seat .ps-cards { display: flex; gap: 4px; justify-content: center; margin: 6px 0; }
-  .poker-seat .ps-card {
-    width: 34px; height: 48px;
-    background: linear-gradient(145deg, #fff, #e8e8e8);
-    border-radius: 5px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.8rem; font-weight: 900;
-    color: #000;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-  }
-  .poker-seat .ps-card.back { background: linear-gradient(145deg, #1a3a6b, #0f2040); color: transparent; }
-  .poker-seat .ps-card.back::after { content: '🂠'; font-size: 1rem; }
-  .poker-seat .ps-card.red { color: var(--red); }
-  .poker-seat .ps-bal { font-size: 0.7rem; color: var(--gold); font-weight: 700; }
-  .poker-seat .ps-bet { font-size: 0.65rem; color: #aaa; }
-  .poker-seat .ps-turn { font-size: 0.6rem; color: var(--blue); font-weight: 700; text-transform: uppercase; }
-  .poker-seat.empty { opacity: 0.4; }
-  .poker-seat.empty .ps-name { color: #888; }
-
-  .poker-actions {
-    display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 14px;
-  }
-  .poker-actions button {
-    padding: 10px 20px; border-radius: 30px; border: none; font-weight: 800; font-size: 0.9rem; cursor: pointer; transition: 0.2s;
-  }
-  .poker-actions button:hover { transform: translateY(-2px); }
-  .poker-actions button.fold { background: rgba(255,59,92,0.2); color: var(--red); border: 2px solid rgba(255,59,92,0.35); }
-  .poker-actions button.check { background: rgba(255,255,255,0.1); color: #fff; border: 2px solid rgba(255,255,255,0.2); }
-  .poker-actions button.call { background: rgba(0,230,118,0.2); color: var(--green); border: 2px solid rgba(0,230,118,0.35); }
-  .poker-actions button.raise { background: rgba(255,217,61,0.2); color: var(--gold); border: 2px solid rgba(255,217,61,0.35); }
-  .poker-actions button.all-in { background: rgba(255,59,92,0.3); color: var(--red); border: 2px solid rgba(255,59,92,0.5); }
-  .poker-ra {
-    display: flex; gap: 8px; align-items: center; justify-content: center; margin-top: 8px;
-  }
-  .poker-ra input { width: 120px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,217,61,0.3); border-radius: 12px; padding: 8px 12px; color: #fff; font-weight: 700; outline: none; }
-  .poker-ra input:focus { border-color: var(--gold); }
-
-  .poker-log {
-    background: rgba(0,0,0,0.3); border-radius: 12px; padding: 10px; margin-top: 12px; max-height: 100px; overflow-y: auto;
-    font-size: 0.75rem; color: #aaa; line-height: 1.6;
-  }
-  .poker-log .log-win { color: var(--green); font-weight: 700; }
-  .poker-log .log-fold { color: var(--red); }
-  .poker-log .log-act { color: var(--gold); }
-
-  /* ─── Тост ─── */
-  .toast {
-    position: fixed; top: 66px; left: 50%;
-    transform: translateX(-50%) translateY(-20px);
-    background: rgba(255,59,92,0.95); color: #fff; font-weight: 700;
-    padding: 11px 24px; border-radius: 30px; z-index: 300;
-    opacity: 0; pointer-events: none; transition: 0.35s;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5); font-size: 0.9rem;
-  }
-  .toast.sh { opacity: 1; transform: translateX(-50%) translateY(0); }
-  .toast.g { background: rgba(0,230,118,0.95); color: #000; }
-  .toast.b { background: rgba(59,201,255,0.95); color: #000; }
-
-  @media (max-width: 600px) {
-    .mg { grid-template-columns: 1fr; }
-    .ni { width: 90px; }
-    .rw { width: 72px; height: 84px; }
-    .rip { height: 84px; font-size: 2.5rem; }
-    .poker-table { border-radius: 40px; padding: 20px 12px; }
-    .poker-table .pt-card { width: 44px; height: 64px; font-size: 1rem; }
-    .poker-seat { min-width: 80px; padding: 8px; }
-    .poker-seat .ps-card { width: 28px; height: 40px; font-size: 0.65rem; }
-  }
-
-  /* ─── Модалка ника ─── */
-  .nick-modal-ov {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(8px);
-    z-index: 500;
-    display: none;
-    align-items: center;
-    justify-content: center;
-  }
-  .nick-modal-ov.open { display: flex; animation: scIn 0.3s ease both; }
-  .nick-modal-box {
-    background: var(--card);
-    border: 2px solid rgba(255,217,61,0.3);
-    border-radius: 24px;
-    padding: 35px;
-    max-width: 400px;
-    width: 90%;
-    text-align: center;
-    box-shadow: 0 0 60px rgba(255,217,61,0.15);
-    animation: pop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
-  }
-  @keyframes pop { from { opacity: 0; transform: scale(0.85) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-  .nick-modal-box .nm-emoji { font-size: 3rem; margin-bottom: 10px; }
-  .nick-modal-box .nm-title { font-size: 1.3rem; font-weight: 900; margin-bottom: 4px; }
-  .nick-modal-box .nm-sub { color: #888; font-size: 0.85rem; margin-bottom: 20px; line-height: 1.5; }
-  .nick-modal-box input {
-    width: 100%;
-    padding: 12px 16px;
-    background: rgba(255,255,255,0.06);
-    border: 2px solid rgba(255,217,61,0.3);
-    border-radius: 14px;
-    color: #fff;
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-align: center;
-    outline: none;
-    margin-bottom: 16px;
-  }
-  .nick-modal-box input:focus { border-color: var(--gold); box-shadow: 0 0 25px rgba(255,217,61,0.15); }
-  .nick-modal-box button {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-    color: #000;
-    font-weight: 900;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 14px;
-    cursor: pointer;
-    box-shadow: 0 0 25px rgba(255,217,61,0.3);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .nick-modal-box button:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(255,217,61,0.45); }
-  .nick-modal-box button:active { transform: scale(0.97); }
+@media(max-width:800px){
+  .topbar-inner{height:auto;padding:12px 16px;flex-wrap:wrap;gap:6px}
+  .topbar-center{display:none}
+  .carousel{height:220px}
+  .slide-title{font-size:1.5rem}
+  .slide-img-cont{width:100px;height:100px;right:16px;font-size:2.5rem}
+  .slide-content{padding:0;max-width:100%}
+  .carousel-slide{padding:0 20px}
+  .flip-card{min-width:240px;height:180px}
+}
 </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="topbar-inner">
-      <div class="logo">🎰 CASINO RPO-326</div>
-      <div class="topbar-r">
-        <input class="ni" id="nick" placeholder="Ник" maxlength="24">
-        <div class="bal" id="bal">💰 100 000</div>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-wrap" onclick="menu()">
+      <!-- ЗДЕСЬ ТВОЙ ЛОГОТИП: вставь файл logo.png в корень сайта и раскомментируй строку с img ниже -->
+      <!-- <div class="logo-img"><img src="logo.png" alt="RP36"></div> -->
+      <div class="logo-img" id="logo-placeholder">RP</div>
+      <div class="logo-text">RP36</div>
+    </div>
+    <div class="topbar-center">
+      <span class="tbn" onclick="menu()">Главная</span>
+      <span class="tbn" onclick="go('poker')">Покер</span>
+      <span class="tbn">Игры</span>
+    </div>
+    <div class="topbar-right">
+      <input class="ni" id="nick" placeholder="Никнейм" maxlength="24">
+      <div class="bal-container">
+        <span class="bal-icon">💰</span>
+        <span class="bal" id="bal">100 000</span>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="app" id="app">
-    <!-- МЕНЮ -->
-    <div class="screen active" id="s-menu">
-      <div class="stitle">🎰 <span>Казино</span> РПО-326</div>
-      <div class="ssub">Спонсор: ВИВТ ⚡ · Виртуальные деньги</div>
-      <div class="ss">
-        <div class="sc"><div class="sl">Сыграно</div><div class="sv" id="st-games">0</div></div>
-        <div class="sc"><div class="sl">Побед</div><div class="sv" id="st-wins">0</div></div>
-        <div class="sc"><div class="sl">Винрейт</div><div class="sv" id="st-wr">0%</div></div>
-      </div>
-      <div class="mg">
-        <div class="mc" onclick="go('slots')"><div class="mcbg">🎰</div><span class="mce">🎰</span><div class="mcn">Слоты</div><div class="mcd">Крути барабаны</div><span class="mct hot">×10</span></div>
-        <div class="mc" onclick="go('dice')"><div class="mcbg">🎲</div><span class="mce">🎲</span><div class="mcn">Кости</div><div class="mcd">Больше/меньше 7</div><span class="mct luck">×2</span></div>
-        <div class="mc" onclick="go('coin')"><div class="mcbg">🪙</div><span class="mce">🪙</span><div class="mcn">Орёл/Решка</div><div class="mcd">Честные 50/50</div><span class="mct luck">×2</span></div>
-        <div class="mc" onclick="go('cube')"><div class="mcbg">🎲</div><span class="mce">🎲</span><div class="mcn">Кубик</div><div class="mcd">Угадай число 1-6</div><span class="mct hot">×6</span></div>
-        <div class="mc" onclick="go('clicker')"><div class="mcbg">💥</div><span class="mce">💥</span><div class="mcn">Кликер</div><div class="mcd">Жми и лови джекпот</div><span class="mct luck">Джекпот</span></div>
-        <div class="mc new-c" onclick="go('poker')"><div class="mcnew">NEW</div><div class="mcbg">🃏</div><span class="mce">🃏</span><div class="mcn">Покер</div><div class="mcd">До 10 игроков · Приглашай друзей</div><span class="mct poker">Играть</span></div>
-      </div>
-    </div>
-
-    <!-- СЛОТЫ -->
-    <div class="screen" id="s-slots">
-      <div class="br"><button class="bb" onclick="menu()">← Назад</button></div>
-      <div class="gv">
-        <div class="gt">🎰 Слоты</div>
-        <div class="gd">Пара <b>×2</b> · три <b>×5</b> · три 🍒💎 <b>×10</b></div>
-        <div class="slot-m">
-          <div class="slot-r">
-            <div class="rw" id="rw1"><div class="ri" id="ri1"></div></div>
-            <div class="rw" id="rw2"><div class="ri" id="ri2"></div></div>
-            <div class="rw" id="rw3"><div class="ri" id="ri3"></div></div>
+<div class="app" id="app">
+  <!-- ГЛАВНАЯ -->
+  <div class="screen active" id="s-main">
+    <!-- КАРУСЕЛЬ -->
+    <div class="carousel" id="carousel">
+      <div class="carousel-track" id="carousel-track">
+        <!-- СЛАЙД 1 — ЗДЕСЬ ТВОЕ ФОТО: положи slide1.jpg в корень сайта, раскомментируй img -->
+        <div class="carousel-slide">
+          <div class="slide-bg" style="background:linear-gradient(135deg,#0f0f28,#1a0a3e,#0f0f28)"></div>
+          <div class="slide-img-cont"><!-- <img src="slide1.jpg" alt=""> -->🃏</div>
+          <div class="slide-content">
+            <div class="slide-tag">🔥 Топ игры</div>
+            <div class="slide-title">Добро пожаловать в RP36</div>
+            <div class="slide-desc"><b>100 000 монет</b> на старте · Покер, кости, слоты</div>
+            <button class="slide-btn" onclick="go('poker')">🎯 Играть</button>
           </div>
-          <div class="slot-pt"><span class="pt">Пара <b>×2</b></span><span class="pt">Три <b>×5</b></span><span class="pt">🍒💎 <b>×10</b></span></div>
         </div>
-        <div class="sr"><input class="si" id="s-stake" type="number" value="500" min="1"><button class="qb" onclick="qk('s',100)">100</button><button class="qb" onclick="qk('s',1000)">1к</button><button class="qb all" onclick="qk('s',0)">ALL IN</button></div>
-        <button class="pb" id="s-btn" onclick="playSlots()">🎰 Крутить</button>
-        <div class="res" id="s-res">Жми крутить!</div>
+        <!-- СЛАЙД 2 -->
+        <div class="carousel-slide">
+          <div class="slide-bg" style="background:linear-gradient(135deg,#0a1a0f,#1a3a1e,#0a1a0f)"></div>
+          <div class="slide-img-cont"><!-- <img src="slide2.jpg" alt=""> -->🃏</div>
+          <div class="slide-content">
+            <div class="slide-tag">♠️ Покер</div>
+            <div class="slide-title">Техасский Холдем</div>
+            <div class="slide-desc">До <b>10 игроков</b> · Реальные карты · Комбинации</div>
+            <button class="slide-btn" onclick="go('poker')">♠️ За стол</button>
+          </div>
+        </div>
+        <!-- СЛАЙД 3 -->
+        <div class="carousel-slide">
+          <div class="slide-bg" style="background:linear-gradient(135deg,#1a0f0a,#3a1a0e,#1a0f0a)"></div>
+          <div class="slide-img-cont"><!-- <img src="slide3.jpg" alt=""> -->🎰</div>
+          <div class="slide-content">
+            <div class="slide-tag">🎰 Слоты</div>
+            <div class="slide-title">Крути барабаны</div>
+            <div class="slide-desc">Джекпоты, множители <b>до ×10</b></div>
+            <button class="slide-btn" onclick="toast('Слоты скоро!',true)">🎰 Крутить</button>
+          </div>
+        </div>
+        <!-- СЛАЙД 4 -->
+        <div class="carousel-slide">
+          <div class="slide-bg" style="background:linear-gradient(135deg,#0f0a1a,#2a1a3e,#0f0a1a)"></div>
+          <div class="slide-img-cont"><!-- <img src="slide4.jpg" alt=""> -->💎</div>
+          <div class="slide-content">
+            <div class="slide-tag">💎 Джекпот</div>
+            <div class="slide-title">Выигрывай каждый день</div>
+            <div class="slide-desc">Кликер, кости, орёл/решка — <b>все игры в одном месте</b></div>
+            <button class="slide-btn" onclick="toast('Игры в разработке!',true)">💎 Смотреть</button>
+          </div>
+        </div>
       </div>
+      <div class="carousel-arrows left" id="carousel-prev">‹</div>
+      <div class="carousel-arrows right" id="carousel-next">›</div>
+      <div class="carousel-dots" id="carousel-dots"></div>
     </div>
 
-    <!-- КОСТИ -->
-    <div class="screen" id="s-dice">
-      <div class="br"><button class="bb" onclick="menu()">← Назад</button></div>
-      <div class="gv">
-        <div class="gt">🎲 Кости</div>
-        <div class="gd">Сумма 2-12. <b>Больше 7</b> или <b>меньше 7</b> — <b>×2</b>. 7 = казино 🤑</div>
-        <div class="dice-b"><div class="dice-d" id="dice-d">🎲 🎲</div><div class="dice-s" id="dice-s"></div><div class="dice-c"><button id="dice-o" onclick="setDice('over')">⬆️ Больше</button><button id="dice-u" onclick="setDice('under')">⬇️ Меньше</button></div></div>
-        <div class="sr"><input class="si" id="d-stake" type="number" value="500" min="1"><button class="qb" onclick="qk('d',100)">100</button><button class="qb" onclick="qk('d',1000)">1к</button><button class="qb all" onclick="qk('d',0)">ALL IN</button></div>
-        <button class="pb" id="d-btn" onclick="playDice()">🎲 Кинуть</button>
-        <div class="res" id="d-res">Выбери сторону</div>
-      </div>
+    <!-- СТАТИСТИКА -->
+    <div class="stats-row">
+      <div class="stat-card"><div class="sl">Сыграно</div><div class="sv" id="st-games">0</div></div>
+      <div class="stat-card"><div class="sl">Побед</div><div class="sv" id="st-wins">0</div></div>
+      <div class="stat-card"><div class="sl">Винрейт</div><div class="sv" id="st-wr">0%</div></div>
     </div>
 
-    <!-- ОРЁЛ/РЕШКА -->
-    <div class="screen" id="s-coin">
-      <div class="br"><button class="bb" onclick="menu()">← Назад</button></div>
-      <div class="gv">
-        <div class="gt">🪙 Орёл/Решка</div>
-        <div class="gd">Угадай сторону — <b>×2</b>. 50/50 ⚖️</div>
-        <div class="coin-b"><span class="coin-e" id="coin-e">🪙</span><div class="coin-rt" id="coin-rt">&nbsp;</div><div class="coin-c"><button id="coin-h" onclick="setCoin('heads')">🦅 Орёл</button><button id="coin-t" onclick="setCoin('tails')">🪙 Решка</button></div></div>
-        <div class="sr"><input class="si" id="c-stake" type="number" value="500" min="1"><button class="qb" onclick="qk('c',100)">100</button><button class="qb" onclick="qk('c',1000)">1к</button><button class="qb all" onclick="qk('c',0)">ALL IN</button></div>
-        <button class="pb" id="c-btn" onclick="playCoin()">🪙 Бросить</button>
-        <div class="res" id="c-res">Выбери сторону</div>
-      </div>
-    </div>
+    <!-- ВИДЖЕТЫ 2×2 ПО ЦЕНТРУ -->
+    <div class="widgets-section">
+      <div class="widgets-title">🎮 <span>Игры</span></div>
+      <div class="widgets-grid">
 
-    <!-- КУБИК -->
-    <div class="screen" id="s-cube">
-      <div class="br"><button class="bb" onclick="menu()">← Назад</button></div>
-      <div class="gv">
-        <div class="gt">🎲 Кубик</div>
-        <div class="gd">Угадай число 1-6 — <b>×6</b> 🎯</div>
-        <div class="cube-b"><div class="cube-d" id="cube-d">🎲</div><div class="cube-p" id="cube-p"><button onclick="setCube(1)">1</button><button onclick="setCube(2)">2</button><button onclick="setCube(3)">3</button><button onclick="setCube(4)">4</button><button onclick="setCube(5)">5</button><button onclick="setCube(6)">6</button></div></div>
-        <div class="sr"><input class="si" id="cb-stake" type="number" value="500" min="1"><button class="qb" onclick="qk('cb',100)">100</button><button class="qb" onclick="qk('cb',1000)">1к</button><button class="qb all" onclick="qk('cb',0)">ALL IN</button></div>
-        <button class="pb" id="cb-btn" onclick="playCube()">🎲 Бросить</button>
-        <div class="res" id="cb-res">Выбери число</div>
-      </div>
-    </div>
-
-    <!-- КЛИКЕР -->
-    <div class="screen" id="s-clicker">
-      <div class="br"><button class="bb" onclick="menu()">← Назад</button></div>
-      <div class="gv">
-        <div class="gt">💥 Кликер</div>
-        <div class="gd">Жми на кнопку. <b>+500…+5000</b> · минус · или <b>ДЖЕКПОТ +10 000…+30 000</b></div>
-        <div class="clicker-b"><button class="clicker-bt" id="cl-btn" onclick="playClicker()">💥</button></div>
-        <div class="res" id="cl-res">Жми!</div>
-      </div>
-    </div>
-
-    <!-- ════════ ПОКЕР ════════ -->
-    <div class="screen" id="s-poker">
-      <div class="br"><button class="bb" onclick="menu()">← Назад</button></div>
-      <div class="gv" id="poker-view">
-        <div class="stitle">🃏 <span>Покер</span></div>
-        <div class="ssub" id="poker-sub">Создай или присоединись к комнате</div>
-
-        <!-- ЛОББИ -->
-        <div id="poker-lobby">
-          <div class="poker-lobby">
-            <div class="pl-section">
-              <div class="pl-title">🟢 Онлайн (<span id="online-count">0</span>)</div>
-              <div class="online-list" id="online-list"><span style="color:#666;font-size:0.8rem;">Загрузка...</span></div>
+        <!-- ПОКЕР — сюда твоё фото: назови файл widget-poker.jpg (.png) и положи в корень сайта -->
+        <div class="flip-card" onclick="this.classList.toggle('flipped');this.classList.toggle('glowing');setTimeout(()=>{go('poker');this.classList.remove('flipped','glowing')},400)">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="wc-img"><!-- <img src="widget-poker.jpg" alt=""> -->🃏</div>
+              <div class="wc-n">Покер</div>
+              <div class="wc-d">До 10 игроков · Техасский холдем</div>
+              <span class="wc-t cool">Играть</span>
             </div>
-            <div class="pl-section">
-              <div class="pl-title">🏠 Комнаты</div>
-              <div class="room-list" id="room-list"><span style="color:#666;font-size:0.8rem;">Нет активных комнат</span></div>
-            </div>
-            <div class="pl-section">
-              <div class="pl-title">➕ Создать комнату</div>
-              <div class="create-room-row">
-                <input id="room-name-input" placeholder="Название комнаты" maxlength="20">
-                <button onclick="createRoom()">Создать</button>
-              </div>
+            <div class="flip-card-back">
+              <span class="wc-big">🃏</span>
+              <div class="wc-sub">Приглашай друзей<br>Реальные комбинации</div>
             </div>
           </div>
         </div>
 
-        <!-- ИГРОВОЙ СТОЛ -->
-        <div id="poker-table-view" style="display:none">
-          <div class="br">
-            <button class="bb" onclick="leavePokerRoom()">← Выйти</button>
-            <span id="poker-room-name" style="font-weight:800;font-size:1rem;"></span>
-            <span style="color:#888;font-size:0.8rem;" id="poker-player-count">1/10</span>
+        <!-- СЛОТЫ — фото: widget-slots.jpg -->
+        <div class="flip-card" onclick="this.classList.toggle('flipped');this.classList.toggle('glowing');setTimeout(()=>{this.classList.remove('flipped','glowing');toast('Слоты в разработке!',true)},400)">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="wc-img"><!-- <img src="widget-slots.jpg" alt=""> -->🎰</div>
+              <div class="wc-n">Слоты</div>
+              <div class="wc-d">Барабаны, джекпоты, множители</div>
+              <span class="wc-t hot">×10</span>
+            </div>
+            <div class="flip-card-back">
+              <span class="wc-big">🎰</span>
+              <div class="wc-sub">Крути и выигрывай<br>Джекпоты каждый день</div>
+            </div>
           </div>
-          <div class="poker-table">
-            <div class="poker-seats" id="poker-seats"></div>
-            <div class="pt-community" id="pt-community"></div>
-            <div class="pt-pot">💰 Банк: <span id="pt-pot">0</span> <sub>монет</sub></div>
-          </div>
-          <div class="poker-actions" id="poker-actions" style="display:none"></div>
-          <div class="poker-ra" id="poker-ra" style="display:none">
-            <input type="number" id="poker-raise-input" placeholder="Сумма" min="1">
-            <button class="pb" style="width:auto;padding:8px 20px;font-size:0.9rem;" onclick="doRaise()">Поднять</button>
-          </div>
-          <div class="poker-log" id="poker-log"><div class="log-act">🃏 Добро пожаловать за стол!</div></div>
         </div>
+
+        <!-- КОСТИ — фото: widget-dice.jpg -->
+        <div class="flip-card" onclick="this.classList.toggle('flipped');this.classList.toggle('glowing');setTimeout(()=>{this.classList.remove('flipped','glowing');toast('Кости в разработке!',true)},400)">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="wc-img"><!-- <img src="widget-dice.jpg" alt=""> -->🎲</div>
+              <div class="wc-n">Кости</div>
+              <div class="wc-d">Больше или меньше 7</div>
+              <span class="wc-t luck">×2</span>
+            </div>
+            <div class="flip-card-back">
+              <span class="wc-big">🎲</span>
+              <div class="wc-sub">Угадай сумму кубиков<br>×2 при победе</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ДУРАК — фото: widget-durak.jpg -->
+        <div class="flip-card" onclick="this.classList.toggle('flipped');this.classList.toggle('glowing');setTimeout(()=>{this.classList.remove('flipped','glowing');toast('Дурак — скоро!',true)},400)">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="wc-img"><!-- <img src="widget-durak.jpg" alt=""> -->🃏</div>
+              <div class="wc-n">Дурак</div>
+              <div class="wc-d">Классическая карточная игра</div>
+              <span class="wc-t cool">Скоро</span>
+            </div>
+            <div class="flip-card-back">
+              <span class="wc-big">🃏</span>
+              <div class="wc-sub">Дурак онлайн<br>Скоро будет доступен</div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 
-  <!-- ═══ МОДАЛКА НИКА (приглашение по ссылке) ═══ -->
-  <div class="nick-modal-ov" id="nick-modal">
-    <div class="nick-modal-box">
-      <div class="nm-emoji">🃏</div>
-      <div class="nm-title">Тебя пригласили в покер!</div>
-      <div class="nm-sub" id="invite-info">Введи никнейм, чтобы войти в игру</div>
-      <input id="nick-modal-input" placeholder="Твой никнейм" maxlength="24" autocomplete="off">
-      <button onclick="confirmNickModal()">🔥 Войти</button>
+  <!-- ПОКЕР (скрыт – тот же код что и раньше) -->
+  <div class="screen" id="s-poker">
+    <div class="screen-header">
+      <button class="screen-back" onclick="menu()">← Главная</button>
+      <div class="screen-title">🃏 <span>Покер</span></div>
+    </div>
+    <div id="poker-lobby">
+      <div class="poker-lobby-c">
+        <div class="pl-sect"><div class="pl-sect-title">🟢 Онлайн (<span id="online-count">0</span>)</div><div class="online-l" id="online-list"><span style="color:#666;font-size:.8rem">Загрузка...</span></div></div>
+        <div class="pl-sect"><div class="pl-sect-title">🏠 Комнаты</div><div class="room-l" id="room-list"><span style="color:#666;font-size:.8rem">Нет активных комнат</span></div></div>
+        <div class="pl-sect"><div class="pl-sect-title">➕ Создать комнату</div><div class="cr-r"><input id="room-name-input" placeholder="Название" maxlength="20"><button onclick="createRoom()">Создать</button></div></div>
+      </div>
+    </div>
+    <div id="poker-table-view" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <button class="screen-back" onclick="leavePokerRoom()">← Выйти</button>
+        <span id="poker-room-name" style="font-weight:800;font-size:1rem"></span>
+        <span style="color:#888;font-size:.85rem" id="poker-player-count">1/10</span>
+      </div>
+      <div style="background:radial-gradient(ellipse at center,#1a4a2e 0%,#0f2d1c 50%,#07070d 100%);border:2px solid rgba(255,215,0,0.2);border-radius:80px;padding:30px 20px;margin-bottom:16px;min-height:360px">
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px" id="poker-seats"></div>
+        <div style="display:flex;justify-content:center;gap:8px;margin:20px 0" id="pt-community"></div>
+        <div style="text-align:center;font-size:1.1rem;font-weight:900;color:var(--gold);margin:10px 0">💰 Банк: <span id="pt-pot">0</span> <sub style="font-size:.7rem;color:#888">монет</sub></div>
+      </div>
+      <div class="poker-actions" id="poker-actions" style="display:none"></div>
+      <div style="background:rgba(0,0,0,0.3);border-radius:12px;padding:10px;margin-top:12px;max-height:120px;overflow-y:auto;font-size:.75rem;color:#aaa;line-height:1.6" id="poker-log"><div style="color:var(--gold)">🃏 Добро пожаловать за стол!</div></div>
     </div>
   </div>
 
-  <div class="toast" id="toast"></div>
-  <form id="tg-form" method="POST" target="tg-frame" style="display:none">
-    <input type="hidden" name="chat_id" value="-1004301081856">
-    <input type="hidden" name="parse_mode" value="HTML">
-    <input type="hidden" name="message_thread_id" value="3">
-    <textarea name="text" id="tg-text"></textarea>
-  </form>
-  <iframe name="tg-frame" style="display:none"></iframe>
+  <div class="footer">
+    <div class="spons">⚡ СПОНСОР ВИВТ ⚡</div>
+    RP36 · Виртуальное казино для своих · Все персонажи вымышлены
+  </div>
+</div>
 
-  <script>
-    const START = 100000;
-    const EMOJIS = ['🍒','💎','🍋','🍊','🔔','7️⃣'];
-    const FACES = ['⚀','⚁','⚂','⚃','⚄','⚅'];
-    const TG_TOKEN = '8505008097:AAHAL6hRBw15taSerao_zirvQ6wPXfBLmNs';
-    const TG_CHAT = '-1004301081856';
-    const TG_THREAD = '3';
-    let nick = localStorage.getItem('casino-nick') || '';
-    let balance = parseInt(localStorage.getItem('casino-balance')) || START;
-    let stats = { games: 0, wins: 0 };
-    try { stats = JSON.parse(localStorage.getItem('casino-stats')) || stats; } catch(e) {}
-    let diceCh = null, coinCh = null, cubeCh = null;
-    const $ = id => document.getElementById(id);
-    let lastUpdateId = 0;
-    let onlinePlayers = [];
-    let rooms = [];
-    let myRoom = null;
-    let pokerState = null;
-    let pollTimer = null;
+<div class="toast" id="toast"></div>
 
-    // ─── Навигация ───
-    function menu() { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); $('s-menu').classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
-    function go(name) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); $('s-'+name).classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); if(name==='poker'){initPoker();} }
+<script>
+  const START=100000;
+  let API=window.location.origin;
+  let nick=localStorage.getItem('casino-nick')||'';
+  let balance=parseInt(localStorage.getItem('casino-balance'))||START;
+  let stats={games:0,wins:0};
+  try{stats=JSON.parse(localStorage.getItem('casino-stats'))||stats}catch(e){}
+  const $=id=>document.getElementById(id);
+  let myRoom=null,pokerState=null,pollTimer=null,inviteRoomId=null;
 
-    // ─── Сохранение ───
-    function save() { localStorage.setItem('casino-balance',balance); localStorage.setItem('casino-stats',JSON.stringify(stats)); localStorage.setItem('casino-nick',nick); }
-    function render() {
-      $('bal').textContent = '💰 '+balance.toLocaleString('ru-RU');
-      $('st-games').textContent = stats.games;
-      $('st-wins').textContent = stats.wins;
-      $('st-wr').textContent = stats.games ? Math.round(stats.wins/stats.games*100)+'%' : '0%';
-    }
-    function bBal() { const b=$('bal'); b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump'); }
-    function toast(msg,g,b) { const t=$('toast'); t.textContent=msg; t.className='toast sh'+(g?' g':'')+(b?' b':''); setTimeout(()=>t.classList.remove('sh'),2800); }
-
-    function tgSend(msg) {
-      if(!TG_TOKEN) return;
-      $('tg-text').value = msg;
-      $('tg-form').action = 'https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage';
-      $('tg-form').submit();
-    }
-
-    function tgPoll() {
-      if(!TG_TOKEN) return;
-      fetch('https://api.telegram.org/bot'+TG_TOKEN+'/getUpdates?offset='+lastUpdateId+'&timeout=5')
-        .then(r=>r.json()).then(d=>{
-          if(!d.ok||!d.result) return;
-          d.result.forEach(u=>{
-            lastUpdateId = u.update_id + 1;
-            if(u.message && u.message.text) {
-              processTGMessage(u.message.text);
-            }
-          });
-        }).catch(()=>{});
-    }
-
-    function processTGMessage(text) {
-      const parts = text.split('|');
-      const cmd = parts[0];
-
-      if(cmd === 'HB') {
-        const p = parts[1];
-        if(p && !onlinePlayers.find(x=>x.nick===p)) {
-          onlinePlayers.push({nick:p,time:Date.now()});
-        }
-      }
-      if(cmd === 'ROOM') {
-        const action = parts[1];
-        if(action === 'create') {
-          const rid = parts[2], rname = parts[3], creator = parts[4];
-          if(!rooms.find(r=>r.id===rid)) {
-            rooms.push({id:rid, name:rname, creator:creator, players:[creator], status:'waiting'});
-          }
-        }
-        if(action === 'join') {
-          const rid = parts[2], p = parts[3];
-          const r = rooms.find(x=>x.id===rid);
-          if(r && !r.players.includes(p)) {
-            r.players.push(p);
-            // Если ждали и теперь 2+ — стартуем игру автоматически
-            if(r.status === 'waiting' && r.players.length >= 2) {
-              r.status = 'playing';
-              // раздача пойдёт всем через POKER-сообщение
-              let state = buildPokerState(r);
-              if(state) {
-                tgSend('POKER|'+r.id+'|'+JSON.stringify(state));
-                if(myRoom && myRoom.id===r.id) {
-                  pokerState = state;
-                  renderPokerTable();
-                }
-              }
-            }
-          }
-        }
-        if(action === 'leave') {
-          const rid = parts[2], p = parts[3];
-          const r = rooms.find(x=>x.id===rid);
-          if(r) { r.players = r.players.filter(x=>x!==p); if(r.players.length===0) rooms=rooms.filter(x=>x.id!==rid); }
-        }
-      }
-      if(cmd === 'INVITE') {
-        const rid = parts[1], from = parts[2], to = parts[3];
-        if(to === nick) {
-          const r = rooms.find(x=>x.id===rid);
-          if(r) {
-            toast('📩 Приглашение от '+from+' в комнату «'+r.name+'»!', false, true);
-          }
-        }
-      }
-      if(cmd === 'POKER') {
-        const rid = parts[1], stateJson = parts.slice(2).join('|');
-        if((myRoom && myRoom.id === rid) || (inviteRoomId === rid)) {
-          try {
-            const newState = JSON.parse(stateJson);
-            if(newState && (!pokerState || newState.round > pokerState.round)) {
-              pokerState = newState;
-              // обновляем статус комнаты
-              const rr = rooms.find(x=>x.id===rid);
-              if(rr) rr.status = 'playing';
-              if(myRoom && myRoom.id === rid) {
-                myRoom = rr || myRoom;
-                renderPokerTable();
-              }
-            }
-          } catch(e) {}
-        }
-      }
-      updatePokerLobby();
-    }
-
-    // ─── Телеграм хартбит ───
-    function sendHeartbeat() {
-      if(!nick || !TG_TOKEN) return;
-      tgSend('HB|'+nick);
-    }
-
-    // ─── ПОКЕР ───
-    function initPoker() {
-      onlinePlayers = [];
-      rooms = [];
-      myRoom = null;
-      pokerState = null;
-      loadPokerState();
-      sendHeartbeat();
-      updatePokerLobby();
-      if(pollTimer) clearInterval(pollTimer);
-      pollTimer = setInterval(() => {
-        tgPoll();
-        onlinePlayers = onlinePlayers.filter(p => Date.now() - p.time < 35000);
-        updatePokerLobby();
-      }, 3000);
-      setTimeout(() => tgPoll(), 500);
-    }
-
-    function loadPokerState() {
-      try {
-        const saved = JSON.parse(localStorage.getItem('poker-online'));
-        if(saved) onlinePlayers = saved;
-      } catch(e){}
-      try {
-        const saved = JSON.parse(localStorage.getItem('poker-rooms'));
-        if(saved) rooms = saved;
-      } catch(e){}
-    }
-
-    function savePokerState() {
-      localStorage.setItem('poker-online', JSON.stringify(onlinePlayers));
-      localStorage.setItem('poker-rooms', JSON.stringify(rooms));
-    }
-
-    function updatePokerLobby() {
-      $('online-count').textContent = onlinePlayers.length;
-      if(onlinePlayers.length===0) {
-        $('online-list').innerHTML = '<span style="color:#666;font-size:0.8rem;">Никого нет в сети</span>';
-      } else {
-        $('online-list').innerHTML = onlinePlayers.map(p =>
-          '<span class="ol-item"><span class="ol-dot"></span>'+esc(p.nick)+'</span>'
-        ).join('');
-      }
-
-      if(rooms.length===0) {
-        $('room-list').innerHTML = '<span style="color:#666;font-size:0.8rem;">Нет активных комнат</span>';
-      } else {
-        $('room-list').innerHTML = rooms.map(r => {
-          const inRoom = r.players.includes(nick);
-          const isCreator = r.creator === nick;
-          return '<div class="room-item">'+
-            '<div><div class="ri-name">'+esc(r.name)+'</div><div class="ri-info">'+r.players.length+'/10 · создал '+esc(r.creator)+'</div></div>'+
-            '<div class="ri-actions">'+
-              (inRoom ? '<button class="ri-btn leave" onclick="leaveRoom(\''+r.id+'\')">Выйти</button>' : (r.players.length<10?'<button class="ri-btn join" onclick="joinRoom(\''+r.id+'\')">Войти</button>':''))+
-              (isCreator && r.players.length>=2 ? '<button class="ri-btn inv" onclick="startPokerGame(\''+r.id+'\')">🃏 Играть</button>' : '')+
-            '</div></div>';
-        }).join('');
-      }
-      savePokerState();
-    }
-
-    function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-    function createRoom() {
-      const name = $('room-name-input').value.trim() || 'Комната';
-      const id = 'room_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
-      rooms.push({id, name, creator: nick, players: [nick], status: 'waiting'});
-      const siteUrl = window.location.origin + window.location.pathname.replace(/\/?$/, '') + '?room=' + id;
-      // Одно сообщение в чат: комната + ссылка
-      tgSend('🃏 <b>Новая комната в покере!</b>\n\n' +
-        '🏠 <b>' + esc(name) + '</b>\n' +
-        '👤 Создал: ' + esc(nick) + '\n' +
-        '👥 Игроков: 1/10 (ждём)\n\n' +
-        '🔗 <a href="' + siteUrl + '">🎯 Присоединиться к игре</a>');
-      $('room-name-input').value = '';
-      updatePokerLobby();
-      // создатель сразу идёт за стол ждать
-      myRoom = rooms.find(r=>r.id===id);
-      $('poker-lobby').style.display = 'none';
-      $('poker-table-view').style.display = 'block';
-      $('poker-room-name').textContent = '🃏 '+name;
-      $('poker-player-count').textContent = '1/10';
-      renderWaitingTable();
-      toast('Комната создана! Жди игроков 🃏', true);
-    }
-
-    function renderWaitingTable() {
-      const r = myRoom;
-      if(!r) return;
-      $('poker-seats').innerHTML = r.players.map(p =>
-        '<div class="poker-seat'+(p===nick?' active':'')+'">'+
-          '<div class="ps-name">'+esc(p)+(p===nick?' (ты)':'')+'</div>'+
-          '<div class="ps-cards"><div class="ps-card back"></div><div class="ps-card back"></div></div>'+
-          '<div class="ps-bal">'+balance.toLocaleString('ru-RU')+'</div>'+
-        '</div>'
-      ).join('');
-      const empty = Math.max(0, 10 - r.players.length);
-      for(let i=0;i<empty;i++){
-        $('poker-seats').insertAdjacentHTML('beforeend','<div class="poker-seat empty"><div class="ps-name">Свободно</div><div class="ps-cards"><div class="ps-card back"></div><div class="ps-card back"></div></div></div>');
-      }
-      $('pt-community').innerHTML = '<span style="color:#888;font-size:0.9rem;">Ожидание игроков ('+r.players.length+'/10)...</span>';
-      $('pt-pot').textContent = '0';
-      $('poker-log').innerHTML = '<div class="log-act">🃏 Комната «'+esc(r.name)+'» создана. Ждём игроков. Игра начнётся от 2 человек.</div>';
-      // действия скрыты до старта
-      $('poker-actions').style.display = 'none';
-      toast('Прочитай: после ссылки в чате ждут до 2+ игроков');
-    }
-
-    function joinRoom(rid) {
-      const r = rooms.find(x=>x.id===rid);
-      if(!r) return;
-      if(r.players.includes(nick)) return;
-      if(r.players.length >= 10) { toast('Комната полная!'); return; }
-      r.players.push(nick);
-      tgSend('ROOM|join|'+rid+'|'+nick);
-      updatePokerLobby();
-      toast('Ты зашёл в комнату '+r.name, false, true);
-    }
-
-    function leaveRoom(rid) {
-      const r = rooms.find(x=>x.id===rid);
-      if(!r) return;
-      r.players = r.players.filter(p=>p!==nick);
-      if(r.players.length===0) rooms = rooms.filter(x=>x.id!==rid);
-      tgSend('ROOM|leave|'+rid+'|'+nick);
-      if(myRoom && myRoom.id===rid) { myRoom=null; pokerState=null; $('poker-table-view').style.display='none'; $('poker-lobby').style.display='block'; }
-      updatePokerLobby();
-    }
-
-    function startPokerGame(rid) {
-      const r = rooms.find(x=>x.id===rid);
-      if(!r) return;
-      myRoom = r;
-      $('poker-lobby').style.display = 'none';
-      $('poker-table-view').style.display = 'block';
-      $('poker-room-name').textContent = '🃏 '+r.name;
-      $('poker-player-count').textContent = r.players.length+'/10';
-      // если игра уже идёт (статус playing) — показываем ожидание, карты придут через POKER-сообщение
-      if(r.status === 'playing') {
-        if(pokerState) {
-          renderPokerTable();
-          if(!pokerState.players.includes(nick)) {
-            $('poker-log').insertAdjacentHTML('beforeend','<div class="log-act">⏳ Ты присоединился — сыграешь со следующего раздачи</div>');
-          }
-        } else {
-          renderWaitingTable();
-          $('poker-log').insertAdjacentHTML('beforeend','<div class="log-act">⏳ Игра уже идёт — жди следующей раздачи</div>');
-        }
-        return;
-      }
-      // если есть 2+ игрока — играем сразу
-      if(r.players.length >= 2) {
-        r.status = 'playing';
-        let state = buildPokerState(r);
-        if(state) {
-          pokerState = state;
-          renderPokerTable();
-          tgSend('POKER|'+r.id+'|'+JSON.stringify(state));
-        }
-      } else {
-        renderWaitingTable();
+  let slideIndex=0;
+  function renderCarousel(){
+    const track=$('carousel-track');
+    if(!track)return;
+    const slides=track.children.length;
+    track.style.transform='translateX(-'+(slideIndex*100/slides)+'%)';
+    const dots=$('carousel-dots');
+    if(dots){
+      dots.innerHTML='';
+      for(let i=0;i<slides;i++){
+        const d=document.createElement('div');
+        d.className='carousel-dot'+(i===slideIndex?' active':'');
+        d.onclick=()=>{slideIndex=i;renderCarousel()};
+        dots.appendChild(d);
       }
     }
+  }
+  function slide(n){slideIndex=n;const track=$('carousel-track');if(!track)return;slideIndex=Math.max(0,Math.min(slideIndex,track.children.length-1));renderCarousel()}
+  function nextSlide(){const track=$('carousel-track');if(!track)return;slideIndex=(slideIndex+1)%(track.children.length||1);renderCarousel()}
+  function prevSlide(){const track=$('carousel-track');if(!track)return;slideIndex=(slideIndex-1+(track.children.length||1))%(track.children.length||1);renderCarousel()}
+  if($('carousel-next'))$('carousel-next').onclick=nextSlide;
+  if($('carousel-prev'))$('carousel-prev').onclick=prevSlide;
+  setTimeout(renderCarousel,100);
+  setInterval(nextSlide,5500);
 
-    function buildPokerState(room) {
-      const currentPlayers = room.players.slice();
-      if(currentPlayers.length < 2) return null;
-      const deck = shuffle(createDeck());
-      const holeCards = {};
-      currentPlayers.forEach(p => { holeCards[p] = [deck.pop(), deck.pop()]; });
-      const community = [];
-      deck.pop();
-      for(let i=0;i<3;i++) community.push(deck.pop());
-      deck.pop();
-      community.push(deck.pop());
-      deck.pop();
-      community.push(deck.pop());
-      const handValues = {};
-      currentPlayers.forEach(p => {
-        const allCards = [...holeCards[p], ...community];
-        handValues[p] = evaluateHand(allCards);
-      });
-      const sorted = currentPlayers.slice().sort((a,b) => handValues[b].score - handValues[a].score);
-      const winner = sorted[0];
-      let log = ['🃏 Раздача началась! Участники: '+currentPlayers.join(', ')];
-      currentPlayers.forEach(p => { log.push('🎴 '+p+' получил '+holeCards[p].join(' ')); });
-      log.push('📋 Стол: '+community.join(' '));
-      log.push('🏆 <b>'+winner+'</b> выигрывает раздачу!');
-      if(room.players.length > currentPlayers.length) {
-        log.push('⏳ В след. раздаче: '+(room.players.filter(p=>!currentPlayers.includes(p))).join(', '));
-      }
-      return {
-        roomId: room.id,
-        players: currentPlayers,
-        roomPlayers: room.players,
-        holeCards, community, handValues, winner,
-        round: Date.now(), log
-      };
-    }
+  function menu(){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$('s-main').classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+  function go(name){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$('s-'+name).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});if(name==='poker')initPoker()}
+  function save(){localStorage.setItem('casino-balance',balance);localStorage.setItem('casino-stats',JSON.stringify(stats));localStorage.setItem('casino-nick',nick)}
+  function render(){$('bal').textContent=balance.toLocaleString('ru-RU');$('st-games').textContent=stats.games;$('st-wins').textContent=stats.wins;$('st-wr').textContent=stats.games?Math.round(stats.wins/stats.games*100)+'%':'0%'}
+  function bBal(){const b=$('bal');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')}
+  function toast(msg,good){const t=$('toast');t.textContent=msg;t.className='toast sh'+(good?' g':'');setTimeout(()=>t.classList.remove('sh'),2800)}
+  setInterval(()=>{if(nick)fetch(API+'/api/heartbeat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nick})}).catch(()=>{})},15000)
+  function api(path,data){return fetch(API+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).then(r=>r.json())}
+  function esc(s){return String(s).replace(/</g,'&lt;')}
 
-    function leavePokerRoom() {
-      if(myRoom) {
-        tgSend('ROOM|leave|'+myRoom.id+'|'+nick);
-        myRoom = null;
-      }
-      pokerState = null;
-      $('poker-table-view').style.display = 'none';
-      $('poker-lobby').style.display = 'block';
-      updatePokerLobby();
-      if(pollTimer) clearInterval(pollTimer);
-    }
-
-    // ═══ ПОКЕРНАЯ ИГРА (TEXAS HOLD'EM) ═══
-    const SUITS = ['♠','♥','♦','♣'];
-    const RANKS = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
-    const RANK_VALS = {2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9,10:10,J:11,Q:12,K:13,A:14};
-
-    function createDeck() {
-      let d = [];
-      for(let s of SUITS) for(let r of RANKS) d.push(r+s);
-      return d;
-    }
-    function shuffle(a) { for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
-    function cardColor(c) { return c.includes('♥')||c.includes('♦')?'red':'black'; }
-    function cardDisplay(c) { return c; }
-    function cardShort(c) { return c; }
-
-    function initPokerGame(room) {
-      const state = buildPokerState(room);
-      if(!state) { toast('Нужно минимум 2 игрока!'); return; }
-      pokerState = state;
-      renderPokerTable();
-      tgSend('POKER|'+room.id+'|'+JSON.stringify(state));
-    }
-
-    function evaluateHand(cards) {
-      // Простая оценка: берём 5 лучших карт по рангу
-      const vals = cards.map(c => RANK_VALS[c.slice(0,-1)]).sort((a,b)=>b-a);
-      let score = 0;
-      vals.slice(0,5).forEach((v,i) => { score += v * Math.pow(14, 5-i); });
-      return { score, display: vals.slice(0,5).join(', ') };
-    }
-
-    function renderPokerTable() {
-      if(!pokerState) return;
-      const room = myRoom;
-      if(!room) return;
-
-      $('poker-player-count').textContent = room.players.length+'/10';
-
-      // Кто в этой раздаче (имеет карты), кто ждёт следующей
-      const inHand = pokerState.players || room.players;
-      const waiting = room.players.filter(p => !inHand.includes(p));
-
-      // Сиденья: сначала участники раздачи, потом ожидающие
-      let seatsHtml = '';
-      inHand.forEach(p => {
-        const isMe = p === nick;
-        const cards = pokerState.holeCards[p] || [];
-        const showCards = isMe || pokerState.winner === p;
-        const isWinner = pokerState.winner === p;
-        seatsHtml += '<div class="poker-seat'+(isMe?' active':'')+(isWinner?' winner':'')+'">'+
-          '<div class="ps-name">'+esc(p)+(isWinner?' 🏆':'')+'</div>'+
-          '<div class="ps-cards">'+
-            (cards.length ? cards.map(c =>
-              '<div class="ps-card '+(cardColor(c)==='red'?'red':'')+'">'+(showCards?cardDisplay(c):'')+'</div>'
-            ).join('') : '<div class="ps-card back"></div><div class="ps-card back"></div>')+
-          '</div>'+
-          '<div class="ps-bal">'+balance.toLocaleString('ru-RU')+'</div>'+
-        '</div>';
-      });
-      waiting.forEach(p => {
-        seatsHtml += '<div class="poker-seat waiting">'+
-          '<div class="ps-name">'+esc(p)+' ⏳</div>'+
-          '<div class="ps-cards"><div class="ps-card back"></div><div class="ps-card back"></div></div>'+
-          '<div class="ps-turn">ждёт след. раунд</div>'+
-        '</div>';
-      });
-      $('poker-seats').innerHTML = seatsHtml;
-
-      // Общие карты
-      const comm = pokerState.community || [];
-      $('pt-community').innerHTML = comm.length ? comm.map(c =>
-        '<div class="pt-card '+(cardColor(c)==='red'?'red':'')+'">'+cardDisplay(c)+'</div>'
-      ).join('') : '<span style="color:#888;font-size:0.9rem;">Ожидание раздачи...</span>';
-
-      // Банк
-      $('pt-pot').textContent = '0';
-
-      // Лог
-      if(pokerState.log && pokerState.log.length) {
-        $('poker-log').innerHTML = pokerState.log.map(l => '<div>'+l+'</div>').join('');
-      }
-
-      // Действия (только для создателя)
-      const isCreator = room.creator === nick;
-      $('poker-actions').style.display = isCreator ? 'flex' : 'none';
-      if(isCreator) {
-        $('poker-actions').innerHTML =
-          '<button class="fold" onclick="toast(\'Фолд в разработке\')">✋ Сброс</button>'+
-          '<button class="check" onclick="toast(\'Чек в разработке\')">✅ Чек</button>'+
-          '<button class="call" onclick="toast(\'Колл в разработке\')">📞 Колл</button>'+
-          '<button class="raise" onclick="showRaise()">⬆️ Поднять</button>'+
-          '<button class="all-in" onclick="toast(\'Алл-ин в разработке\')">🔥 ALL IN</button>'+
-          '<button class="check" style="background:var(--green);color:#000;border:2px solid var(--green);" onclick="dealNewRound()">🔄 Новая раздача</button>';
-      }
-    }
-
-    function showRaise() {
-      $('poker-ra').style.display = 'flex';
-    }
-
-    function doRaise() {
-      $('poker-ra').style.display = 'none';
-      toast('Ставка принята (демо)');
-    }
-
-    function dealNewRound() {
-      if(!myRoom) return;
-      initPokerGame(myRoom);
-    }
-
-    // ─── ИГРЫ ───
-    function buildReel(id,rows) {
-      const el=$(id); el.innerHTML='';
-      for(let i=0;i<rows;i++){const r=Math.floor(Math.random()*EMOJIS.length);el.innerHTML+='<div class="rip">'+EMOJIS[r]+'</div>';}
-      el.style.transform='translateY(0)'; return el;
-    }
-    function spinSlots(done) {
-      ['ri1','ri2','ri3'].forEach((id,i)=>{buildReel(id,30);$('rw'+(i+1)).classList.add('spin');$('rw'+(i+1)).classList.remove('win');});
-      setTimeout(()=>{
-        const finals=[0,1,2].map(()=>Math.floor(Math.random()*EMOJIS.length));
-        ['ri1','ri2','ri3'].forEach((id,i)=>{
-          const el=$(id); const rows=el.children.length;
-          const target=rows-(finals[i]+1);
-          el.style.transform='translateY(-'+(target*96)+'px)';
-          setTimeout(()=>{$('rw'+(i+1)).classList.remove('spin');},i*200);
-        });
-        setTimeout(()=>done(finals.map(f=>EMOJIS[f])),700);
-      },1300);
-    }
-    function playSlots() {
-      const stake=getStake('s-stake','s-btn'); if(stake===null)return;
-      balance-=stake;stats.games++;render();$('s-res').textContent='Крутим...';$('s-res').className='res';
-      spinSlots(final=>{
-        const [a,b,c]=final; let mult=0;
-        if(a===b&&b===c) mult=(a==='🍒'||a==='💎')?10:5;
-        else if(a===b||b===c||a===c) mult=2;
-        if(mult>0){const win=stake*mult;balance+=win;stats.wins++;bBal();$('s-res').textContent=`${a} ${b} ${c} · ×${mult} = +${win.toLocaleString('ru-RU')}`;$('s-res').className='res w';['rw1','rw2','rw3'].forEach(id=>$(id).classList.add('win'));toast('ВЫИГРЫШ '+win.toLocaleString('ru-RU'),true);}
-        else{$('s-res').textContent=`${a} ${b} ${c} · -${stake.toLocaleString('ru-RU')}`;$('s-res').className='res l';}
-        save();render();
-      });
-    }
-    function playDice() {
-      if(!diceCh){toast('Выбери больше/меньше!');return;}
-      const stake=getStake('d-stake','d-btn'); if(stake===null)return;
-      balance-=stake;stats.games++;render();$('d-res').textContent='Кидаем...';$('d-res').className='res';
-      const dd=$('dice-d'); dd.classList.add('roll');
-      setTimeout(()=>{dd.classList.remove('roll');const d1=Math.floor(Math.random()*6)+1,d2=Math.floor(Math.random()*6)+1,sum=d1+d2;dd.textContent=FACES[d1-1]+' '+FACES[d2-1];$('dice-s').textContent='Сумма: '+sum;let win=false;if(sum>7&&diceCh==='over')win=true;if(sum<7&&diceCh==='under')win=true;if(win){balance+=stake*2;stats.wins++;bBal();$('d-res').textContent='Сумма '+sum+' · +'+(stake*2).toLocaleString('ru-RU');$('d-res').className='res w';}else{$('d-res').textContent=sum===7?'Сумма 7 · казино забирает 🤑':'Сумма '+sum+' · мимо';$('d-res').className='res l';}save();render();},800);
-    }
-    function playCoin() {
-      if(!coinCh){toast('Выбери орла/решку!');return;}
-      const stake=getStake('c-stake','c-btn'); if(stake===null)return;
-      balance-=stake;stats.games++;render();$('c-res').textContent='Подбрасываем...';$('c-res').className='res';
-      const ce=$('coin-e');ce.classList.remove('flip','land');void ce.offsetWidth;ce.classList.add('flip');
-      setTimeout(()=>{const result=Math.random()<0.5?'heads':'tails';ce.classList.remove('flip');ce.classList.add('land');ce.textContent=result==='heads'?'🦅':'🪙';$('coin-rt').textContent=result==='heads'?'Орёл':'Решка';if(result===coinCh){balance+=stake*2;stats.wins++;bBal();$('c-res').textContent='+'+(stake*2).toLocaleString('ru-RU');$('c-res').className='res w';}else{$('c-res').textContent='Проиграл '+stake.toLocaleString('ru-RU');$('c-res').className='res l';}save();render();setTimeout(()=>{ce.textContent='🪙';ce.classList.remove('land');$('coin-rt').innerHTML='&nbsp;';},1500);},1200);
-    }
-    function playCube() {
-      if(!cubeCh){toast('Выбери число!');return;}
-      const stake=getStake('cb-stake','cb-btn'); if(stake===null)return;
-      balance-=stake;stats.games++;render();$('cb-res').textContent='Бросаем...';$('cb-res').className='res';
-      const cd=$('cube-d');let t=0;const iv=setInterval(()=>{cd.textContent=FACES[Math.floor(Math.random()*6)];t++;if(t>=8){clearInterval(iv);const r=Math.floor(Math.random()*6)+1;cd.textContent=FACES[r-1];if(r===cubeCh){balance+=stake*6;stats.wins++;bBal();$('cb-res').textContent='Выпало '+r+' · ×6 +'+(stake*6).toLocaleString('ru-RU');$('cb-res').className='res w';toast('×6! +'+(stake*6).toLocaleString('ru-RU'),true);}else{$('cb-res').textContent='Выпало '+r+' · мимо';$('cb-res').className='res l';}save();render();}},200);
-    }
-    function playClicker() {
-      const btn=$('cl-btn'); btn.disabled=true; btn.style.transform='scale(0.85)'; setTimeout(()=>btn.style.transform='',120);
-      const r=Math.floor(Math.random()*100)+1; let text='',type='';
-      if(r<=40){const w=500+Math.floor(Math.random()*4501);balance+=w;stats.games++;stats.wins++;bBal();text='💥 +'+w.toLocaleString('ru-RU');type='w';}
-      else if(r<=70){const l=100+Math.floor(Math.random()*1901);balance-=l;stats.games++;text='💥 -'+l.toLocaleString('ru-RU');type='l';}
-      else{const j=10000+Math.floor(Math.random()*20001);balance+=j;stats.games++;stats.wins++;bBal();text='💥💥 ДЖЕКПОТ +'+j.toLocaleString('ru-RU');type='w';toast('ДЖЕКПОТ '+j.toLocaleString('ru-RU'),true);}
-      $('cl-res').textContent=text;$('cl-res').className='res '+type;save();render();setTimeout(()=>btn.disabled=false,700);
-    }
-
-    function getStake(inputId,btnId) {
-      const inp=$(inputId); let v=parseInt(inp.value);
-      if(!v||v<1){toast('Введи сумму!');return null;}
-      if(v>balance){v=balance;inp.value=balance;toast('Весь баланс',true);}
-      const btn=$(btnId);btn.disabled=true;setTimeout(()=>btn.disabled=false,2800);
-      return v;
-    }
-    function qk(game,val) {
-      const inp=$(game+'-stake');
-      if(val===0){inp.value=balance;toast('ALL IN: '+balance.toLocaleString('ru-RU'),true);}
-      else inp.value=val;
-    }
-    function setDice(c){diceCh=c;$('dice-o').classList.toggle('act',c==='over');$('dice-u').classList.toggle('act',c==='under');}
-    function setCoin(c){coinCh=c;$('coin-h').classList.toggle('act',c==='heads');$('coin-t').classList.toggle('act',c==='tails');}
-    function setCube(n){cubeCh=n;document.querySelectorAll('#cube-p button').forEach(b=>b.classList.toggle('act',parseInt(b.textContent)===n));}
-
-    // ─── Инициализация ───
-    $('nick').value=nick;
-    $('nick').addEventListener('input',e=>{nick=e.target.value.trim();localStorage.setItem('casino-nick',nick);});
-    buildReel('ri1',10);buildReel('ri2',10);buildReel('ri3',10);
-    render();
-
-    // ═══ ПРИГЛАШЕНИЕ ПО ССЫЛКЕ ═══
-    let inviteRoomId = null;
-
-    function getRoomFromUrl() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get('room');
-    }
-
-    function openNickModal(roomId) {
-      inviteRoomId = roomId;
-      $('nick-modal').classList.add('open');
-      $('nick-modal-input').value = nick;
-      const r = rooms.find(x=>x.id===roomId);
-      $('invite-info').innerHTML = r
-        ? 'Комната: <b>'+esc(r.name)+'</b><br>Создал: <b>'+esc(r.creator)+'</b><br>Игроков: '+r.players.length+'/10'
-        : 'Введи никнейм, чтобы войти в игру';
-      setTimeout(()=>$('nick-modal-input').focus(), 300);
-    }
-
-    function confirmNickModal() {
-      const n = $('nick-modal-input').value.trim();
-      if(!n) { toast('Введи никнейм!'); return; }
-      nick = n;
-      localStorage.setItem('casino-nick', nick);
-      $('nick').value = nick;
-      $('nick-modal').classList.remove('open');
-      enterInviteRoom();
-    }
-
-    // ищем комнату с повторами (пулинг подгружает её не мгновенно)
-    function enterInviteRoom() {
-      go('poker');
-      let attempts = 0;
-      const tryJoin = () => {
-        attempts++;
-        const r = rooms.find(x=>x.id===inviteRoomId);
-        if(r) {
-          if(!r.players.includes(nick)) {
-            r.players.push(nick);
-            tgSend('ROOM|join|'+r.id+'|'+nick);
-            updatePokerLobby();
-          }
-          tgSend('👤 <b>' + esc(nick) + '</b> присоединился в комнату «' + esc(r.name) + '»!');
-          toast('Ты зашёл в комнату «'+r.name+'»!', false, true);
-          startPokerGame(r.id);
-        } else if(attempts < 20) {
-          setTimeout(tryJoin, 800);
-        } else {
-          toast('Комната не найдена — создай свою', false, true);
-        }
-      };
-      tryJoin();
-    }
-
-    // проверяем ссылку при загрузке
-    (function initInvite() {
-      const roomId = getRoomFromUrl();
-      if(roomId) {
-        inviteRoomId = roomId;
-        // Запускаем покер (поллинг) сразу, чтобы подгрузить комнаты
-        onlinePlayers = [];
-        rooms = [];
-        loadPokerState();
-        if(pollTimer) clearInterval(pollTimer);
-        pollTimer = setInterval(() => {
-          tgPoll();
-          onlinePlayers = onlinePlayers.filter(p => Date.now() - p.time < 35000);
-          updatePokerLobby();
-        }, 3000);
-        setTimeout(() => tgPoll(), 500);
-        // если ник есть — сразу ищем комнату, иначе — модалка
-        if(!nick) {
-          openNickModal(roomId);
-        } else {
-          enterInviteRoom();
-        }
-      }
-    })();
-  </script>
+  function initPoker(){myRoom=null;pokerState=null;$('poker-lobby').style.display='block';$('poker-table-view').style.display='none';pollOverview();if(pollTimer)clearInterval(pollTimer);pollTimer=setInterval(pollOverview,3000);if(nick)api('/api/heartbeat',{nick}).catch(()=>{});const rid=new URLSearchParams(location.search).get('room');if(rid){inviteRoomId=rid;if(!nick)openNickModal(rid);else enterInviteRoom(rid)}}
+  function pollOverview(){fetch(API+'/api/overview').then(r=>r.json()).then(d=>{if(!d)return;$('online-count').textContent=(d.online||[]).length;if(d.online&&d.online.length)$('online-list').innerHTML=d.online.map(n=>'<span class="ol-i"><span class="ol-d"></span>'+esc(n)+'</span>').join('');else $('online-list').innerHTML='<span style="color:#666;font-size:.8rem">Никого нет</span>';if(d.rooms&&d.rooms.length){$('room-list').innerHTML=d.rooms.map(r=>{const ir=r.players.includes(nick);return '<div class="room-item"><div><div class="ri-n">'+esc(r.name)+'</div><div class="ri-i">'+r.players.length+'/10 · '+esc(r.creator)+'</div></div><div class="ri-actions">'+(ir?'<button class="ri-b leave" onclick="leaveRoom(\''+r.id+'\')">Выйти</button>':(r.players.length<10?'<button class="ri-b join" onclick="joinRoom(\''+r.id+'\')">Войти</button>':''))+'</div></div>'}).join('')}else $('room-list').innerHTML='<span style="color:#666;font-size:.8rem">Нет активных комнат</span>'}).catch(()=>{})}
+  function createRoom(){const name=$('room-name-input').value.trim()||'Комната';if(!nick){toast('Введи ник!');return}api('/api/rooms/create',{name,creator:nick,siteUrl:location.origin+location.pathname.replace(/\/?$/,'')}).then(d=>{if(!d.ok){toast(d.error||'Ошибка');return}$('room-name-input').value='';enterInviteRoom(d.room.id)})}
+  function joinRoom(rid){if(!nick){toast('Введи ник!');return}api('/api/rooms/join',{roomId:rid,nick}).then(d=>{if(!d.ok){toast(d.error||'Ошибка');return}enterInviteRoom(rid)})}
+  function leaveRoom(rid){if(nick)api('/api/rooms/leave',{roomId:rid,nick}).catch(()=>{});if(myRoom&&myRoom.id===rid){myRoom=null;pokerState=null}$('poker-table-view').style.display='none';$('poker-lobby').style.display='block'}
+  function enterInviteRoom(rid){inviteRoomId=rid;document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$('s-poker').classList.add('active');$('poker-lobby').style.display='none';$('poker-table-view').style.display='block';if(pollTimer)clearInterval(pollTimer);pollTimer=setInterval(()=>pollOverview(),3000);fetchPokerState(rid)}
+  function fetchPokerState(rid){fetch(API+'/api/poker/state?room='+rid).then(r=>r.json()).then(d=>{if(d.state){pokerState=d.state;myRoom={id:rid,players:d.state.roomPlayers};renderPokerTable();setTimeout(()=>fetchPokerState(rid),2000)}else setTimeout(()=>fetchPokerState(rid),1500)}).catch(()=>setTimeout(()=>fetchPokerState(rid),2000))}
+  function leavePokerRoom(){if(myRoom&&nick)api('/api/rooms/leave',{roomId:myRoom.id,nick}).catch(()=>{});myRoom=null;pokerState=null;$('poker-table-view').style.display='none';$('poker-lobby').style.display='block';if(pollTimer)clearInterval(pollTimer);pollTimer=setInterval(pollOverview,3000)}
+  function renderPokerTable(){if(!pokerState)return;const all=pokerState.roomPlayers||pokerState.players;$('poker-player-count').textContent=(all||[]).length+'/10';const inHand=pokerState.players||[],waiting=(all||[]).filter(p=>!inHand.includes(p));let seats='';inHand.forEach(p=>{const isMe=p===nick,cards=pokerState.holeCards[p]||[],show=isMe||pokerState.winner===p;seats+='<div style="background:rgba(0,0,0,0.4);border:2px solid '+(isMe?'rgba(255,215,0,0.6)':'rgba(255,255,255,0.15)')+';border-radius:14px;padding:10px;min-width:110px;text-align:center"><div style="font-size:.8rem;font-weight:800">'+esc(p)+(p===pokerState.winner?' 🏆':'')+'</div><div style="display:flex;gap:4px;justify-content:center;margin:6px 0">'+(cards.length?cards.map(c=>'<div style="width:34px;height:48px;background:linear-gradient(145deg,#fff,#e8e8e8);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:900;color:'+(c.includes('♥')||c.includes('♦')?'var(--red)':'#000')+'">'+(show?c:'')+'</div>').join(''):'<div style="width:34px;height:48px;background:linear-gradient(145deg,#1a3a6b,#0f2040);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:transparent">🂠</div><div style="width:34px;height:48px;background:linear-gradient(145deg,#1a3a6b,#0f2040);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:transparent">🂠</div>')+'</div><div style="font-size:.7rem;color:var(--gold);font-weight:700">'+(pokerState.balances?((pokerState.balances[p]||0).toLocaleString('ru-RU')):'100 000')+'</div></div>'})
+  waiting.forEach(p=>{seats+='<div style="background:rgba(0,0,0,0.3);border:2px solid rgba(255,255,255,0.08);border-radius:14px;padding:10px;min-width:110px;text-align:center;opacity:.7"><div style="font-size:.8rem;font-weight:800">'+esc(p)+' ⏳</div><div style="display:flex;gap:4px;justify-content:center;margin:6px 0"><div style="width:34px;height:48px;background:linear-gradient(145deg,#1a3a6b,#0f2040);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:transparent">🂠</div><div style="width:34px;height:48px;background:linear-gradient(145deg,#1a3a6b,#0f2040);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:transparent">🂠</div></div><div style="font-size:.6rem;color:var(--blue);font-weight:700">ждёт след. раздачи</div></div>'})
+  $('poker-seats').innerHTML=seats;const comm=pokerState.community||[];$('pt-community').innerHTML=comm.length?comm.map(c=>'<div style="width:56px;height:80px;background:linear-gradient(145deg,#fff,#e8e8e8);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:900;color:'+(c.includes('♥')||c.includes('♦')?'var(--red)':'#000')+'">'+c+'</div>').join(''):'<span style="color:#888">Ожидание раздачи...</span>';$('pt-pot').textContent=(pokerState.pot||0).toLocaleString('ru-RU');if(pokerState.log&&pokerState.log.length)$('poker-log').innerHTML=pokerState.log.map(l=>'<div>'+l+'</div>').join('');$('poker-actions').style.display=pokerState.winner?'flex':'none';if(pokerState.winner)$('poker-actions').innerHTML='<button style="padding:10px 20px;border-radius:30px;border:none;font-weight:800;font-size:.9rem;cursor:pointer;background:var(--green);color:#000;border:2px solid var(--green);transition:.2s" onclick="newRound()">🔄 Новая раздача</button>'}
+  function newRound(){if(!myRoom||!nick)return;api('/api/poker/newround',{roomId:myRoom.id,by:nick}).then(d=>{if(d.ok&&d.state){pokerState=d.state;renderPokerTable()}else toast(d.error||'Ошибка')})}
+  $('nick').value=nick;$('nick').addEventListener('input',e=>{nick=e.target.value.trim();localStorage.setItem('casino-nick',nick)})
+  render()
+  const rid=new URLSearchParams(location.search).get('room')
+  if(rid&&!nick)setTimeout(()=>{const n=prompt('Тебя пригласили в покер!\nТвой никнейм:');if(n&&n.trim()){nick=n.trim();localStorage.setItem('casino-nick',nick);$('nick').value=nick;go('poker');enterInviteRoom(rid)}},1000)
+  if(rid&&nick)setTimeout(()=>{go('poker');enterInviteRoom(rid)},800)
+</script>
 </body>
 </html>
