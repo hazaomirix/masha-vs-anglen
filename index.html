@@ -1171,7 +1171,18 @@
       const roomId = getRoomFromUrl();
       if(roomId) {
         inviteRoomId = roomId;
+        // Запускаем покер (поллинг) сразу, чтобы подгрузить комнаты
+        onlinePlayers = [];
+        rooms = [];
         loadPokerState();
+        if(pollTimer) clearInterval(pollTimer);
+        pollTimer = setInterval(() => {
+          tgPoll();
+          onlinePlayers = onlinePlayers.filter(p => Date.now() - p.time < 35000);
+          updatePokerLobby();
+        }, 3000);
+        setTimeout(() => tgPoll(), 500);
+        // если ник есть — сразу ищем комнату, иначе — модалка
         if(!nick) {
           openNickModal(roomId);
         } else {
