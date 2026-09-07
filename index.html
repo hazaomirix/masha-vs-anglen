@@ -649,7 +649,22 @@
         if(action === 'join') {
           const rid = parts[2], p = parts[3];
           const r = rooms.find(x=>x.id===rid);
-          if(r && !r.players.includes(p)) r.players.push(p);
+          if(r && !r.players.includes(p)) {
+            r.players.push(p);
+            // Если ждали и теперь 2+ — стартуем игру автоматически
+            if(r.status === 'waiting' && r.players.length >= 2) {
+              r.status = 'playing';
+              // раздача пойдёт всем через POKER-сообщение
+              let state = buildPokerState(r);
+              if(state) {
+                tgSend('POKER|'+r.id+'|'+JSON.stringify(state));
+                if(myRoom && myRoom.id===r.id) {
+                  pokerState = state;
+                  renderPokerTable();
+                }
+              }
+            }
+          }
         }
         if(action === 'leave') {
           const rid = parts[2], p = parts[3];
@@ -668,12 +683,18 @@
       }
       if(cmd === 'POKER') {
         const rid = parts[1], stateJson = parts.slice(2).join('|');
-        if(myRoom && myRoom.id === rid) {
+        if((myRoom && myRoom.id === rid) || (inviteRoomId === rid)) {
           try {
             const newState = JSON.parse(stateJson);
-            if(newState && newState.round > (pokerState?.round||0)) {
+            if(newState && (!pokerState || newState.round > pokerState.round)) {
               pokerState = newState;
-              renderPokerTable();
+              // обновляем статус комнаты
+              const rr = rooms.find(x=>x.id===rid);
+              if(rr) rr.status = 'playing';
+              if(myRoom && myRoom.id === rid) {
+                myRoom = rr || myRoom;
+                renderPokerTable();
+              }
             }
           } catch(e) {}
         }
@@ -755,16 +776,44 @@
       const id = 'room_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
       rooms.push({id, name, creator: nick, players: [nick], status: 'waiting'});
       const siteUrl = window.location.origin + window.location.pathname.replace(/\/?$/, '') + '?room=' + id;
-      tgSend('ROOM|create|'+id+'|'+name+'|'+nick);
-      tgSend('🃏 <b>Новая комната!</b>\n\n' +
+      // Одно сообщение в чат: комната + ссылка
+      tgSend('🃏 <b>Новая комната в покере!</b>\n\n' +
         '🏠 <b>' + esc(name) + '</b>\n' +
         '👤 Создал: ' + esc(nick) + '\n' +
-        '👥 Игроков: ' + rooms.length + '\n\n' +
-        '🔗 <a href="' + siteUrl + '">Присоединиться к игре</a>\n\n' +
-        'Или перейди по ссылке:\n' + siteUrl);
+        '👥 Игроков: 1/10 (ждём)\n\n' +
+        '🔗 <a href="' + siteUrl + '">🎯 Присоединиться к игре</a>');
       $('room-name-input').value = '';
       updatePokerLobby();
-      toast('Комната создана! Ссылка отправлена в Telegram', true);
+      // создатель сразу идёт за стол ждать
+      myRoom = rooms.find(r=>r.id===id);
+      $('poker-lobby').style.display = 'none';
+      $('poker-table-view').style.display = 'block';
+      $('poker-room-name').textContent = '🃏 '+name;
+      $('poker-player-count').textContent = '1/10';
+      renderWaitingTable();
+      toast('Комната создана! Жди игроков 🃏', true);
+    }
+
+    function renderWaitingTable() {
+      const r = myRoom;
+      if(!r) return;
+      $('poker-seats').innerHTML = r.players.map(p =>
+        '<div class="poker-seat'+(p===nick?' active':'')+'">'+
+          '<div class="ps-name">'+esc(p)+(p===nick?' (ты)':'')+'</div>'+
+          '<div class="ps-cards"><div class="ps-card back"></div><div class="ps-card back"></div></div>'+
+          '<div class="ps-bal">'+balance.toLocaleString('ru-RU')+'</div>'+
+        '</div>'
+      ).join('');
+      const empty = Math.max(0, 10 - r.players.length);
+      for(let i=0;i<empty;i++){
+        $('poker-seats').insertAdjacentHTML('beforeend','<div class="poker-seat empty"><div class="ps-name">Свободно</div><div class="ps-cards"><div class="ps-card back"></div><div class="ps-card back"></div></div></div>');
+      }
+      $('pt-community').innerHTML = '<span style="color:#888;font-size:0.9rem;">Ожидание игроков ('+r.players.length+'/10)...</span>';
+      $('pt-pot').textContent = '0';
+      $('poker-log').innerHTML = '<div class="log-act">🃏 Комната «'+esc(r.name)+'» создана. Ждём игроков. Игра начнётся от 2 человек.</div>';
+      // действия скрыты до старта
+      $('poker-actions').style.display = 'none';
+      toast('Прочитай: после ссылки в чате ждут до 2+ игроков');
     }
 
     function joinRoom(rid) {
@@ -796,7 +845,67 @@
       $('poker-table-view').style.display = 'block';
       $('poker-room-name').textContent = '🃏 '+r.name;
       $('poker-player-count').textContent = r.players.length+'/10';
-      initPokerGame(r);
+      // если игра уже идёт (статус playing) — показываем ожидание, карты придут через POKER-сообщение
+      if(r.status === 'playing') {
+        if(pokerState) {
+          renderPokerTable();
+          if(!pokerState.players.includes(nick)) {
+            $('poker-log').insertAdjacentHTML('beforeend','<div class="log-act">⏳ Ты присоединился — сыграешь со следующего раздачи</div>');
+          }
+        } else {
+          renderWaitingTable();
+          $('poker-log').insertAdjacentHTML('beforeend','<div class="log-act">⏳ Игра уже идёт — жди следующей раздачи</div>');
+        }
+        return;
+      }
+      // если есть 2+ игрока — играем сразу
+      if(r.players.length >= 2) {
+        r.status = 'playing';
+        let state = buildPokerState(r);
+        if(state) {
+          pokerState = state;
+          renderPokerTable();
+          tgSend('POKER|'+r.id+'|'+JSON.stringify(state));
+        }
+      } else {
+        renderWaitingTable();
+      }
+    }
+
+    function buildPokerState(room) {
+      const currentPlayers = room.players.slice();
+      if(currentPlayers.length < 2) return null;
+      const deck = shuffle(createDeck());
+      const holeCards = {};
+      currentPlayers.forEach(p => { holeCards[p] = [deck.pop(), deck.pop()]; });
+      const community = [];
+      deck.pop();
+      for(let i=0;i<3;i++) community.push(deck.pop());
+      deck.pop();
+      community.push(deck.pop());
+      deck.pop();
+      community.push(deck.pop());
+      const handValues = {};
+      currentPlayers.forEach(p => {
+        const allCards = [...holeCards[p], ...community];
+        handValues[p] = evaluateHand(allCards);
+      });
+      const sorted = currentPlayers.slice().sort((a,b) => handValues[b].score - handValues[a].score);
+      const winner = sorted[0];
+      let log = ['🃏 Раздача началась! Участники: '+currentPlayers.join(', ')];
+      currentPlayers.forEach(p => { log.push('🎴 '+p+' получил '+holeCards[p].join(' ')); });
+      log.push('📋 Стол: '+community.join(' '));
+      log.push('🏆 <b>'+winner+'</b> выигрывает раздачу!');
+      if(room.players.length > currentPlayers.length) {
+        log.push('⏳ В след. раздаче: '+(room.players.filter(p=>!currentPlayers.includes(p))).join(', '));
+      }
+      return {
+        roomId: room.id,
+        players: currentPlayers,
+        roomPlayers: room.players,
+        holeCards, community, handValues, winner,
+        round: Date.now(), log
+      };
     }
 
     function leavePokerRoom() {
@@ -827,54 +936,11 @@
     function cardShort(c) { return c; }
 
     function initPokerGame(room) {
-      const players = room.players.filter(p=>p!==nick);
-      if(players.length<1) { toast('Нужно минимум 2 игрока!'); return; }
-
-      const deck = shuffle(createDeck());
-      const holeCards = {};
-      room.players.forEach(p => { holeCards[p] = [deck.pop(), deck.pop()]; });
-
-      const community = [];
-      deck.pop(); // burn
-      for(let i=0;i<3;i++) community.push(deck.pop());
-      deck.pop(); // burn
-      community.push(deck.pop());
-      deck.pop(); // burn
-      community.push(deck.pop());
-
-      // Простая оценка: сравниваем по старшей карте в комбинации
-      const handValues = {};
-      room.players.forEach(p => {
-        const allCards = [...holeCards[p], ...community];
-        handValues[p] = evaluateHand(allCards);
-      });
-
-      const sorted = room.players.slice().sort((a,b) => handValues[b].score - handValues[a].score);
-      const winner = sorted[0];
-
-      pokerState = {
-        roomId: room.id,
-        players: room.players,
-        holeCards,
-        community,
-        handValues,
-        winner,
-        round: Date.now(),
-        log: []
-      };
-
-      // Логируем
-      let log = ['🃏 Раздача началась!'];
-      room.players.forEach(p => {
-        log.push('🎴 '+p+' получил '+holeCards[p].join(' '));
-      });
-      log.push('📋 Стол: '+community.join(' '));
-      let winStr = '🏆 <b>'+winner+'</b> выигрывает раздачу!';
-      log.push(winStr);
-      pokerState.log = log;
-
+      const state = buildPokerState(room);
+      if(!state) { toast('Нужно минимум 2 игрока!'); return; }
+      pokerState = state;
       renderPokerTable();
-      tgSend('POKER|'+room.id+'|'+JSON.stringify(pokerState));
+      tgSend('POKER|'+room.id+'|'+JSON.stringify(state));
     }
 
     function evaluateHand(cards) {
@@ -892,13 +958,18 @@
 
       $('poker-player-count').textContent = room.players.length+'/10';
 
-      // Сиденья
-      $('poker-seats').innerHTML = room.players.map((p,i) => {
+      // Кто в этой раздаче (имеет карты), кто ждёт следующей
+      const inHand = pokerState.players || room.players;
+      const waiting = room.players.filter(p => !inHand.includes(p));
+
+      // Сиденья: сначала участники раздачи, потом ожидающие
+      let seatsHtml = '';
+      inHand.forEach(p => {
         const isMe = p === nick;
         const cards = pokerState.holeCards[p] || [];
         const showCards = isMe || pokerState.winner === p;
         const isWinner = pokerState.winner === p;
-        return '<div class="poker-seat'+(isMe?' active':'')+(isWinner?' winner':'')+'">'+
+        seatsHtml += '<div class="poker-seat'+(isMe?' active':'')+(isWinner?' winner':'')+'">'+
           '<div class="ps-name">'+esc(p)+(isWinner?' 🏆':'')+'</div>'+
           '<div class="ps-cards">'+
             (cards.length ? cards.map(c =>
@@ -907,7 +978,15 @@
           '</div>'+
           '<div class="ps-bal">'+balance.toLocaleString('ru-RU')+'</div>'+
         '</div>';
-      }).join('');
+      });
+      waiting.forEach(p => {
+        seatsHtml += '<div class="poker-seat waiting">'+
+          '<div class="ps-name">'+esc(p)+' ⏳</div>'+
+          '<div class="ps-cards"><div class="ps-card back"></div><div class="ps-card back"></div></div>'+
+          '<div class="ps-turn">ждёт след. раунд</div>'+
+        '</div>';
+      });
+      $('poker-seats').innerHTML = seatsHtml;
 
       // Общие карты
       const comm = pokerState.community || [];
@@ -1075,9 +1154,10 @@
             tgSend('ROOM|join|'+r.id+'|'+nick);
             updatePokerLobby();
           }
+          tgSend('👤 <b>' + esc(nick) + '</b> присоединился в комнату «' + esc(r.name) + '»!');
           toast('Ты зашёл в комнату «'+r.name+'»!', false, true);
           startPokerGame(r.id);
-        } else if(attempts < 12) {
+        } else if(attempts < 20) {
           setTimeout(tryJoin, 800);
         } else {
           toast('Комната не найдена — создай свою', false, true);
