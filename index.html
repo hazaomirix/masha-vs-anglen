@@ -3,110 +3,146 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>CASINO RPO-326 — демо-игры на виртуальные фишки</title>
-<meta name="description" content="CASINO RPO-326 — премиальные демо-игры на виртуальные фишки. 18+.">
+<title>CASINO RPO-326 — Премиальные демо-игры</title>
+<meta name="description" content="CASINO RPO-326 — премиальные демо-игры на виртуальные фишки. Слоты, кости, орёл и решка. 18+.">
 <meta property="og:title" content="CASINO RPO-326">
 <meta property="og:description" content="Премиальные демо-игры на виртуальные фишки. 18+">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="logo.png">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--gold:#D4AF37;--gold-light:#F0D060;--gold-dark:#B8960F;--gold-glow:rgba(212,175,55,0.3);--bg:#0A0A0F;--bg-card:rgba(20,20,35,0.5);--text:#F5F0E8;--text2:#aaa;--glass-border:rgba(212,175,55,0.15)}
-html{scroll-behavior:smooth}
-body{font-family:Inter,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
 
-/* PARTICLES BG */
-#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
-
-/* HEADER */
-header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(10,10,18,0.8);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--glass-border);padding:0 32px;height:80px;display:flex;align-items:center;justify-content:space-between}
-.header-left{display:flex;align-items:center;gap:16px}
-.header-left img{height:64px;width:auto;border-radius:6px;filter:drop-shadow(0 0 12px var(--gold-glow))}
-.header-left span{font-family:'Playfair Display',serif;font-size:1.8rem;letter-spacing:10px;color:var(--gold);font-weight:700;text-shadow:0 0 30px var(--gold-glow)}
-.balance-badge{background:linear-gradient(135deg,#B8960F,#D4AF37,#F0D060,#D4AF37,#B8960F);background-size:200% 200%;color:#0A0A0F;font-weight:800;padding:8px 22px;border-radius:30px;font-size:.95rem;box-shadow:0 0 30px rgba(212,175,55,0.25);animation:goldShimmer 4s ease-in-out infinite}
-@keyframes goldShimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dark),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;color:#000;box-shadow:0 0 20px var(--gold-glow);cursor:pointer;transition:transform .3s}
-.avatar:hover{transform:scale(1.1)}
-.header-right{display:flex;align-items:center;gap:16px}
-
-/* DECORATIVE LINE */
-.gold-divider{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:8px auto 0;border-radius:2px}
-
-/* HERO */
-.hero{width:100%;margin-top:80px;position:relative;z-index:1}
-.hero-heading{text-align:center;padding:50px 20px 28px;position:relative}
-.hero-heading::before{content:'✦';position:absolute;top:16px;left:50%;transform:translateX(-50%);font-size:1.2rem;color:var(--gold);opacity:.4;letter-spacing:6px}
-.hero-heading h1{font-size:clamp(2rem,4.5vw,3.8rem);color:var(--gold);text-shadow:0 0 40px rgba(212,175,55,0.15),0 4px 30px rgba(0,0,0,0.5);line-height:1.2;letter-spacing:3px;font-weight:900}
-.hero-heading .divider{width:80px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:14px auto 10px}
-.hero-heading p{font-size:clamp(1rem,1.5vw,1.15rem);color:rgba(245,240,232,0.6);margin-top:8px;font-weight:300;letter-spacing:4px;text-transform:uppercase}
-.btn-gold{position:relative;display:inline-block;margin-top:24px;padding:14px 48px;background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-light));color:#000;font-weight:800;font-size:1rem;border:none;border-radius:50px;cursor:pointer;text-transform:uppercase;letter-spacing:4px;transition:all .4s;box-shadow:0 4px 30px rgba(212,175,55,0.3);overflow:hidden}
-.btn-gold::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;border-radius:52px;background:linear-gradient(135deg,var(--gold-light),transparent,var(--gold-light),transparent);opacity:0;transition:opacity .4s;z-index:-1}
-.btn-gold:hover{transform:scale(1.06);box-shadow:0 8px 50px rgba(212,175,55,0.5)}
-.btn-gold:hover::before{opacity:1}
-
-/* SLIDER */
-.slider-wrap{max-width:1200px;margin:0 auto;padding:0 16px}
-.slider{position:relative;width:100%;aspect-ratio:16/8;max-height:560px;overflow:hidden;border-radius:24px;border:1px solid rgba(212,175,55,0.25);box-shadow:0 20px 80px rgba(0,0,0,0.7),0 0 60px rgba(212,175,55,0.05);background:#050508}
-.slider-track{display:flex;width:100%;height:100%;transition:transform 1s cubic-bezier(.25,.1,.25,1)}
-.slide{flex:0 0 100%;height:100%;background-size:cover;background-position:center;position:relative}
-.slide::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(10,10,15,0.15) 0%,rgba(10,10,15,0.55) 100%)}
-.slide-content{position:absolute;bottom:50px;left:48px;z-index:3;max-width:480px}
-.slide-content h2{font-size:clamp(1.2rem,2vw,2rem);color:#fff;font-weight:700;text-shadow:0 4px 20px rgba(0,0,0,0.7);margin-bottom:6px}
-.slide-content p{color:rgba(255,255,255,0.75);font-size:.9rem}
-
-/* SLIDER CONTROLS INSIDE IMAGE */
-.slider-controls{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:10;display:flex;align-items:center;gap:18px}
-.slider-dots{display:flex;gap:10px}
-.slider-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.25);cursor:pointer;transition:all .5s;border:1px solid rgba(212,175,55,0.3);position:relative}
-.slider-dot.active{background:var(--gold);border-color:var(--gold);width:32px;border-radius:5px;box-shadow:0 0 20px rgba(212,175,55,0.3)}
-.slider-arrow{background:rgba(10,10,18,0.6);color:var(--gold);border:1px solid rgba(212,175,55,0.3);width:46px;height:46px;border-radius:50%;cursor:pointer;font-size:1.3rem;display:flex;align-items:center;justify-content:center;transition:all .4s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.slider-arrow:hover{background:rgba(212,175,55,0.2);border-color:var(--gold);transform:scale(1.1);box-shadow:0 0 30px rgba(212,175,55,0.15)}
-
-/* THUMBNAILS */
-.thumbs{display:flex;justify-content:center;gap:12px;margin-top:16px;flex-wrap:wrap}
-.thumb{width:120px;height:70px;border-radius:12px;background-size:cover;background-position:center;cursor:pointer;border:2px solid transparent;transition:all .4s;opacity:.5;filter:saturate(.7)}
-.thumb:hover{opacity:.9;transform:translateY(-3px)}
-.thumb.active{border-color:var(--gold);opacity:1;filter:saturate(1);box-shadow:0 0 25px rgba(212,175,55,0.25);transform:translateY(-3px)}
-
-/* WIDGETS SECTION */
-section{padding:70px 20px;z-index:1;position:relative}
-.section-title{text-align:center;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--gold);margin-bottom:10px;font-weight:700;letter-spacing:3px}
-.section-divider{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 40px;border-radius:2px}
-
-.widgets-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1400px;margin:0 auto;padding:0 16px}
-.widget-card{background:var(--bg-card);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:24px;padding:40px 28px;text-align:center;cursor:pointer;transition:all .5s;position:relative;overflow:hidden}
-.widget-card::before{content:'';position:absolute;top:-1px;left:25%;right:25%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .5s}
-.widget-card::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:translateX(-100%);transition:transform .6s}
-.widget-card:hover{transform:translateY(-8px);border-color:rgba(212,175,55,0.4);box-shadow:0 20px 80px rgba(212,175,55,0.1)}
-.widget-card:hover::before{opacity:1}
-.widget-card:hover::after{transform:translateX(100%)}
-.widget-card .icon{font-size:4rem;margin-bottom:16px;display:block;transition:transform .5s}
-.widget-card:hover .icon{transform:scale(1.15)}
-.widget-card h3{color:var(--gold);font-size:1.4rem;margin-bottom:10px;letter-spacing:2px}
-.widget-card p{color:var(--text2);font-size:.9rem;line-height:1.6;margin-bottom:16px}
-.widget-badge{display:inline-block;background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#000;font-weight:800;font-size:.8rem;padding:5px 18px;border-radius:20px;letter-spacing:1px;box-shadow:0 0 20px rgba(212,175,55,0.15)}
-
-/* FOOTER */
-footer{text-align:center;padding:36px 20px;border-top:1px solid var(--glass-border);color:var(--text2);font-size:.85rem;position:relative;z-index:1}
-footer strong{color:var(--gold);font-size:1.1rem;display:block;margin-bottom:8px;letter-spacing:2px}
-
-/* RESPONSIVE */
-@media(max-width:1024px){.widgets-grid{grid-template-columns:repeat(2,1fr)};.slider{border-radius:16px}}
-@media(max-width:600px){
-  .widgets-grid{grid-template-columns:1fr;padding:0}
-  .slider{border-radius:12px;aspect-ratio:16/9}
-  .thumb{width:72px;height:44px;border-radius:8px}
-  header{padding:0 16px}
-  .header-left span{font-size:1.3rem;letter-spacing:5px}
-  .header-left img{height:48px}
-  .balance-badge{font-size:.8rem;padding:6px 14px}
+/* ===== DESIGN TOKENS ===== */
+:root{
+  --gold:#D4AF37;--gold-light:#F0D060;--gold-dark:#B8960F;
+  --bg:#0A0A0F;--bg-card:rgba(16,16,28,0.7);
+  --text:#F5F0E8;--text2:rgba(245,240,232,0.55);
+  --glass-border:rgba(212,175,55,0.12);--radius:16px;--radius-sm:10px;
 }
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh}
+h1,h2,h3{font-family:'Playfair Display',serif}
+
+/* ===== AMBIENT ===== */
+#ambient{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.ambient-glow{position:absolute;border-radius:50%;filter:blur(80px);opacity:.12}
+.ambient-glow:nth-child(1){width:600px;height:600px;background:var(--gold);top:-200px;left:-150px}
+.ambient-glow:nth-child(2){width:400px;height:400px;background:#8b5cf6;bottom:-100px;right:-80px}
+.ambient-glow:nth-child(3){width:300px;height:300px;background:var(--gold-dark);top:40%;left:60%;opacity:.06}
+.particle{position:absolute;border-radius:50%;background:var(--gold);pointer-events:none;opacity:.12;animation:particleDrift linear infinite}
+@keyframes particleDrift{0%{transform:translateY(0)translateX(0)}100%{transform:translateY(-120vh)translateX(80px)}}
+
+/* ===== HEADER ===== */
+header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(10,10,16,0.85);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border-bottom:1px solid var(--glass-border);padding:0 32px;height:72px;display:flex;align-items:center;justify-content:space-between}
+.header-left{display:flex;align-items:center;gap:16px}
+.header-left img{height:52px;width:auto;border-radius:6px}
+.header-left span{font-family:'Playfair Display',serif;font-size:1.5rem;letter-spacing:8px;color:var(--gold);font-weight:700}
+.header-right{display:flex;align-items:center;gap:14px}
+.balance-badge{background:linear-gradient(135deg,#B8960F,#D4AF37,#F0D060);color:#0A0A0F;font-weight:800;padding:7px 20px;border-radius:30px;font-size:.88rem;box-shadow:0 0 30px rgba(212,175,55,0.15)}
+.sound-toggle{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);color:var(--text2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;transition:all .3s}
+.sound-toggle:hover{border-color:var(--gold);color:var(--gold)}
+.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dark),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;color:#000}
+@media(max-width:600px){header{padding:0 16px;height:64px}.header-left img{height:40px}.header-left span{font-size:1.1rem;letter-spacing:5px}}
+
+/* ===== HERO ===== */
+.hero{width:100%;margin-top:72px;position:relative;z-index:1;padding:52px 20px 36px;text-align:center;background:linear-gradient(180deg,rgba(212,175,55,0.03) 0%,transparent 100%)}
+.hero h1{font-size:clamp(1.8rem,4.5vw,3.8rem);color:var(--gold);font-weight:900;letter-spacing:3px;text-shadow:0 4px 60px rgba(212,175,55,0.1)}
+.hero .divider{width:80px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:14px auto 12px}
+.hero p{font-size:clamp(.9rem,1.4vw,1.05rem);color:var(--text2);letter-spacing:4px;text-transform:uppercase;font-weight:300}
+
+/* ===== SLIDER ===== */
+.slider-wrap{max-width:1100px;margin:-6px auto 0;padding:0 16px 30px}
+.slider{position:relative;width:100%;border-radius:var(--radius);overflow:hidden;border:1px solid var(--glass-border);box-shadow:0 20px 80px rgba(0,0,0,0.6);aspect-ratio:16/8;background:#050508}
+.slider-track{display:flex;width:100%;height:100%;transition:transform .9s cubic-bezier(.25,.1,.25,1)}
+.slide{flex:0 0 100%;height:100%;background-size:cover;background-position:center;position:relative}
+.slide::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,15,0.1) 0%,rgba(10,10,15,0.5) 100%)}
+.slide-content{position:absolute;bottom:44px;left:40px;z-index:2}
+.slide-content h2{color:#fff;font-size:clamp(1.1rem,1.8vw,1.6rem);font-weight:600;text-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.slide-content p{color:rgba(255,255,255,0.6);font-size:.85rem;margin-top:4px}
+.slider-arrows{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:16px}
+.slider-dots{display:flex;gap:8px}
+.slider-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:all .4s;border:1px solid rgba(212,175,55,0.2)}
+.slider-dot.active{background:var(--gold);border-color:var(--gold);width:28px;border-radius:4px;box-shadow:0 0 15px rgba(212,175,55,0.25)}
+.slider-arr{background:rgba(10,10,16,0.5);color:var(--gold);border:1px solid var(--glass-border);width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:all .3s;backdrop-filter:blur(6px)}
+.slider-arr:hover{background:rgba(212,175,55,0.15);border-color:var(--gold)}
+.thumbs{display:flex;justify-content:center;gap:10px;margin-top:14px;flex-wrap:wrap}
+.thumb{width:100px;height:60px;border-radius:var(--radius-sm);background-size:cover;background-position:center;cursor:pointer;border:2px solid transparent;transition:all .4s;opacity:.4;filter:saturate(.6)}
+.thumb:hover{opacity:.8;transform:translateY(-2px)}
+.thumb.active{border-color:var(--gold);opacity:1;filter:saturate(1);box-shadow:0 0 20px rgba(212,175,55,0.15)}
+@media(max-width:600px){.slider{border-radius:12px;aspect-ratio:16/9}}
+
+/* ===== GAMES ROW (3 cards) ===== */
+section{padding:40px 20px 60px;z-index:1;position:relative}
+.games-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto;padding:0 12px}
+.game-card{background:var(--bg-card);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:var(--radius);padding:36px 22px;text-align:center;cursor:pointer;transition:all .4s;position:relative;overflow:hidden}
+.game-card::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:translateX(-100%);transition:transform .6s}
+.game-card:hover{transform:translateY(-6px);border-color:rgba(212,175,55,0.3);box-shadow:0 15px 60px rgba(212,175,55,0.06)}
+.game-card:hover::after{transform:translateX(100%)}
+.game-card .icon{display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.game-card .icon svg{width:52px;height:52px;filter:drop-shadow(0 0 12px rgba(212,175,55,0.25))}
+.game-card h3{color:var(--gold);font-size:1.25rem;margin-bottom:8px;letter-spacing:2px}
+.game-card p{color:var(--text2);font-size:.85rem;line-height:1.5;margin-bottom:14px}
+.game-badge{display:inline-block;background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#000;font-weight:700;font-size:.75rem;padding:4px 16px;border-radius:20px;letter-spacing:1px}
+@media(max-width:800px){.games-row{grid-template-columns:1fr;max-width:420px}}
+
+/* ===== GAME ROOM (inline games) ===== */
+.game-room{max-width:780px;margin:40px auto 0;padding:0 12px}
+.game-room-title{text-align:center;font-size:clamp(1.3rem,2vw,1.8rem);color:var(--gold);font-weight:700;letter-spacing:3px;margin-bottom:6px}
+.game-room .divider{width:50px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 24px;border-radius:2px}
+.game-panel{background:linear-gradient(150deg,#0e0e20 0%,#06060e 50%,#0d0d22 100%);border:1px solid rgba(212,175,55,0.2);border-radius:var(--radius);padding:26px 22px 28px;box-shadow:0 30px 100px rgba(0,0,0,0.7);position:relative;overflow:hidden}
+.game-panel::before{content:'';position:absolute;top:0;left:10%;right:10%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.4}
+.game-panel h3{font-size:1.25rem;color:var(--gold);letter-spacing:4px;font-weight:700;text-align:center;margin-bottom:18px;text-shadow:0 0 30px rgba(212,175,55,0.15)}
+.bet-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin-bottom:16px}
+.bet-field{background:rgba(255,255,255,0.03);border:1px solid rgba(212,175,55,0.2);border-radius:10px;color:var(--text);padding:8px 12px;width:130px;font-size:1rem;font-weight:700;text-align:center;outline:none;transition:border .3s}
+.bet-field:focus{border-color:var(--gold)}
+.bet-chip{background:rgba(212,175,55,0.05);color:var(--gold);border:1px solid rgba(212,175,55,0.15);border-radius:30px;padding:6px 16px;cursor:pointer;font-weight:600;font-size:.78rem;transition:all .3s;letter-spacing:1px}
+.bet-chip:hover{background:rgba(212,175,55,0.12);transform:translateY(-1px)}
+.bet-chip.allin{background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#000;border:none;font-weight:700}
+.act-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.act-btn{background:rgba(212,175,55,0.06);color:var(--text);border:1px solid rgba(212,175,55,0.25);border-radius:12px;padding:12px 28px;font-size:.95rem;font-weight:600;letter-spacing:1px;cursor:pointer;transition:all .3s}
+.act-btn:hover{border-color:var(--gold);color:var(--gold)}
+.act-btn.selected{background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#000;border-color:var(--gold);font-weight:800}
+.go-btn{display:block;margin:0 auto;padding:13px 44px;background:linear-gradient(135deg,#a08020,#D4AF37 40%,#F0D060 60%,#D4AF37 80%,#a08020);background-size:200% 200%;color:#0A0A0F;font-weight:900;font-size:1.05rem;letter-spacing:5px;border:none;border-radius:50px;cursor:pointer;text-transform:uppercase;box-shadow:0 8px 40px rgba(212,175,55,0.3);transition:all .3s;animation:btnShimmer 3s ease-in-out infinite}
+@keyframes btnShimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.go-btn:hover{transform:scale(1.04);box-shadow:0 12px 60px rgba(212,175,55,0.5)}
+.go-btn:active{transform:scale(.95)}
+.go-btn:disabled{opacity:.35;cursor:not-allowed;transform:none;animation:none}
+.game-result{text-align:center;font-size:1.15rem;font-weight:800;margin-top:16px;min-height:44px;letter-spacing:1px}
+.game-result.win{color:var(--gold);text-shadow:0 0 40px rgba(212,175,55,0.5);animation:resultBounce .4s ease}
+.game-result.lose{color:rgba(255,255,255,0.4)}
+@keyframes resultBounce{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+
+/* ===== DICE ===== */
+.dice-area{display:flex;justify-content:center;gap:22px;margin:20px 0 6px}
+.dice{width:90px;height:90px;background:rgba(255,255,255,0.05);border:1px solid rgba(212,175,55,0.2);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:3.4rem;transition:all .3s;color:#fff;box-shadow:inset 0 0 20px rgba(0,0,0,0.6)}
+.dice.rolling{animation:diceShake .14s linear infinite}
+@keyframes diceShake{0%{transform:translate(0,0)rotate(0)}25%{transform:translate(-4px,2px)rotate(-8deg)}75%{transform:translate(4px,-2px)rotate(8deg)}100%{transform:translate(0,0)rotate(0)}}
+.dice-sum{text-align:center;color:var(--text2);font-size:.9rem;letter-spacing:2px;margin-bottom:6px}
+
+/* ===== COIN ===== */
+.coin-stage{display:flex;justify-content:center;margin:26px 0 6px;perspective:600px}
+.coin{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#F0D060,#D4AF37 45%,#8a6d1f 100%);display:flex;align-items:center;justify-content:center;font-size:3rem;color:#5a4a10;box-shadow:0 8px 40px rgba(212,175,55,0.3),inset 0 -4px 12px rgba(0,0,0,0.3);position:relative;transition:transform .3s}
+.coin::after{content:'';position:absolute;inset:6px;border-radius:50%;border:2px dashed rgba(0,0,0,0.25)}
+.coin.flip{animation:coinFlip 1s ease-in-out}
+@keyframes coinFlip{0%{transform:rotateY(0)}30%{transform:rotateY(180deg)}60%{transform:rotateY(360deg)}100%{transform:rotateY(720deg)}}
+
+/* ===== FOOTER ===== */
+footer{text-align:center;padding:36px 20px;border-top:1px solid var(--glass-border);color:var(--text2);font-size:.82rem;position:relative;z-index:1}
+footer strong{color:var(--gold);font-size:1rem;display:block;margin-bottom:6px;letter-spacing:2px}
+
+/* ===== CONFETTI ===== */
+.confetti-piece{position:fixed;width:8px;height:8px;z-index:2000;pointer-events:none;top:-10px;animation:confettiFall linear forwards}
+@keyframes confettiFall{0%{transform:translateY(0)rotate(0);opacity:1}100%{transform:translateY(110vh)rotate(720deg);opacity:.7}}
 </style>
 </head>
 <body>
 
-<div id="particles"></div>
+<div id="ambient">
+  <div class="ambient-glow"></div>
+  <div class="ambient-glow"></div>
+  <div class="ambient-glow"></div>
+</div>
 
 <header>
   <div class="header-left">
@@ -114,53 +150,141 @@ footer strong{color:var(--gold);font-size:1.1rem;display:block;margin-bottom:8px
     <span>CASINO</span>
   </div>
   <div class="header-right">
-    <div class="balance-badge">¥ 100 000</div>
+    <div class="balance-badge" data-balance>¥ 100 000</div>
+    <div class="sound-toggle" id="soundToggle" onclick="toggleSound()">🔊</div>
     <div class="avatar">M</div>
   </div>
 </header>
 
 <div class="hero">
-  <div class="hero-heading">
-    <h1>ДОБРО ПОЖАЛОВАТЬ В CASINO RPO-326</h1>
-    <div class="divider"></div>
-    <p>Премиальный мир виртуальных развлечений</p>
-    <button class="btn-gold" onclick="document.getElementById('widgets').scrollIntoView({behavior:'smooth'})">ИГРАТЬ</button>
-  </div>
-
-  <div class="slider-wrap">
-    <div class="slider">
-      <div class="slider-track" id="sliderTrack">
-        <div class="slide" style="background-image:url(slide1.jpg)">
-          <div class="slide-content"><h2>Крути барабаны</h2><p>Слоты с множителями до ×10</p></div>
-        </div>
-        <div class="slide" style="background-image:url(slide2.jpg)">
-          <div class="slide-content"><h2>Испытай удачу</h2><p>Кости, монета и классический кубик</p></div>
-        </div>
-        <div class="slide" style="background-image:url(slide3.jpg)">
-          <div class="slide-content"><h2>Покер против бота</h2><p>Техасский Холдем с умным противником</p></div>
-        </div>
-        <div class="slide" style="background-image:url(slide4.jpg)">
-          <div class="slide-content"><h2>Дурак подкидной</h2><p>Классическая карточная игра</p></div>
-        </div>
-      </div>
-      <div class="slider-controls">
-        <button class="slider-arrow" onclick="prevSlide()">‹</button>
-        <div class="slider-dots" id="sliderDots"></div>
-        <button class="slider-arrow" onclick="nextSlide()">›</button>
-      </div>
-    </div>
-    <div class="thumbs" id="thumbs"></div>
-  </div>
+  <h1>ДОБРО ПОЖАЛОВАТЬ В CASINO RPO-326</h1>
+  <div class="divider"></div>
+  <p>Премиальный мир виртуальных развлечений</p>
 </div>
 
-<section id="widgets">
-  <h2 class="section-title">ВЫБЕРИ ИГРУ</h2>
-  <div class="section-divider"></div>
-  <div class="widgets-grid">
-    <div class="widget-card"><span class="icon">🎰</span><h3>СЛОТЫ</h3><p>Крути барабаны, собирай комбинации до ×10</p><span class="widget-badge">×10</span></div>
-    <div class="widget-card"><span class="icon">🎲</span><h3>КОСТИ</h3><p>Больше или меньше 7 — удвоение ставки</p><span class="widget-badge">×2</span></div>
-    <div class="widget-card"><span class="icon">🪙</span><h3>ОРЁЛ/РЕШКА</h3><p>Честные 50/50 с 3D-монетой</p><span class="widget-badge">×2</span></div>
-    <div class="widget-card"><span class="icon">🃏</span><h3>ПОКЕР</h3><p>Техасский Холдем против компьютера</p><span class="widget-badge">NEW</span></div>
+<div class="slider-wrap">
+  <div class="slider">
+    <div class="slider-track" id="sliderTrack">
+      <div class="slide" style="background-image:url(slide1.jpg)"><div class="slide-content"><h2>Крути барабаны</h2><p>Слоты с множителями до ×10</p></div></div>
+      <div class="slide" style="background-image:url(slide2.jpg)"><div class="slide-content"><h2>Испытай удачу</h2><p>Кости и монета</p></div></div>
+      <div class="slide" style="background-image:url(slide3.jpg)"><div class="slide-content"><h2>Премиум-стиль</h2><p>Дизайн мирового уровня</p></div></div>
+      <div class="slide" style="background-image:url(slide4.jpg)"><div class="slide-content"><h2>Честная игра</h2><p>Только виртуальные фишки</p></div></div>
+    </div>
+    <div class="slider-arrows">
+      <div class="slider-arr" onclick="prevSlide()">‹</div>
+      <div class="slider-dots" id="sliderDots"></div>
+      <div class="slider-arr" onclick="nextSlide()">›</div>
+    </div>
+  </div>
+  <div class="thumbs" id="thumbs"></div>
+</div>
+
+<!-- ===== GAMES: 3 cards ===== -->
+<section>
+  <div class="games-row">
+    <!-- SLOTS -> separate page -->
+    <div class="game-card" onclick="location.href='slots.html'">
+      <span class="icon">
+        <svg viewBox="0 0 64 64" fill="none">
+          <rect x="6" y="10" width="52" height="44" rx="6" fill="#14141f" stroke="#D4AF37" stroke-width="2"/>
+          <rect x="12" y="16" width="40" height="30" rx="3" fill="#0a0a14" stroke="#D4AF37" stroke-width="1.2"/>
+          <text x="32" y="38" text-anchor="middle" font-size="16" fill="#D4AF37">🍒</text>
+          <rect x="12" y="16" width="13" height="30" rx="2" fill="none" stroke="#D4AF37" stroke-width="0.8" opacity="0.5"/>
+          <rect x="25.5" y="16" width="13" height="30" rx="2" fill="none" stroke="#D4AF37" stroke-width="0.8" opacity="0.5"/>
+          <rect x="39" y="16" width="13" height="30" rx="2" fill="none" stroke="#D4AF37" stroke-width="0.8" opacity="0.5"/>
+          <circle cx="14" cy="6" r="3" fill="#D4AF37"/><circle cx="32" cy="6" r="3" fill="#D4AF37"/><circle cx="50" cy="6" r="3" fill="#D4AF37"/>
+          <rect x="14" y="52" width="36" height="4" rx="2" fill="#D4AF37" opacity="0.7"/>
+        </svg>
+      </span>
+      <h3>СЛОТЫ</h3>
+      <p>3 барабана, множители до ×10</p>
+      <span class="game-badge">×10</span>
+    </div>
+    <!-- DICE -> scroll to #dice -->
+    <div class="game-card" onclick="document.getElementById('dice').scrollIntoView({behavior:'smooth'})">
+      <span class="icon">
+        <svg viewBox="0 0 64 64" fill="none">
+          <rect x="6" y="10" width="52" height="52" rx="10" transform="rotate(-15 32 36)" fill="#14141f" stroke="#D4AF37" stroke-width="2"/>
+          <circle cx="26" cy="25" r="5" fill="#D4AF37"/>
+          <circle cx="44" cy="44" r="5" fill="#D4AF37"/>
+          <circle cx="44" cy="25" r="5" fill="#D4AF37"/>
+          <circle cx="26" cy="44" r="5" fill="#D4AF37"/>
+          <circle cx="35" cy="34.5" r="5" fill="#F0D060"/>
+        </svg>
+      </span>
+      <h3>КОСТИ</h3>
+      <p>Больше или меньше 7 — удвоение</p>
+      <span class="game-badge">×2</span>
+    </div>
+    <!-- COIN FLIP -> scroll to #coin -->
+    <div class="game-card" onclick="document.getElementById('coin').scrollIntoView({behavior:'smooth'})">
+      <span class="icon">
+        <svg viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="26" fill="#14141f" stroke="#D4AF37" stroke-width="2.5"/>
+          <circle cx="32" cy="32" r="20" fill="none" stroke="#D4AF37" stroke-width="1" opacity="0.6" stroke-dasharray="4 3"/>
+          <text x="32" y="38" text-anchor="middle" font-size="18" fill="#D4AF37">🪙</text>
+        </svg>
+      </span>
+      <h3>ОРЁЛ/РЕШКА</h3>
+      <p>Честные 50/50 с 3D-монетой</p>
+      <span class="game-badge">×2</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DICE GAME ===== -->
+<section id="dice" style="padding-top:10px">
+  <div class="game-room">
+    <div class="game-room-title">🎲 КОСТИ</div>
+    <div class="divider"></div>
+    <div class="game-panel">
+      <h3>БОЛЬШЕ ИЛИ МЕНЬШЕ 7</h3>
+      <div class="bet-row">
+        <input type="number" class="bet-field" id="diceBet" value="1000" min="10" step="100">
+        <span class="bet-chip" onclick="setDB(100)">100</span>
+        <span class="bet-chip" onclick="setDB(1000)">1K</span>
+        <span class="bet-chip" onclick="setDB(5000)">5K</span>
+        <span class="bet-chip allin" onclick="setDB(getBalance())">ALL IN</span>
+      </div>
+      <div class="act-row">
+        <button class="act-btn" id="diceHigh" onclick="dicePick('high')">БОЛЬШЕ 7</button>
+        <button class="act-btn" id="diceLow" onclick="dicePick('low')">МЕНЬШЕ 7</button>
+      </div>
+      <div class="dice-area">
+        <div class="dice" id="dice1">⚀</div>
+        <div class="dice" id="dice2">⚀</div>
+      </div>
+      <div class="dice-sum" id="diceSum"></div>
+      <button class="go-btn" id="diceBtn" onclick="rollDice()">▶ БРОСОК</button>
+      <div class="game-result" id="diceResult"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COIN FLIP GAME ===== -->
+<section id="coin" style="padding-top:10px">
+  <div class="game-room">
+    <div class="game-room-title">🪙 ОРЁЛ/РЕШКА</div>
+    <div class="divider"></div>
+    <div class="game-panel">
+      <h3>УГАДАЙ СТОРОНУ МОНЕТЫ</h3>
+      <div class="bet-row">
+        <input type="number" class="bet-field" id="coinBet" value="1000" min="10" step="100">
+        <span class="bet-chip" onclick="setCB(100)">100</span>
+        <span class="bet-chip" onclick="setCB(1000)">1K</span>
+        <span class="bet-chip" onclick="setCB(5000)">5K</span>
+        <span class="bet-chip allin" onclick="setCB(getBalance())">ALL IN</span>
+      </div>
+      <div class="act-row">
+        <button class="act-btn" id="coinEagle" onclick="coinPick('eagle')">ОРЁЛ 🦅</button>
+        <button class="act-btn" id="coinTails" onclick="coinPick('tails')">РЕШКА 🪙</button>
+      </div>
+      <div class="coin-stage">
+        <div class="coin" id="coinEl">🦅</div>
+      </div>
+      <button class="go-btn" id="coinBtn" onclick="flipCoin()">▶ БРОСОК</button>
+      <div class="game-result" id="coinResult"></div>
+    </div>
   </div>
 </section>
 
@@ -170,46 +294,155 @@ footer strong{color:var(--gold);font-size:1.1rem;display:block;margin-bottom:8px
 </footer>
 
 <script>
-// PARTICLES
+// ===== CONFIG =====
+const SOUND_ENABLED_KEY='casinoSound';
+let soundEnabled=localStorage.getItem(SOUND_ENABLED_KEY)!=='off';
+
+// ===== PARTICLES =====
 (function(){
-  const c=document.getElementById('particles');
-  for(let i=0;i<80;i++){
+  const a=document.getElementById('ambient');
+  for(let i=0;i<30;i++){
     const p=document.createElement('div');
-    const size=.5+Math.random()*2.5;
-    p.style.cssText='position:absolute;width:'+size+'px;height:'+size+'px;background:rgba(212,175,55,'+(.15+Math.random()*.35)+');border-radius:50%;left:'+(Math.random()*100)+'%;top:'+(Math.random()*100)+'%;animation:pf'+(i%4)+' '+(6+Math.random()*12)+'s ease-in-out infinite;animation-delay:'+(Math.random()*5)+'s';
-    c.appendChild(p);
+    p.className='particle';
+    const s=1+Math.random()*3;
+    p.style.cssText='width:'+s+'px;height:'+s+'px;left:'+(Math.random()*100)+'%;bottom:-20px;animation-duration:'+(15+Math.random()*25)+'s;animation-delay:'+(Math.random()*10)+'s';
+    a.appendChild(p);
   }
-  const s=document.createElement('style');
-  s.textContent='@keyframes pf0{0%,100%{transform:translateY(0)translateX(0)}50%{transform:translateY(-40px)translateX(15px)}}@keyframes pf1{0%,100%{transform:translateY(0)translateX(0)}50%{transform:translateY(25px)translateX(-20px)}}@keyframes pf2{0%,100%{transform:translateY(0)translateX(0)}50%{transform:translateY(-20px)translateX(-12px)}}@keyframes pf3{0%,100%{transform:translateY(0)translateX(0)}50%{transform:translateY(30px)translateX(18px)}}';
-  document.head.appendChild(s);
 })();
 
-// SLIDER
-let slideIdx=0;
-const slides=document.querySelectorAll('.slide');
-const dots=document.getElementById('sliderDots');
-const thumbs=document.getElementById('thumbs');
-const slideImgs=['slide1.jpg','slide2.jpg','slide3.jpg','slide4.jpg'];
-for(let i=0;i<slides.length;i++){
-  const d=document.createElement('div');
-  d.className='slider-dot'+(i===0?' active':'');
-  d.onclick=()=>goToSlide(i);
-  dots.appendChild(d);
-  const t=document.createElement('div');
-  t.className='thumb'+(i===0?' active':'');
-  t.style.backgroundImage='url('+slideImgs[i]+')';
-  t.onclick=()=>goToSlide(i);
-  thumbs.appendChild(t);
+// ===== BALANCE (shared with slots.html via localStorage) =====
+const BAL_KEY='casinoRpoBal';
+function getBalance(){return parseInt(localStorage.getItem(BAL_KEY)||'100000')}
+function setBalance(v){localStorage.setItem(BAL_KEY,v);document.querySelectorAll('[data-balance]').forEach(e=>e.textContent='¥ '+Math.floor(v).toLocaleString('ru-RU'))}
+function addBalance(v){setBalance(getBalance()+v)}
+setBalance(getBalance());
+
+// ===== AUDIO =====
+let actx=null;
+function getA(){if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();return actx}
+function play(freq,dur,type,vol){
+  if(!soundEnabled)return;
+  try{
+    const c=getA(),o=c.createOscillator(),g=c.createGain();
+    o.type=type||'square';o.frequency.value=freq;g.gain.setValueAtTime(vol||.07,c.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001,c.currentTime+dur);
+    o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+dur);
+  }catch(e){}
 }
-function goToSlide(i){
+function sndClick(){play(600,.06,'square',.04)}
+function sndRoll(){play(220,.2,'sawtooth',.05);setTimeout(()=>play(180,.2,'sawtooth',.05),100)}
+function sndWin(){[523,659,784,1047].forEach((f,i)=>setTimeout(()=>play(f,.15,'sine',.07),i*130))}
+function sndLose(){play(170,.4,'sawtooth',.06)}
+function toggleSound(){soundEnabled=!soundEnabled;localStorage.setItem(SOUND_ENABLED_KEY,soundEnabled?'on':'off');document.getElementById('soundToggle').textContent=soundEnabled?'🔊':'🔇'}
+if(!soundEnabled)document.getElementById('soundToggle').textContent='🔇';
+
+// ===== SLIDER =====
+let slideIdx=0;
+const sl=document.querySelectorAll('.slide');
+const dt=document.getElementById('sliderDots');
+const th=document.getElementById('thumbs');
+const si=['slide1.jpg','slide2.jpg','slide3.jpg','slide4.jpg'];
+for(let i=0;i<sl.length;i++){
+  let d=document.createElement('div');d.className='slider-dot'+(i===0?' active':'');d.onclick=()=>goS(i);dt.appendChild(d);
+  let t=document.createElement('div');t.className='thumb'+(i===0?' active':'');t.style.backgroundImage='url('+si[i]+')';t.onclick=()=>goS(i);th.appendChild(t);
+}
+function goS(i){
   slideIdx=i;
   document.getElementById('sliderTrack').style.transform='translateX(-'+(i*100)+'%)';
-  document.querySelectorAll('.slider-dot').forEach((d,idx)=>d.className='slider-dot'+(idx===i?' active':''));
-  document.querySelectorAll('.thumb').forEach((d,idx)=>d.className='thumb'+(idx===i?' active':''));
+  document.querySelectorAll('.slider-dot').forEach((e,idx)=>e.className='slider-dot'+(idx===i?' active':''));
+  document.querySelectorAll('.thumb').forEach((e,idx)=>e.className='thumb'+(idx===i?' active':''));
 }
-function nextSlide(){slideIdx=(slideIdx+1)%slides.length;goToSlide(slideIdx)}
-function prevSlide(){slideIdx=(slideIdx-1+slides.length)%slides.length;goToSlide(slideIdx)}
+function nextSlide(){goS((slideIdx+1)%sl.length)}
+function prevSlide(){goS((slideIdx-1+sl.length)%sl.length)}
 setInterval(nextSlide,5000);
+
+// ===== CONFETTI =====
+function confetti(count){
+  const cols=['#D4AF37','#F0D060','#fff','#e33','#4af','#c22'];
+  for(let i=0;i<count;i++){
+    const p=document.createElement('div');
+    p.className='confetti-piece';
+    const s=5+Math.random()*8;
+    p.style.cssText='left:'+(Math.random()*100)+'vw;width:'+s+'px;height:'+s+'px;background:'+cols[Math.floor(Math.random()*cols.length)]+';border-radius:'+(Math.random()<.5?'50%':'2px')+';animation-duration:'+(1.8+Math.random()*2.2)+'s;animation-delay:'+(Math.random()*.4)+'s';
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),4500);
+  }
+}
+
+// ===== DICE =====
+const DICE_FACES=['⚀','⚁','⚂','⚃','⚄','⚅'];
+let dicePickSel='';
+function setDB(v){document.getElementById('diceBet').value=v}
+function dicePick(x){
+  dicePickSel=x;
+  document.getElementById('diceHigh').classList.toggle('selected',x==='high');
+  document.getElementById('diceLow').classList.toggle('selected',x==='low');
+  sndClick();
+}
+function rollDice(){
+  if(!dicePickSel){document.getElementById('diceResult').textContent='Выбери: больше или меньше 7';document.getElementById('diceResult').className='game-result lose';return}
+  const btn=document.getElementById('diceBtn');
+  if(btn.disabled)return;
+  const bet=parseInt(document.getElementById('diceBet').value)||0;
+  const res=document.getElementById('diceResult');
+  if(bet<10||bet>getBalance()){res.textContent=bet>getBalance()?'Недостаточно фишек':'Минимум 10';res.className='game-result lose';return}
+  btn.disabled=true;addBalance(-bet);sndRoll();
+  res.className='game-result';res.textContent='';
+  document.getElementById('diceSum').textContent='';
+  const d1=document.getElementById('dice1'),d2=document.getElementById('dice2');
+  d1.classList.add('rolling');d2.classList.add('rolling');
+  setTimeout(()=>{
+    d1.classList.remove('rolling');d2.classList.remove('rolling');
+    const r1=Math.floor(Math.random()*6)+1,r2=Math.floor(Math.random()*6)+1,sum=r1+r2;
+    d1.textContent=DICE_FACES[r1-1];d2.textContent=DICE_FACES[r2-1];
+    document.getElementById('diceSum').textContent='Сумма: '+sum;
+    let win=0,msg='';
+    if(sum===7){msg='Выпало 7 — казино забирает ставку';sndLose()}
+    else if((dicePickSel==='high'&&sum>7)||(dicePickSel==='low'&&sum<7)){
+      win=bet*2;addBalance(win);msg='Угадал! Сумма '+sum+' — ×2! +¥'+win.toLocaleString('ru-RU');sndWin();confetti(50);
+    }
+    else{msg='Не угадал. Сумма '+sum+(dicePickSel==='high'?' (меньше 7)':' (больше 7)');sndLose()}
+    res.textContent=msg;res.className=win>0?'game-result win':'game-result lose';
+    btn.disabled=false;
+  },800);
+}
+document.getElementById('diceBet').addEventListener('keydown',e=>{if(e.key==='Enter')rollDice()});
+
+// ===== COIN FLIP =====
+let coinPickSel='';
+function setCB(v){document.getElementById('coinBet').value=v}
+function coinPick(x){
+  coinPickSel=x;
+  document.getElementById('coinEagle').classList.toggle('selected',x==='eagle');
+  document.getElementById('coinTails').classList.toggle('selected',x==='tails');
+  sndClick();
+}
+function flipCoin(){
+  if(!coinPickSel){document.getElementById('coinResult').textContent='Выбери: орёл или решка';document.getElementById('coinResult').className='game-result lose';return}
+  const btn=document.getElementById('coinBtn');
+  if(btn.disabled)return;
+  const bet=parseInt(document.getElementById('coinBet').value)||0;
+  const res=document.getElementById('coinResult');
+  if(bet<10||bet>getBalance()){res.textContent=bet>getBalance()?'Недостаточно фишек':'Минимум 10';res.className='game-result lose';return}
+  btn.disabled=true;addBalance(-bet);sndClick();
+  res.className='game-result';res.textContent='';
+  const el=document.getElementById('coinEl');
+  el.classList.remove('flip');
+  void el.offsetWidth;
+  el.classList.add('flip');
+  setTimeout(()=>{
+    el.classList.remove('flip');
+    const side=Math.random()<.5?'eagle':'tails';
+    const sideTxt=side==='eagle'?'Орёл':'Решка';
+    el.textContent=side==='eagle'?'🦅':'🪙';
+    let win=0,msg='';
+    if(coinPickSel===side){win=bet*2;addBalance(win);msg='Угадал! '+sideTxt+' — ×2! +¥'+win.toLocaleString('ru-RU');sndWin();confetti(50)}
+    else{msg='Не угадал. Выпал: '+sideTxt;sndLose()}
+    res.textContent=msg;res.className=win>0?'game-result win':'game-result lose';
+    btn.disabled=false;
+  },1100);
+}
+document.getElementById('coinBet').addEventListener('keydown',e=>{if(e.key==='Enter')flipCoin()});
 </script>
 </body>
 </html>
