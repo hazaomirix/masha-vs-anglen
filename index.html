@@ -9,6 +9,7 @@
 <meta property="og:description" content="Премиальные демо-игры на виртуальные фишки. 18+">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="logo.png">
+<script src="profile.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -42,6 +43,32 @@ header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(10,10
 .topup-btn{background:rgba(212,175,55,0.08);color:var(--gold);border:1px solid rgba(212,175,55,0.3);border-radius:30px;padding:7px 16px;font-size:.8rem;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all .3s}
 .topup-btn:hover{background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#000;box-shadow:0 4px 20px rgba(212,175,55,0.3);transform:translateY(-1px)}
 @media(max-width:600px){header{padding:0 16px;height:64px}.header-left img{height:40px}.header-left span{font-size:1.1rem;letter-spacing:5px}.header-nav{display:none}.topup-btn{font-size:.7rem;padding:5px 10px}}
+
+/* ===== PROFILE GATE ===== */
+.profile-gate{position:fixed;inset:0;z-index:3000;background:linear-gradient(150deg,#0e0e20,#06060e 50%,#0d0d22);display:flex;align-items:center;justify-content:center;padding:20px}
+.profile-gate.hidden{display:none}
+.profile-box{width:100%;max-width:430px;background:rgba(16,16,28,0.7);backdrop-filter:blur(24px);border:2px solid rgba(212,175,55,0.25);border-radius:20px;padding:36px 30px;text-align:center;box-shadow:0 40px 120px rgba(0,0,0,0.9);position:relative;overflow:hidden}
+.profile-box::before{content:'';position:absolute;top:0;left:10%;right:10%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.5}
+.profile-box .p-logo{font-size:2.4rem;margin-bottom:6px}
+.profile-box h2{font-family:'Playfair Display',serif;color:var(--gold);font-size:1.6rem;letter-spacing:2px;margin-bottom:4px}
+.profile-box .p-sub{color:var(--text2);font-size:.82rem;letter-spacing:1px;margin-bottom:22px}
+.av-pick{display:flex;justify-content:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.av-opt{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,0.04);border:2px solid var(--glass-border);display:flex;align-items:center;justify-content:center;font-size:1.6rem;cursor:pointer;transition:all .3s}
+.av-opt:hover{border-color:var(--gold);transform:scale(1.1)}
+.av-opt.sel{border-color:var(--gold);background:rgba(212,175,55,0.12);box-shadow:0 0 20px rgba(212,175,55,0.25)}
+.p-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.25);border-radius:12px;color:var(--text);padding:13px 16px;font-size:1rem;text-align:center;outline:none;transition:border .3s;margin-bottom:14px}
+.p-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(212,175,55,0.15)}
+.p-input::placeholder{color:var(--text2)}
+.p-btn{width:100%;padding:14px 0;background:linear-gradient(135deg,#a08020,#D4AF37 40%,#F0D060 60%,#D4AF37 80%,#a08020);background-size:200% 200%;color:#0A0A0F;font-weight:900;font-size:1.05rem;letter-spacing:4px;border:none;border-radius:50px;cursor:pointer;text-transform:uppercase;transition:all .3s;animation:btnShimmer 3s ease-in-out infinite}
+.p-btn:hover{transform:scale(1.03);box-shadow:0 10px 50px rgba(212,175,55,0.4)}
+.p-err{color:#e66;font-size:.8rem;min-height:20px;margin-bottom:10px}
+.p-foot{color:var(--text2);font-size:.72rem;margin-top:14px;letter-spacing:1px}
+.p-foot b{color:var(--gold)}
+.header-user{display:flex;align-items:center;gap:10px}
+.header-nick{font-size:.8rem;color:var(--text2);letter-spacing:1px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.header-nick b{color:var(--gold);font-weight:700}
+.logout-btn{background:none;border:none;color:var(--text2);font-size:.68rem;letter-spacing:1px;cursor:pointer;text-transform:uppercase;transition:color .3s;padding:2px}
+.logout-btn:hover{color:var(--gold)}
 
 /* HERO */
 .hero{width:100%;margin-top:72px;z-index:1;padding:44px 20px 28px;text-align:center;background:linear-gradient(180deg,rgba(212,175,55,0.03) 0%,transparent 100%)}
@@ -132,10 +159,14 @@ footer strong{color:var(--gold);font-size:1rem;display:block;margin-bottom:6px;l
     <a href="slots.html">Слоты</a>
   </nav>
   <div class="header-right">
-    <div class="balance-badge" data-balance>¥ 100 000</div>
-    <button class="topup-btn" onclick="topup()">+100К</button>
+    <div class="header-user">
+      <div class="balance-badge" data-balance>¥ 100 000</div>
+      <button class="topup-btn" onclick="topup()">+100К</button>
+    </div>
+    <div class="header-nick"><b></b></div>
     <div class="sound-toggle" id="soundToggle" onclick="toggleSound()">🔊</div>
     <div class="avatar">M</div>
+    <button class="logout-btn" onclick="logout()">выйти</button>
   </div>
 </header>
 
@@ -193,6 +224,20 @@ footer strong{color:var(--gold);font-size:1rem;display:block;margin-bottom:6px;l
   <p>© 2026 CASINO RPO-326 · Только для развлекательных целей</p>
 </footer>
 
+<!-- PROFILE GATE (create profile on first visit) -->
+<div class="profile-gate" id="profileGate">
+  <div class="profile-box">
+    <div class="p-logo">🎰</div>
+    <h2>CASINO RPO-326</h2>
+    <p class="p-sub">Создай профиль, чтобы начать играть</p>
+    <div class="av-pick" id="avatarPick"></div>
+    <input type="text" class="p-input" id="profName" placeholder="Твой ник (2-16 символов)" maxlength="16" autocomplete="off">
+    <div class="p-err" id="profErr"></div>
+    <button class="p-btn" id="profCreateBtn">СОЗДАТЬ ПРОФИЛЬ</button>
+    <p class="p-foot">Баланс и прогресс сохраняются <b>за профилем</b>, а не за браузером</p>
+  </div>
+</div>
+
 <script>
 const SOUND_ENABLED_KEY='casinoSound';
 let soundEnabled=localStorage.getItem(SOUND_ENABLED_KEY)!=='off';
@@ -208,13 +253,14 @@ let soundEnabled=localStorage.getItem(SOUND_ENABLED_KEY)!=='off';
   }
 })();
 
-// BALANCE
-const BAL_KEY='casinoRpoBal';
-function getBalance(){return parseInt(localStorage.getItem(BAL_KEY)||'100000')}
-function setBalance(v){localStorage.setItem(BAL_KEY,v);document.querySelectorAll('[data-balance]').forEach(e=>e.textContent='¥ '+Math.floor(v).toLocaleString('ru-RU'))}
-function addBalance(v){setBalance(getBalance()+v)}
-function topup(){setBalance(Math.max(getBalance(),100000));sndWin();confetti(20)}
-setBalance(getBalance());
+// BALANCE (shared with profile.js — getBalance/setBalance/addBalance/topup are defined there)
+// Fallbacks so page works even if profile.js fails to load
+if(typeof getBalance==='undefined'){
+  window.getBalance=function(){return parseInt(localStorage.getItem('casinoRpoBal')||'100000')};
+  window.setBalance=function(v){localStorage.setItem('casinoRpoBal',v);document.querySelectorAll('[data-balance]').forEach(e=>e.textContent='¥ '+Math.floor(v).toLocaleString('ru-RU'))};
+  window.addBalance=function(v){setBalance(getBalance()+v)};
+  window.topup=function(){setBalance(Math.max(getBalance(),100000));sndWin();confetti(20)};
+}
 
 // AUDIO
 let actx=null;

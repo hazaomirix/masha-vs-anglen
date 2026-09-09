@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ОРЁЛ/РЕШКА — CASINO RPO-326</title>
 <link rel="icon" type="image/png" href="logo.png">
+<script src="profile.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -31,6 +32,10 @@ header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(10,10
 .avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dark),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;color:#000}
 .topup-btn{background:rgba(212,175,55,0.08);color:var(--gold);border:1px solid rgba(212,175,55,0.3);border-radius:30px;padding:7px 16px;font-size:.8rem;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all .3s}
 .topup-btn:hover{background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#000;box-shadow:0 4px 20px rgba(212,175,55,0.3);transform:translateY(-1px)}
+.header-nick{font-size:.8rem;color:var(--text2);letter-spacing:1px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.header-nick b{color:var(--gold);font-weight:700}
+.logout-btn{background:none;border:none;color:var(--text2);font-size:.68rem;letter-spacing:1px;cursor:pointer;text-transform:uppercase;transition:color .3s;padding:2px}
+.logout-btn:hover{color:var(--gold)}
 @media(max-width:600px){header{padding:0 16px;height:64px}.header-left img{height:40px}.header-left span{font-size:1.1rem}.back-link{font-size:.75rem;padding:4px 10px}}
 main{flex:1;margin-top:72px;z-index:1;padding:40px 16px 60px;display:flex;flex-direction:column;align-items:center}
 .wrap{width:100%;max-width:780px}
@@ -99,10 +104,14 @@ footer strong{color:var(--gold);font-size:1rem;display:block;margin-bottom:4px;l
   <div class="header-left"><a href="index.html"><img src="logo.png" alt="CASINO" onerror="this.style.display='none'"><span>CASINO</span></a></div>
   <div class="header-right">
     <a href="index.html" class="back-link">← НА ГЛАВНУЮ</a>
-    <div class="balance-badge" data-balance>¥ 100 000</div>
-    <button class="topup-btn" onclick="topup()">+100К</button>
+    <div class="header-user">
+      <div class="balance-badge" data-balance>¥ 100 000</div>
+      <button class="topup-btn" onclick="topup()">+100К</button>
+    </div>
+    <div class="header-nick"><b></b></div>
     <div class="sound-toggle" id="soundToggle" onclick="ts()">🔊</div>
     <div class="avatar">M</div>
+    <button class="logout-btn" onclick="logout()">выйти</button>
   </div>
 </header>
 <main>
@@ -148,16 +157,18 @@ footer strong{color:var(--gold);font-size:1rem;display:block;margin-bottom:4px;l
 (function(){const a=document.getElementById('ambient');for(let i=0;i<25;i++){const p=document.createElement('div');p.className='particle';const s=1+Math.random()*3;p.style.cssText='width:'+s+'px;height:'+s+'px;left:'+(Math.random()*100)+'%;bottom:-20px;animation-duration:'+(15+Math.random()*25)+'s;animation-delay:'+(Math.random()*10)+'s';a.appendChild(p)}})();
 
 // CONFIG
-const SK='casinoSound',BK='casinoRpoBal',STK='coinStats';
+const SK='casinoSound',STK='coinStats';
 let sd=localStorage.getItem(SK)!=='off';
 let st=JSON.parse(localStorage.getItem(STK)||'null')||{g:0,w:0,s:0,b:0};
 let hi=[];
 
-// BALANCE
-function gB(){return parseInt(localStorage.getItem(BK)||'100000')}
-function sB(v){localStorage.setItem(BK,v);document.querySelectorAll('[data-balance]').forEach(e=>e.textContent='¥ '+Math.floor(v).toLocaleString('ru-RU'))}
-function aB(v){sB(gB()+v)}sB(gB());
-function topup(){sB(Math.max(gB(),100000));sw();cf(20)}
+// BALANCE (shared with profile.js)
+if(typeof getBalance==='undefined'){
+  window.getBalance=function(){return parseInt(localStorage.getItem('casinoRpoBal')||'100000')};
+  window.setBalance=function(v){localStorage.setItem('casinoRpoBal',v);document.querySelectorAll('[data-balance]').forEach(e=>e.textContent='¥ '+Math.floor(v).toLocaleString('ru-RU'))};
+  window.addBalance=function(v){setBalance(getBalance()+v)};
+  window.topup=function(){setBalance(Math.max(getBalance(),100000));sw();cf(20)};
+}
 
 // AUDIO
 let ax=null;
@@ -188,8 +199,8 @@ function fC(){
   if(fl)return;
   if(!cp){document.getElementById('coinRes').textContent='Выбери сторону (1 — орёл, 2 — решка)';document.getElementById('coinRes').className='res lose';sl();return}
   const bt=document.getElementById('coinBtn'),bet=parseInt(document.getElementById('cb').value)||0,res=document.getElementById('coinRes');
-  if(bet<10||bet>gB()){res.textContent=bet>gB()?'Недостаточно фишек':'Минимум 10';res.className='res lose';sl();return}
-  fl=true;bt.disabled=true;aB(-bet);sc();res.className='res';res.textContent='';
+  if(bet<10||bet>getBalance()){res.textContent=bet>getBalance()?'Недостаточно фишек':'Минимум 10';res.className='res lose';sl();return}
+  fl=true;bt.disabled=true;addBalance(-bet);sc();res.className='res';res.textContent='';
   const el=document.getElementById('coinEl'),side=Math.random()<.5?'eagle':'tails';
   el.classList.remove('spin','land','win');void el.offsetWidth;el.classList.add('spin');
   // rapid emoji swap during spin
@@ -207,7 +218,7 @@ function fC(){
     if(win){st.w++;st.s++;if(st.s>st.b)st.b=st.s}else{st.s=0}
     hi.unshift({s:side,w:win});if(hi.length>12)hi.pop();sv();rN();rH();
     let msg='';
-    if(win){const amt=bet*2;aB(amt);msg='ПОБЕДА! '+stxt+' — ×2 · +¥'+amt.toLocaleString('ru-RU');res.className='res win';el.classList.add('win');sw();cf(60)}
+    if(win){const amt=bet*2;addBalance(amt);msg='ПОБЕДА! '+stxt+' — ×2 · +¥'+amt.toLocaleString('ru-RU');res.className='res win';el.classList.add('win');sw();cf(60)}
     else{msg='Мимо. Выпал: '+stxt;res.className='res lose';sl()}
     res.textContent=msg;
     setTimeout(()=>{bt.disabled=false;fl=false},300);
