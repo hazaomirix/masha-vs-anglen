@@ -18,26 +18,29 @@ body{font-family:Inter,sans-serif;background:var(--bg);color:var(--text);overflo
 h1,h2,h3{font-family:'Playfair Display',serif}
 
 /* HEADER */
-header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(10,10,18,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border);padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
-.header-left{display:flex;align-items:center;gap:10px}
-.header-left img{height:44px;width:auto;border-radius:4px}
-.header-left span{font-family:'Playfair Display',serif;font-size:1.4rem;letter-spacing:6px;color:var(--gold);font-weight:700}
+header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(10,10,18,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border);padding:0 24px;height:80px;display:flex;align-items:center;justify-content:space-between}
+.header-left{display:flex;align-items:center;gap:14px}
+.header-left img{height:60px;width:auto;border-radius:6px}
+.header-left span{font-family:'Playfair Display',serif;font-size:1.6rem;letter-spacing:8px;color:var(--gold);font-weight:700}
 .balance-badge{background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-dark));color:#000;font-weight:700;padding:6px 18px;border-radius:30px;font-size:.9rem}
 .avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dark),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;color:#000}
 .header-right{display:flex;align-items:center;gap:14px}
 
-/* SLIDER */
-.hero{position:relative;width:100%;height:100vh;overflow:hidden}
-.slider-track{display:flex;width:100%;height:100%;transition:transform .8s cubic-bezier(.4,0,.2,1)}
-.slide{flex:0 0 100%;height:100vh;background-size:cover;background-position:center;position:relative}
-.slide::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(10,10,15,0.5) 0%,rgba(10,10,15,0.85) 100%)}
-.slide-content{position:absolute;z-index:2;top:15%;left:50%;transform:translateX(-50%);text-align:center;width:90%;max-width:900px}
-.slide-content h1{font-size:clamp(2.2rem,5vw,4rem);color:var(--gold);margin-bottom:12px;text-shadow:0 4px 30px rgba(0,0,0,0.6);line-height:1.2}
-.slide-content p{font-size:clamp(1rem,1.8vw,1.3rem);color:rgba(245,240,232,0.75);margin-bottom:28px}
-.btn-gold{display:inline-block;padding:12px 40px;background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-light));color:#000;font-weight:700;font-size:.95rem;border:none;border-radius:50px;cursor:pointer;text-transform:uppercase;letter-spacing:3px;transition:transform .3s,box-shadow .3s;box-shadow:0 4px 25px rgba(212,175,55,0.3)}
+/* HERO */
+.hero{width:100%;margin-top:80px;position:relative}
+.hero-heading{text-align:center;padding:36px 20px 24px}
+.hero-heading h1{font-size:clamp(1.8rem,4vw,3.2rem);color:var(--gold);text-shadow:0 4px 30px rgba(0,0,0,0.6);line-height:1.2;letter-spacing:2px}
+.hero-heading p{font-size:clamp(1rem,1.6vw,1.2rem);color:rgba(245,240,232,0.75);margin-top:10px}
+.btn-gold{display:inline-block;margin-top:20px;padding:12px 40px;background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-light));color:#000;font-weight:700;font-size:.95rem;border:none;border-radius:50px;cursor:pointer;text-transform:uppercase;letter-spacing:3px;transition:transform .3s,box-shadow .3s;box-shadow:0 4px 25px rgba(212,175,55,0.3)}
 .btn-gold:hover{transform:scale(1.05);box-shadow:0 8px 40px rgba(212,175,55,0.5)}
 
-.slider-controls{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:10;display:flex;align-items:center;gap:20px}
+/* SLIDER */
+.slider{position:relative;width:100%;height:52vh;min-height:320px;max-height:620px;overflow:hidden}
+.slider-track{display:flex;width:100%;height:100%;transition:transform .8s cubic-bezier(.4,0,.2,1)}
+.slide{flex:0 0 100%;height:100%;background-size:cover;background-position:center;position:relative}
+.slide::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(10,10,15,0.25) 0%,rgba(10,10,15,0.6) 100%)}
+
+.slider-controls{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:10;display:flex;align-items:center;gap:20px}
 .slider-dots{display:flex;gap:8px}
 .slider-dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.25);cursor:pointer;transition:all .3s;border:1px solid rgba(212,175,55,0.3)}
 .slider-dot.active{background:var(--gold);border-color:var(--gold);width:32px;border-radius:6px}
@@ -58,8 +61,8 @@ section{padding:60px 20px;z-index:2;position:relative}
 footer{text-align:center;padding:32px 20px;border-top:1px solid var(--glass-border);color:var(--text2);font-size:.85rem}
 footer strong{color:var(--gold);font-size:1.1rem;display:block;margin-bottom:6px}
 
-@media(max-width:900px){.widgets-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:500px){.widgets-grid{grid-template-columns:1fr}}
+@media(max-width:900px){.widgets-grid{grid-template-columns:repeat(2,1fr)};.slider{height:40vh}}
+@media(max-width:500px){.widgets-grid{grid-template-columns:1fr};.slider{height:32vh}}
 </style>
 </head>
 <body>
@@ -76,40 +79,24 @@ footer strong{color:var(--gold);font-size:1.1rem;display:block;margin-bottom:6px
 </header>
 
 <div class="hero">
-  <div class="slider-track" id="sliderTrack">
-    <div class="slide" style="background-image:url(slide1.jpg)">
-      <div class="slide-content">
-        <h1>ДОБРО ПОЖАЛОВАТЬ В CASINO RPO-326</h1>
-        <p>Премиальный мир виртуальных развлечений</p>
-        <button class="btn-gold" onclick="document.getElementById('widgets').scrollIntoView({behavior:'smooth'})">ИГРАТЬ</button>
-      </div>
-    </div>
-    <div class="slide" style="background-image:url(slide2.jpg)">
-      <div class="slide-content">
-        <h1>ДОБРО ПОЖАЛОВАТЬ В CASINO RPO-326</h1>
-        <p>Слоты, кости, покер и многое другое</p>
-        <button class="btn-gold" onclick="document.getElementById('widgets').scrollIntoView({behavior:'smooth'})">ИГРАТЬ</button>
-      </div>
-    </div>
-    <div class="slide" style="background-image:url(slide3.jpg)">
-      <div class="slide-content">
-        <h1>ДОБРО ПОЖАЛОВАТЬ В CASINO RPO-326</h1>
-        <p>Испытай удачу в классических играх</p>
-        <button class="btn-gold" onclick="document.getElementById('widgets').scrollIntoView({behavior:'smooth'})">ИГРАТЬ</button>
-      </div>
-    </div>
-    <div class="slide" style="background-image:url(slide4.jpg)">
-      <div class="slide-content">
-        <h1>ДОБРО ПОЖАЛОВАТЬ В CASINO RPO-326</h1>
-        <p>Только виртуальные фишки, только честная игра</p>
-        <button class="btn-gold" onclick="document.getElementById('widgets').scrollIntoView({behavior:'smooth'})">ИГРАТЬ</button>
-      </div>
-    </div>
+  <div class="hero-heading">
+    <h1>ДОБРО ПОЖАЛОВАТЬ В CASINO RPO-326</h1>
+    <p>Премиальный мир виртуальных развлечений</p>
+    <button class="btn-gold" onclick="document.getElementById('widgets').scrollIntoView({behavior:'smooth'})">ИГРАТЬ</button>
   </div>
-  <div class="slider-controls">
-    <button class="slider-arrow" onclick="prevSlide()">‹</button>
-    <div class="slider-dots" id="sliderDots"></div>
-    <button class="slider-arrow" onclick="nextSlide()">›</button>
+
+  <div class="slider">
+    <div class="slider-track" id="sliderTrack">
+      <div class="slide" style="background-image:url(slide1.jpg)"></div>
+      <div class="slide" style="background-image:url(slide2.jpg)"></div>
+      <div class="slide" style="background-image:url(slide3.jpg)"></div>
+      <div class="slide" style="background-image:url(slide4.jpg)"></div>
+    </div>
+    <div class="slider-controls">
+      <button class="slider-arrow" onclick="prevSlide()">‹</button>
+      <div class="slider-dots" id="sliderDots"></div>
+      <button class="slider-arrow" onclick="nextSlide()">›</button>
+    </div>
   </div>
 </div>
 
