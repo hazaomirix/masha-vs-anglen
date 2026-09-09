@@ -3,924 +3,151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>CASINO — демо-игры на виртуальные фишки</title>
-<meta name="description" content="CASINO — премиальные демо-игры на виртуальные фишки. Слоты, кости, покер, дурак и другие игры. Только 18+.">
-<meta property="og:title" content="CASINO — демо-игры">
+<title>CASINO RPO-326 — демо-игры на виртуальные фишки</title>
+<meta name="description" content="CASINO RPO-326 — премиальные демо-игры на виртуальные фишки. 18+.">
+<meta property="og:title" content="CASINO RPO-326">
 <meta property="og:description" content="Премиальные демо-игры на виртуальные фишки. 18+">
 <meta property="og:type" content="website">
-<link rel="icon" type="image/jpeg" href="logo.jpg">
+<link rel="icon" type="image/png" href="logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--gold:#D4AF37;--gold-light:#F0D060;--gold-dark:#B8960F;--bg:#0A0A0F;--bg2:#10101A;--text:#F5F0E8;--text2:#888;--glass:rgba(20,20,35,0.65);--glass-border:rgba(212,175,55,0.25);--shadow:0 8px 40px rgba(0,0,0,0.6)}
+:root{--gold:#D4AF37;--gold-light:#F0D060;--gold-dark:#B8960F;--bg:#0A0A0F;--text:#F5F0E8;--text2:#999;--glass:rgba(20,20,35,0.55);--glass-border:rgba(212,175,55,0.2)}
 html{scroll-behavior:smooth}
-body{font-family:Inter,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh}
-h1,h2,h3,h4{font-family:'Playfair Display',serif}
-a{color:var(--gold);text-decoration:none}
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--gold-dark);border-radius:3px}
-
-/* PARTICLES */
-#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1}
+body{font-family:Inter,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+h1,h2,h3{font-family:'Playfair Display',serif}
 
 /* HEADER */
 header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(10,10,18,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border);padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
-.header-left{display:flex;align-items:center;gap:12px}
+.header-left{display:flex;align-items:center;gap:10px}
 .header-left img{height:44px;width:auto;border-radius:4px}
 .header-left span{font-family:'Playfair Display',serif;font-size:1.4rem;letter-spacing:6px;color:var(--gold);font-weight:700}
-.header-nav{display:flex;align-items:center;gap:16px;font-size:0.85rem;text-transform:uppercase;letter-spacing:2px}
-.header-nav a{color:var(--text2);transition:color .3s}
-.header-nav a:hover{color:var(--gold)}
-.header-nav .dot{color:var(--gold);font-size:.5rem;opacity:.5}
-.header-right{display:flex;align-items:center;gap:16px}
-.balance-badge{background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-dark));color:#000;font-weight:700;padding:6px 18px;border-radius:30px;font-size:.9rem;box-shadow:0 0 20px rgba(212,175,55,0.3)}
-.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dark),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;color:#000;cursor:pointer}
+.balance-badge{background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-dark));color:#000;font-weight:700;padding:6px 18px;border-radius:30px;font-size:.9rem}
+.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dark),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;color:#000}
+.header-right{display:flex;align-items:center;gap:14px}
 
-/* HERO SLIDER */
-.hero-slider{position:relative;width:100%;height:100vh;overflow:hidden}
+/* SLIDER */
+.hero{position:relative;width:100%;height:100vh;overflow:hidden}
 .slider-track{display:flex;width:100%;height:100%;transition:transform .8s cubic-bezier(.4,0,.2,1)}
-.slide{flex:0 0 100%;height:100vh;background-size:cover;background-position:center;position:relative;display:flex;align-items:center;justify-content:center}
-.slide::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to top,rgba(10,10,15,0.7) 20%,rgba(10,10,15,0.2) 70%)}
-.slide-content{position:relative;z-index:2;text-align:center;max-width:800px;padding:0 20px}
-.slide-content h1{font-size:clamp(2.5rem,6vw,4.5rem);color:var(--gold);margin-bottom:16px;text-shadow:0 4px 30px rgba(0,0,0,0.5)}
-.slide-content p{font-size:clamp(1rem,2vw,1.4rem);color:rgba(245,240,232,0.8);margin-bottom:32px;line-height:1.6}
-.btn-gold{display:inline-block;padding:14px 48px;background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-light));color:#000;font-weight:700;font-size:1rem;border:none;border-radius:50px;cursor:pointer;text-transform:uppercase;letter-spacing:3px;transition:transform .3s,box-shadow .3s;box-shadow:0 4px 25px rgba(212,175,55,0.4)}
-.btn-gold:hover{transform:scale(1.05);box-shadow:0 8px 40px rgba(212,175,55,0.6)}
+.slide{flex:0 0 100%;height:100vh;background-size:cover;background-position:center;position:relative}
+.slide::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(10,10,15,0.5) 0%,rgba(10,10,15,0.85) 100%)}
+.slide-content{position:absolute;z-index:2;top:15%;left:50%;transform:translateX(-50%);text-align:center;width:90%;max-width:900px}
+.slide-content h1{font-size:clamp(2.2rem,5vw,4rem);color:var(--gold);margin-bottom:12px;text-shadow:0 4px 30px rgba(0,0,0,0.6);line-height:1.2}
+.slide-content p{font-size:clamp(1rem,1.8vw,1.3rem);color:rgba(245,240,232,0.75);margin-bottom:28px}
+.btn-gold{display:inline-block;padding:12px 40px;background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-light));color:#000;font-weight:700;font-size:.95rem;border:none;border-radius:50px;cursor:pointer;text-transform:uppercase;letter-spacing:3px;transition:transform .3s,box-shadow .3s;box-shadow:0 4px 25px rgba(212,175,55,0.3)}
+.btn-gold:hover{transform:scale(1.05);box-shadow:0 8px 40px rgba(212,175,55,0.5)}
 
 .slider-controls{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:10;display:flex;align-items:center;gap:20px}
 .slider-dots{display:flex;gap:8px}
-.slider-dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer;transition:all .3s;border:1px solid rgba(212,175,55,0.3)}
-.slider-dot.active{background:var(--gold);border-color:var(--gold);box-shadow:0 0 12px rgba(212,175,55,0.5);width:32px;border-radius:6px}
-.slider-arrow{background:rgba(10,10,18,0.6);color:var(--gold);border:1px solid var(--glass-border);width:48px;height:48px;border-radius:50%;cursor:pointer;font-size:1.4rem;display:flex;align-items:center;justify-content:center;transition:all .3s;backdrop-filter:blur(10px)}
-.slider-arrow:hover{background:rgba(212,175,55,0.2);border-color:var(--gold)}
+.slider-dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.25);cursor:pointer;transition:all .3s;border:1px solid rgba(212,175,55,0.3)}
+.slider-dot.active{background:var(--gold);border-color:var(--gold);width:32px;border-radius:6px}
+.slider-arrow{background:rgba(10,10,18,0.5);color:var(--gold);border:1px solid var(--glass-border);width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1.3rem;display:flex;align-items:center;justify-content:center;transition:all .3s}
+.slider-arrow:hover{background:rgba(212,175,55,0.2)}
 
-/* SECTIONS */
-section{padding:80px 20px;position:relative;z-index:2}
-.section-title{text-align:center;font-size:clamp(1.8rem,3.5vw,2.8rem);color:var(--gold);margin-bottom:12px}
-.section-subtitle{text-align:center;color:var(--text2);margin-bottom:48px;font-size:1.1rem}
-
-.container{max-width:1300px;margin:0 auto;padding:0 16px}
-
-/* GAME WIDGETS */
-.widgets-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-.widget-card{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:20px;padding:32px 24px;text-align:center;cursor:pointer;transition:all .4s;position:relative;overflow:hidden}
-.widget-card:hover{transform:translateY(-8px);border-color:var(--gold);box-shadow:0 12px 50px rgba(212,175,55,0.15)}
-.widget-card .icon{font-size:3.5rem;margin-bottom:16px;display:block}
-.widget-card h3{color:var(--gold);font-size:1.4rem;margin-bottom:8px;font-family:'Playfair Display',serif}
+/* WIDGETS */
+section{padding:60px 20px;z-index:2;position:relative}
+.section-title{text-align:center;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--gold);margin-bottom:40px}
+.widgets-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1400px;margin:0 auto}
+.widget-card{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:20px;padding:36px 24px;text-align:center;cursor:pointer;transition:all .4s}
+.widget-card:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:0 12px 40px rgba(212,175,55,0.12)}
+.widget-card .icon{font-size:3.5rem;margin-bottom:14px;display:block}
+.widget-card h3{color:var(--gold);font-size:1.3rem;margin-bottom:8px}
 .widget-card p{color:var(--text2);font-size:.9rem;line-height:1.5;margin-bottom:12px}
-.widget-badge{display:inline-block;background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#000;font-weight:700;font-size:.8rem;padding:4px 12px;border-radius:20px;letter-spacing:1px}
+.widget-badge{display:inline-block;background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#000;font-weight:700;font-size:.8rem;padding:4px 14px;border-radius:20px;letter-spacing:1px}
 
-/* GAME SECTIONS */
-.game-section{scroll-margin-top:80px}
-.game-card{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:20px;padding:32px;max-width:700px;margin:0 auto}
+footer{text-align:center;padding:32px 20px;border-top:1px solid var(--glass-border);color:var(--text2);font-size:.85rem}
+footer strong{color:var(--gold);font-size:1.1rem;display:block;margin-bottom:6px}
 
-.game-title{font-size:1.6rem;color:var(--gold);font-family:'Playfair Display',serif;text-align:center;margin-bottom:20px}
-.bet-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin-bottom:20px}
-.bet-row label{color:var(--text2);font-size:.9rem;margin-right:4px}
-.bet-row input[type=number]{background:rgba(255,255,255,.05);border:1px solid var(--glass-border);border-radius:8px;color:var(--text);padding:8px 12px;width:120px;font-size:1rem;font-weight:600}
-.bet-row input:focus{outline:none;border-color:var(--gold)}
-.bet-btn{background:rgba(212,175,55,0.1);color:var(--gold);border:1px solid var(--glass-border);border-radius:8px;padding:6px 14px;cursor:pointer;font-weight:600;font-size:.85rem;transition:all .3s}
-.bet-btn:hover{background:rgba(212,175,55,0.25);border-color:var(--gold)}
-.bet-btn.allin{background:rgba(212,175,55,0.2);color:var(--gold-light)}
-.gold-btn{background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#000;border:none;border-radius:8px;padding:10px 32px;font-weight:700;font-size:1rem;cursor:pointer;letter-spacing:1px;transition:all .3s}
-.gold-btn:hover{transform:scale(1.03);box-shadow:0 4px 25px rgba(212,175,55,0.4)}
-.gold-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.game-result{text-align:center;font-size:1.2rem;font-weight:700;margin-top:16px;min-height:40px}
-
-/* SLOTS */
-.slots-reels{display:flex;justify-content:center;gap:12px;margin:24px 0;perspective:500px}
-.reel{width:90px;height:120px;background:rgba(0,0,0,0.6);border:2px solid var(--glass-border);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:3.2rem;transition:all .3s;position:relative}
-.reel.spinning{animation:reelSpinning .1s linear infinite}
-@keyframes reelSpinning{0%{transform:translateY(0)}100%{transform:translateY(-4px)}}
-.reel.win{background:rgba(212,175,55,0.2);border-color:var(--gold);box-shadow:0 0 30px rgba(212,175,55,0.3)}
-
-/* DICE */
-.dice-area{display:flex;justify-content:center;gap:24px;margin:24px 0}
-.dice{width:80px;height:80px;background:rgba(255,255,255,0.08);border:2px solid var(--glass-border);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:3.2rem;transition:all .3s}
-.dice.shaking{animation:diceShake .15s ease infinite}
-@keyframes diceShake{0%{transform:rotate(0)}25%{transform:rotate(-10deg)}75%{transform:rotate(10deg)}100%{transform:rotate(0)}}
-.choice-row{display:flex;justify-content:center;gap:12px;margin-bottom:16px}
-.choice-btn{background:rgba(255,255,255,.05);border:1px solid var(--glass-border);border-radius:12px;padding:12px 28px;color:var(--text);font-size:1rem;cursor:pointer;transition:all .3s;font-weight:500}
-.choice-btn:hover,.choice-btn.selected{background:rgba(212,175,55,0.2);border-color:var(--gold);color:var(--gold)}
-
-/* COIN */
-.coin-container{perspective:500px;display:flex;justify-content:center;margin:24px 0}
-.coin{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-size:2.5rem;color:#000;font-weight:700;cursor:pointer;transition:transform .3s;box-shadow:0 4px 30px rgba(212,175,55,0.3);position:relative}
-.coin.flipping{animation:coinFlip .6s ease-in-out}
-@keyframes coinFlip{0%{transform:rotateY(0)}50%{transform:rotateY(180deg)}100%{transform:rotateY(360deg)}}
-
-/* CUBE (single die) */
-.cube{width:80px;height:80px;background:rgba(255,255,255,0.08);border:2px solid var(--glass-border);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:3.2rem;margin:0 auto 24px;transition:all .3s}
-.cube.shaking{animation:diceShake .15s ease infinite}
-.numbers-grid{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-.num-btn{width:48px;height:48px;background:rgba(255,255,255,.05);border:1px solid var(--glass-border);border-radius:10px;color:var(--text);font-size:1.2rem;cursor:pointer;transition:all .3s;font-weight:600}
-.num-btn:hover,.num-btn.selected{background:rgba(212,175,55,0.2);border-color:var(--gold);color:var(--gold)}
-
-/* DURAK */
-.durak-table{min-height:400px;position:relative}
-.durak-cards{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:8px 0;min-height:80px}
-.card{width:60px;height:85px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:700;cursor:pointer;transition:all .3s;position:relative;flex-shrink:0}
-.card.back{background:linear-gradient(135deg,#1a1a3a,#2a2a5a);border:1px solid var(--gold-dark);color:transparent}
-.card.front{background:rgba(255,255,255,0.1);border:1px solid var(--glass-border)}
-.card.front:hover{transform:translateY(-8px);border-color:var(--gold)}
-.card.hearts,.card.diams{color:#e44}
-.card.spades,.card.clubs{color:#fff}
-.card.trump{box-shadow:0 0 12px rgba(212,175,55,0.3);border-color:var(--gold)}
-.durak-log{background:rgba(0,0,0,0.3);border-radius:8px;padding:12px;max-height:100px;overflow-y:auto;margin-top:12px;font-size:.8rem;color:var(--text2)}
-
-/* POKER */
-.poker-table{min-height:400px;background:rgba(0,0,0,0.2);border-radius:20px;padding:24px;position:relative}
-.poker-community{display:flex;gap:8px;justify-content:center;margin:16px 0;min-height:90px}
-.poker-community .card{width:65px;height:90px}
-.poker-hand{display:flex;gap:8px;justify-content:center;margin:8px 0}
-.poker-hand-label{text-align:center;font-size:.8rem;color:var(--text2);margin-bottom:4px}
-.poker-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
-.poker-btns .gold-btn{padding:10px 24px;font-size:.85rem}
-.pot-display{text-align:center;font-size:1.3rem;color:var(--gold);margin:12px 0;font-weight:700}
-
-/* CLICKER */
-.clicker-btn{width:180px;height:180px;border-radius:50%;border:none;background:linear-gradient(135deg,#e22,#c00);color:#fff;font-size:2rem;font-weight:900;cursor:pointer;margin:24px auto;display:block;text-transform:uppercase;letter-spacing:2px;box-shadow:0 8px 40px rgba(200,0,0,0.4);transition:all .3s}
-.clicker-btn:hover{transform:scale(1.05);box-shadow:0 12px 60px rgba(200,0,0,0.6)}
-.clicker-btn:active{transform:scale(.95)}
-.clicker-log{text-align:center;font-size:1.2rem;margin-top:12px;min-height:40px;font-weight:700}
-
-/* GAMES GRID (full list) */
-.games-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px}
-
-/* FOOTER */
-footer{position:relative;z-index:2;text-align:center;padding:40px 20px;border-top:1px solid var(--glass-border);color:var(--text2);font-size:.85rem}
-footer strong{color:var(--gold);font-size:1.2rem;display:block;margin-bottom:8px}
-
-/* FADE ANIMATIONS */
-.fade-up{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
-.fade-up.visible{opacity:1;transform:translateY(0)}
-
-/* RESPONSIVE */
-@media(max-width:1024px){
-  .widgets-grid{grid-template-columns:repeat(2,1fr)}
-  .games-grid{grid-template-columns:1fr}
-  .header-nav{display:none}
-}
-@media(max-width:768px){
-  header{padding:0 16px}
-  .header-nav{display:none}
-  .widgets-grid{grid-template-columns:1fr}
-  .slots-reels{gap:8px}
-  .reel{width:70px;height:100px;font-size:2.5rem}
-}
-@media(max-width:480px){
-  .balance-badge{font-size:.75rem;padding:4px 12px}
-  .header-left span{font-size:1.1rem;letter-spacing:3px}
-  .reel{width:60px;height:85px;font-size:2rem}
-  .card{width:50px;height:72px;font-size:1.1rem}
-}
+@media(max-width:900px){.widgets-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.widgets-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<div id="particles"></div>
-
 <header>
   <div class="header-left">
-    <img src="logo.jpg" alt="CASINO" onerror="this.style.display='none'">
+    <img src="logo.png" alt="CASINO" onerror="this.style.display='none'">
     <span>CASINO</span>
   </div>
-  <nav class="header-nav">
-    <a href="#hero">Главная</a><span class="dot">●</span>
-    <a href="#widgets">Игры</a><span class="dot">●</span>
-    <a href="#slots">Слоты</a><span class="dot">●</span>
-    <a href="#poker">Покер</a><span class="dot">●</span>
-    <a href="#footer">Контакты</a>
-  </nav>
   <div class="header-right">
-    <div class="balance-badge" id="balanceDisplay">¥ 100 000</div>
+    <div class="balance-badge">¥ 100 000</div>
     <div class="avatar">M</div>
   </div>
 </header>
 
-<section class="hero-slider" id="hero">
+<div class="hero">
   <div class="slider-track" id="sliderTrack">
-    <div class="slide" style="background-image:url(slide1.jpg)"><div class="slide-content"><h1>ДОБРО ПОЖАЛОВАТЬ</h1><p>Премиальный мир виртуальных развлечений</p><button class="btn-gold" onclick="scrollToSection('widgets')">ИГРАТЬ</button></div></div>
-    <div class="slide" style="background-image:url(slide2.jpg)"><div class="slide-content"><h1>СЛОТЫ ДЖЕКПОТЫ</h1><p>Крути барабаны и выигрывай виртуальные фишки</p><button class="btn-gold" onclick="scrollToSection('slots')">ИГРАТЬ</button></div></div>
-    <div class="slide" style="background-image:url(slide3.jpg)"><div class="slide-content"><h1>ПОКЕР ТУРНИРЫ</h1><p>Техасский Холдем против лучших ботов</p><button class="btn-gold" onclick="scrollToSection('poker')">ИГРАТЬ</button></div></div>
-    <div class="slide" style="background-image:url(slide4.jpg)"><div class="slide-content"><h1>КОСТИ И МОНЕТЫ</h1><p>Классические игры на удачу с удвоением</p><button class="btn-gold" onclick="scrollToSection('widgets')">ИГРАТЬ</button></div></div>
+    <div class="slide" style="background-image:url(slide1.jpg)">
+      <div class="slide-content">
+        <h1>ДОБРО ПОЖАЛОВАТЬ В CASINO RPO-326</h1>
+        <p>Премиальный мир виртуальных развлечений</p>
+        <button class="btn-gold" onclick="document.getElementById('widgets').scrollIntoView({behavior:'smooth'})">ИГРАТЬ</button>
+      </div>
+    </div>
+    <div class="slide" style="background-image:url(slide2.jpg)">
+      <div class="slide-content">
+        <h1>ДОБРО ПОЖАЛОВАТЬ В CASINO RPO-326</h1>
+        <p>Слоты, кости, покер и многое другое</p>
+        <button class="btn-gold" onclick="document.getElementById('widgets').scrollIntoView({behavior:'smooth'})">ИГРАТЬ</button>
+      </div>
+    </div>
+    <div class="slide" style="background-image:url(slide3.jpg)">
+      <div class="slide-content">
+        <h1>ДОБРО ПОЖАЛОВАТЬ В CASINO RPO-326</h1>
+        <p>Испытай удачу в классических играх</p>
+        <button class="btn-gold" onclick="document.getElementById('widgets').scrollIntoView({behavior:'smooth'})">ИГРАТЬ</button>
+      </div>
+    </div>
+    <div class="slide" style="background-image:url(slide4.jpg)">
+      <div class="slide-content">
+        <h1>ДОБРО ПОЖАЛОВАТЬ В CASINO RPO-326</h1>
+        <p>Только виртуальные фишки, только честная игра</p>
+        <button class="btn-gold" onclick="document.getElementById('widgets').scrollIntoView({behavior:'smooth'})">ИГРАТЬ</button>
+      </div>
+    </div>
   </div>
   <div class="slider-controls">
     <button class="slider-arrow" onclick="prevSlide()">‹</button>
     <div class="slider-dots" id="sliderDots"></div>
     <button class="slider-arrow" onclick="nextSlide()">›</button>
   </div>
-</section>
+</div>
 
 <section id="widgets">
-  <div class="container">
-    <h2 class="section-title fade-up">ВЫБЕРИ ИГРУ</h2>
-    <p class="section-subtitle fade-up">Топ-4 премиальных развлечения на любой вкус</p>
-    <div class="widgets-grid fade-up">
-      <div class="widget-card" onclick="scrollToSection('slots')"><span class="icon">🎰</span><h3>СЛОТЫ</h3><p>Крути барабаны, собирай комбинации</p><span class="widget-badge">×10</span></div>
-      <div class="widget-card" onclick="scrollToSection('dice')"><span class="icon">🎲</span><h3>КОСТИ</h3><p>Больше или меньше 7, удвоение</p><span class="widget-badge">×2</span></div>
-      <div class="widget-card" onclick="scrollToSection('coin')"><span class="icon">🪙</span><h3>ОРЁЛ/РЕШКА</h3><p>Честные 50/50</p><span class="widget-badge">×2</span></div>
-      <div class="widget-card" onclick="scrollToSection('poker')"><span class="icon">🃏</span><h3>ПОКЕР</h3><p>Техасский Холдем, до 10 игроков</p><span class="widget-badge">NEW</span></div>
-    </div>
+  <h2 class="section-title">ВЫБЕРИ ИГРУ</h2>
+  <div class="widgets-grid">
+    <div class="widget-card"><span class="icon">🎰</span><h3>СЛОТЫ</h3><p>Крути барабаны, собирай комбинации</p><span class="widget-badge">×10</span></div>
+    <div class="widget-card"><span class="icon">🎲</span><h3>КОСТИ</h3><p>Больше или меньше 7, удвоение</p><span class="widget-badge">×2</span></div>
+    <div class="widget-card"><span class="icon">🪙</span><h3>ОРЁЛ/РЕШКА</h3><p>Честные 50/50</p><span class="widget-badge">×2</span></div>
+    <div class="widget-card"><span class="icon">🃏</span><h3>ПОКЕР</h3><p>Техасский Холдем</p><span class="widget-badge">NEW</span></div>
   </div>
 </section>
 
-<section id="games-full" style="padding-top:20px">
-  <div class="container">
-    <h2 class="section-title fade-up">ПОЛНЫЙ СПИСОК ИГР</h2>
-    <p class="section-subtitle fade-up">Все игры работают в браузере, никакого сервера не нужно</p>
-
-    <div class="games-grid fade-up">
-      <!-- SLOTS -->
-      <div class="game-card game-section" id="slots">
-        <h3 class="game-title">🎰 СЛОТЫ</h3>
-        <div class="bet-row">
-          <label>Ставка:</label>
-          <input type="number" id="slotsBet" value="1000" min="10" step="100">
-          <button class="bet-btn" onclick="setSlotBet(100)">100</button>
-          <button class="bet-btn" onclick="setSlotBet(1000)">1K</button>
-          <button class="bet-btn" onclick="setSlotBet(5000)">5K</button>
-          <button class="bet-btn allin" onclick="setSlotBet(getBalance())">ALL IN</button>
-        </div>
-        <div class="slots-reels" id="slotsReels">
-          <div class="reel" id="reel0">🍒</div>
-          <div class="reel" id="reel1">💎</div>
-          <div class="reel" id="reel2">7️⃣</div>
-        </div>
-        <div style="text-align:center">
-          <button class="gold-btn" id="spinBtn" onclick="spinSlots()">SPIN</button>
-        </div>
-        <div class="game-result" id="slotsResult"></div>
-      </div>
-
-      <!-- DICE -->
-      <div class="game-card game-section" id="dice">
-        <h3 class="game-title">🎲 КОСТИ</h3>
-        <div class="bet-row">
-          <label>Ставка:</label>
-          <input type="number" id="diceBet" value="1000" min="10" step="100">
-          <button class="bet-btn" onclick="setDiceBet(100)">100</button>
-          <button class="bet-btn" onclick="setDiceBet(1000)">1K</button>
-          <button class="bet-btn" onclick="setDiceBet(5000)">5K</button>
-          <button class="bet-btn allin" onclick="setDiceBet(getBalance())">ALL IN</button>
-        </div>
-        <div class="choice-row">
-          <button class="choice-btn" id="diceChoiceHigh" onclick="diceChoice('high')">БОЛЬШЕ 7</button>
-          <button class="choice-btn" id="diceChoiceLow" onclick="diceChoice('low')">МЕНЬШЕ 7</button>
-        </div>
-        <div class="dice-area" id="diceArea">
-          <div class="dice" id="dice0">⚀</div>
-          <div class="dice" id="dice1">⚀</div>
-        </div>
-        <div style="text-align:center">
-          <button class="gold-btn" id="diceBtn" onclick="rollDice()">БРОСОК</button>
-        </div>
-        <div class="game-result" id="diceResult"></div>
-      </div>
-
-      <!-- COIN -->
-      <div class="game-card game-section" id="coin">
-        <h3 class="game-title">🪙 ОРЁЛ/РЕШКА</h3>
-        <div class="bet-row">
-          <label>Ставка:</label>
-          <input type="number" id="coinBet" value="1000" min="10" step="100">
-          <button class="bet-btn" onclick="setCoinBet(100)">100</button>
-          <button class="bet-btn" onclick="setCoinBet(1000)">1K</button>
-          <button class="bet-btn" onclick="setCoinBet(5000)">5K</button>
-          <button class="bet-btn allin" onclick="setCoinBet(getBalance())">ALL IN</button>
-        </div>
-        <div class="choice-row">
-          <button class="choice-btn" id="coinChoiceEagle" onclick="coinChoice('eagle')">Орёл 🦅</button>
-          <button class="choice-btn" id="coinChoiceTails" onclick="coinChoice('tails')">Решка 🪙</button>
-        </div>
-        <div class="coin-container"><div class="coin" id="coinEl">🦅</div></div>
-        <div style="text-align:center">
-          <button class="gold-btn" id="coinBtn" onclick="flipCoin()">БРОСОК</button>
-        </div>
-        <div class="game-result" id="coinResult"></div>
-      </div>
-
-      <!-- CUBE -->
-      <div class="game-card game-section" id="cube">
-        <h3 class="game-title">🎲 КУБИК</h3>
-        <div class="bet-row">
-          <label>Ставка:</label>
-          <input type="number" id="cubeBet" value="1000" min="10" step="100">
-          <button class="bet-btn" onclick="setCubeBet(100)">100</button>
-          <button class="bet-btn" onclick="setCubeBet(1000)">1K</button>
-          <button class="bet-btn" onclick="setCubeBet(5000)">5K</button>
-          <button class="bet-btn allin" onclick="setCubeBet(getBalance())">ALL IN</button>
-        </div>
-        <div class="cube" id="cubeEl">⚀</div>
-        <div class="numbers-grid" id="cubeNumbers">
-          <button class="num-btn" data-n="1">1</button>
-          <button class="num-btn" data-n="2">2</button>
-          <button class="num-btn" data-n="3">3</button>
-          <button class="num-btn" data-n="4">4</button>
-          <button class="num-btn" data-n="5">5</button>
-          <button class="num-btn" data-n="6">6</button>
-        </div>
-        <div style="text-align:center">
-          <button class="gold-btn" id="cubeBtn" onclick="rollCube()">БРОСОК</button>
-        </div>
-        <div class="game-result" id="cubeResult"></div>
-      </div>
-
-      <!-- DURAK -->
-      <div class="game-card game-section" id="durak">
-        <h3 class="game-title">🃏 ДУРАК (подкидной)</h3>
-        <div class="bet-row">
-          <label>Ставка:</label>
-          <input type="number" id="durakBet" value="500" min="10" step="100">
-          <button class="bet-btn" onclick="setDurakBet(100)">100</button>
-          <button class="bet-btn" onclick="setDurakBet(500)">500</button>
-          <button class="bet-btn" onclick="setDurakBet(1000)">1K</button>
-        </div>
-        <div class="durak-table" id="durakTable">
-          <div style="text-align:center;font-size:.9rem;color:var(--text2);margin-bottom:8px">Компьютер (карт: <span id="cpuCardsCount">6</span>)</div>
-          <div class="durak-cards" id="cpuHand"></div>
-          <div style="text-align:center;font-size:.8rem;color:var(--text2);margin:4px 0">СТОЛ</div>
-          <div class="durak-cards" id="tableCards"></div>
-          <div style="text-align:center;font-size:.9rem;color:var(--text2);margin-bottom:4px">Вы (карт: <span id="playerCardsCount">6</span>)</div>
-          <div class="durak-cards" id="playerHand"></div>
-          <div style="text-align:center;font-size:.8rem;color:var(--gold);margin:4px 0">Козырь: <span id="trumpDisplay">♠</span></div>
-          <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-            <button class="gold-btn" id="durakPassBtn" onclick="durakPass()">БИТО</button>
-            <button class="gold-btn" id="durakTakeBtn" onclick="durakTake()">БЕРУ</button>
-            <button class="gold-btn" id="durakNewBtn" onclick="durakNewGame()" style="display:none">НОВАЯ ИГРА</button>
-          </div>
-          <div class="durak-log" id="durakLog"></div>
-          <div class="game-result" id="durakResult" style="margin-top:8px"></div>
-          <div style="text-align:center;font-size:.85rem;color:var(--text2);margin-top:8px">Победы: Вы <span id="playerWins">0</span> — <span id="cpuWins">0</span> Компьютер</div>
-        </div>
-      </div>
-
-      <!-- POKER -->
-      <div class="game-card game-section" id="poker">
-        <h3 class="game-title">🃏 ПОКЕР (Техасский Холдем)</h3>
-        <div class="poker-table" id="pokerTable">
-          <div style="text-align:center;font-size:.85rem;color:var(--text2)">Компьютер</div>
-          <div class="poker-hand" id="cpuPokerHand"></div>
-          <div style="text-align:center;font-size:.8rem;color:var(--text2)">Банк: <span id="pokerPot">0</span></div>
-          <div class="poker-community" id="communityCards"></div>
-          <div style="text-align:center;font-size:.8rem;color:var(--text2)">Ваша рука</div>
-          <div class="poker-hand" id="playerPokerHand"></div>
-          <div style="text-align:center;font-size:.85rem;color:var(--text2);margin:4px 0">Ставка: <input type="number" id="pokerBetInput" value="500" min="10" style="width:80px;background:rgba(255,255,255,.05);border:1px solid var(--glass-border);border-radius:6px;color:var(--text);padding:4px 8px;font-size:.85rem;font-weight:600"></div>
-          <div class="poker-btns" id="pokerBtns">
-            <button class="gold-btn" onclick="pokerFold()">ПАС</button>
-            <button class="gold-btn" onclick="pokerCheck()">ЧЕК</button>
-            <button class="gold-btn" onclick="pokerCall()">КОЛЛ</button>
-            <button class="gold-btn" onclick="pokerRaise()">РЕЙЗ</button>
-            <button class="gold-btn" onclick="pokerAllIn()">ALL IN</button>
-            <button class="gold-btn" onclick="pokerNewGame()" id="pokerNewBtn" style="display:none">НОВАЯ ИГРА</button>
-          </div>
-          <div class="game-result" id="pokerResult" style="margin-top:8px"></div>
-          <div style="text-align:center;font-size:.8rem;color:var(--text2);margin-top:6px" id="pokerHandName"></div>
-        </div>
-      </div>
-
-      <!-- CLICKER -->
-      <div class="game-card game-section" id="clicker" style="grid-column:1/-1;max-width:500px">
-        <h3 class="game-title">🔥 КЛИКЕР</h3>
-        <p style="text-align:center;color:var(--text2);font-size:.9rem">Нажимай на кнопку — получай случайный выигрыш или джекпот!</p>
-        <button class="clicker-btn" id="clickerBtn" onclick="clickerHit()">🔥</button>
-        <div class="clicker-log" id="clickerResult"></div>
-        <div style="text-align:center;font-size:.85rem;color:var(--text2);margin-top:8px">
-          <span>40% → +500…+5000 · 30% → -100…-2000 · 30% → ДЖЕКПОТ +10000…+30000</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer id="footer">
+<footer>
   <strong>18+ · Демо-сайт · Игра на виртуальные фишки</strong>
-  <p style="margin-top:8px">Все игры работают в браузере. Баланс сохраняется локально. Никаких реальных денег.</p>
-  <p style="margin-top:4px">© 2026 CASINO DEMO · Только для развлекательных целей</p>
+  <p>© 2026 CASINO RPO-326 · Только для развлекательных целей</p>
 </footer>
 
 <script>
-// ========== BALANCE ==========
-function getBalance(){return parseInt(localStorage.getItem('casinoBal')||'100000')}
-function setBalance(v){localStorage.setItem('casinoBal',v);document.getElementById('balanceDisplay').textContent='¥ '+v.toLocaleString()}
-function addBalance(v){setBalance(getBalance()+v)}
-
-// ========== AUDIO ==========
-let audioCtx=null;
-function getAudioCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx}
-function playTone(freq,dur,type,vol){
-  try{
-    const c=getAudioCtx(),o=c.createOscillator(),g=c.createGain();
-    o.type=type||'square';o.frequency.value=freq;g.gain.value=vol||.1;
-    g.gain.exponentialRampToValueAtTime(.001,c.currentTime+dur);
-    o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+dur);
-  }catch(e){}
-}
-function sndClick(){playTone(800,.08,'square',.06)}
-function sndSpin(){playTone(300,.2,'sawtooth',.05)}
-function sndWin(){playTone(523,.15,'sine',.1);setTimeout(()=>playTone(659,.15,'sine',.1),150);setTimeout(()=>playTone(784,.2,'sine',.1),300)}
-function sndLose(){playTone(200,.3,'sawtooth',.08)}
-function sndCoin(){playTone(1000,.1,'sine',.06)}
-
-// ========== SLIDER ==========
 let slideIdx=0;
-function initSlider(){
-  const dots=document.getElementById('sliderDots');
-  for(let i=0;i<4;i++){const d=document.createElement('div');d.className='slider-dot'+(i===0?' active':'');d.onclick=()=>goToSlide(i);dots.appendChild(d)}
-  setInterval(nextSlide,7000);
-}
-function goToSlide(i){slideIdx=i;document.getElementById('sliderTrack').style.transform='translateX(-'+(i*100)+'%)';document.querySelectorAll('.slider-dot').forEach((d,idx)=>d.className='slider-dot'+(idx===i?' active':''))}
-function nextSlide(){slideIdx=(slideIdx+1)%4;goToSlide(slideIdx)}
-function prevSlide(){slideIdx=(slideIdx+3)%4;goToSlide(slideIdx)}
-initSlider();
+const slides=document.querySelectorAll('.slide');
+const dots=document.getElementById('sliderDots');
 
-function scrollToSection(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
-
-// ========== FADE ON SCROLL ==========
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
-document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
-
-// ========== PARTICLES ==========
-(function initParticles(){
-  const c=document.getElementById('particles');
-  for(let i=0;i<60;i++){
-    const p=document.createElement('div');
-    p.style.cssText='position:absolute;width:'+(1+Math.random()*2)+'px;height:'+(1+Math.random()*2)+'px;background:rgba(212,175,55,'+(.2+Math.random()*.4)+');border-radius:50%;left:'+(Math.random()*100)+'%;top:'+(Math.random()*100)+'%;pointer-events:none;animation:particleFloat'+(i%3)+' '+(5+Math.random()*10)+'s ease-in-out infinite;animation-delay:'+(Math.random()*5)+'s';
-    c.appendChild(p);
-  }
-  const s=document.createElement('style');
-  s.textContent='@keyframes particleFloat0{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(-30px) translateX(10px)}}@keyframes particleFloat1{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(20px) translateX(-15px)}}@keyframes particleFloat2{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(-15px) translateX(-10px)}}';
-  document.head.appendChild(s);
-})();
-
-// ========== SLOTS ==========
-const SYMBOLS=['🍒','💎','🍋','🍊','🔔','7️⃣'];
-function setSlotBet(v){document.getElementById('slotsBet').value=v}
-function spinSlots(){
-  const btn=document.getElementById('spinBtn');
-  if(btn.disabled)return;
-  const bet=parseInt(document.getElementById('slotsBet').value)||0;
-  if(bet>getBalance()||bet<=0){document.getElementById('slotsResult').textContent='Недостаточно фишек!';return}
-  if(bet<10){document.getElementById('slotsResult').textContent='Минимум 10';return}
-  sndSpin();
-  addBalance(-bet);btn.disabled=true;document.getElementById('slotsResult').textContent='...крутим...';
-  const reels=[document.getElementById('reel0'),document.getElementById('reel1'),document.getElementById('reel2')];
-  reels.forEach(r=>r.classList.add('spinning'));
-  const results=[];
-  setTimeout(()=>{
-    reels.forEach((r,i)=>{
-      setTimeout(()=>{
-        r.classList.remove('spinning');
-        const sym=SYMBOLS[Math.floor(Math.random()*SYMBOLS.length)];
-        results[i]=sym;r.textContent=sym;
-        r.classList.remove('win');
-        if(i===2){
-          // evaluate
-          let win=0;let msg='';
-          const eq12=results[0]===results[1],eq23=results[1]===results[2],eq13=results[0]===results[2];
-          if(results[0]===results[1]&&results[1]===results[2]){
-            if(results[0]==='🍒'||results[0]==='💎'){win=bet*10;msg='ДЖЕКПОТ! '+results[0]+' ×10! 🎉'}
-            else{win=bet*5;msg='Три одинаковых! ×5!'}
-          }else if(eq12||eq23||eq13){win=bet*2;msg='Пара! ×2!'}
-          if(win>0){addBalance(win);sndWin();reels.forEach(r=>r.classList.add('win'));document.getElementById('slotsResult').textContent=msg+' +¥'+win.toLocaleString()}
-          else{document.getElementById('slotsResult').textContent='Нет совпадений. Повезёт в следующий раз!';sndLose()}
-          btn.disabled=false;
-        }
-      },i*200);
-    });
-  },300);
-}
-document.getElementById('slotsBet')?.addEventListener('keydown',e=>{if(e.key==='Enter')spinSlots()});
-
-// ========== DICE ==========
-let diceSel='';
-function setDiceBet(v){document.getElementById('diceBet').value=v}
-function diceChoice(c){diceSel=c;document.querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('selected'));document.getElementById('diceChoice'+(c==='high'?'High':'Low')).classList.add('selected')}
-function rollDice(){
-  if(!diceSel){document.getElementById('diceResult').textContent='Выбери: больше или меньше 7';return}
-  const btn=document.getElementById('diceBtn');
-  if(btn.disabled)return;
-  const bet=parseInt(document.getElementById('diceBet').value)||0;
-  if(bet>getBalance()||bet<=0){document.getElementById('diceResult').textContent='Недостаточно фишек!';return}
-  if(bet<10){document.getElementById('diceResult').textContent='Минимум 10';return}
-  sndSpin();addBalance(-bet);btn.disabled=true;
-  const d0=document.getElementById('dice0'),d1=document.getElementById('dice1');
-  d0.classList.add('shaking');d1.classList.add('shaking');
-  document.getElementById('diceResult').textContent='...';
-  const diceChars=['⚀','⚁','⚂','⚃','⚄','⚅'];
-  setTimeout(()=>{
-    d0.classList.remove('shaking');d1.classList.remove('shaking');
-    const r0=Math.floor(Math.random()*6)+1,r1=Math.floor(Math.random()*6)+1;
-    d0.textContent=diceChars[r0-1];d1.textContent=diceChars[r1-1];
-    const sum=r0+r1;let win=0,msg='';
-    if(sum===7){msg='Выпало 7! Казино забирает ставку.';sndLose()}
-    else if((diceSel==='high'&&sum>7)||(diceSel==='low'&&sum<7)){win=bet*2;addBalance(win);msg='Угадал! Сумма '+sum+', ×2! +¥'+win.toLocaleString();sndWin()}
-    else{msg='Не угадал. Сумма '+sum;if(diceSel==='high')msg+=' (меньше 7)';else msg+=' (больше 7)';sndLose()}
-    document.getElementById('diceResult').textContent=msg;btn.disabled=false;
-  },800);
+for(let i=0;i<slides.length;i++){
+  const d=document.createElement('div');
+  d.className='slider-dot'+(i===0?' active':'');
+  d.onclick=()=>goToSlide(i);
+  dots.appendChild(d);
 }
 
-// ========== COIN ==========
-let coinSel='';
-function setCoinBet(v){document.getElementById('coinBet').value=v}
-function coinChoice(c){coinSel=c;document.querySelectorAll('#coin .choice-btn').forEach(b=>b.classList.remove('selected'));document.getElementById('coinChoice'+(c==='eagle'?'Eagle':'Tails')).classList.add('selected')}
-function flipCoin(){
-  if(!coinSel){document.getElementById('coinResult').textContent='Выбери: орёл или решка';return}
-  const btn=document.getElementById('coinBtn');
-  if(btn.disabled)return;
-  const bet=parseInt(document.getElementById('coinBet').value)||0;
-  if(bet>getBalance()||bet<=0){document.getElementById('coinResult').textContent='Недостаточно фишек!';return}
-  if(bet<10){document.getElementById('coinResult').textContent='Минимум 10';return}
-  sndCoin();addBalance(-bet);btn.disabled=true;
-  const el=document.getElementById('coinEl');
-  el.classList.add('flipping');
-  document.getElementById('coinResult').textContent='...';
-  setTimeout(()=>{
-    el.classList.remove('flipping');
-    const result=Math.random()<.5?'eagle':'tails';
-    const resultText=result==='eagle'?'Орёл':'Решка';
-    el.textContent=result==='eagle'?'🦅':'🪙';
-    let win=0,msg='';
-    if(coinSel===result){win=bet*2;addBalance(win);msg='Угадал! '+resultText+'! ×2! +¥'+win.toLocaleString();sndWin()}
-    else{msg='Не угадал. Выпал: '+resultText;sndLose()}
-    document.getElementById('coinResult').textContent=msg;btn.disabled=false;
-  },700);
+function goToSlide(i){
+  slideIdx=i;
+  document.getElementById('sliderTrack').style.transform='translateX(-'+(i*100)+'%)';
+  document.querySelectorAll('.slider-dot').forEach((d,idx)=>d.className='slider-dot'+(idx===i?' active':''))
 }
-
-// ========== CUBE ==========
-let cubeSel=0;
-function setCubeBet(v){document.getElementById('cubeBet').value=v}
-function rollCube(){
-  if(!cubeSel){document.getElementById('cubeResult').textContent='Выбери число 1–6';return}
-  const btn=document.getElementById('cubeBtn');
-  if(btn.disabled)return;
-  const bet=parseInt(document.getElementById('cubeBet').value)||0;
-  if(bet>getBalance()||bet<=0){document.getElementById('cubeResult').textContent='Недостаточно фишек!';return}
-  if(bet<10){document.getElementById('cubeResult').textContent='Минимум 10';return}
-  sndSpin();addBalance(-bet);btn.disabled=true;
-  const el=document.getElementById('cubeEl');
-  el.classList.add('shaking');
-  const diceChars=['⚀','⚁','⚂','⚃','⚄','⚅'];
-  document.getElementById('cubeResult').textContent='...';
-  setTimeout(()=>{
-    el.classList.remove('shaking');
-    const r=Math.floor(Math.random()*6)+1;
-    el.textContent=diceChars[r-1];let win=0,msg='';
-    if(r===cubeSel){win=bet*6;addBalance(win);msg='Угадал! Число '+r+', ×6! +¥'+win.toLocaleString();sndWin()}
-    else{msg='Не угадал. Выпало: '+r;sndLose()}
-    document.getElementById('cubeResult').textContent=msg;btn.disabled=false;
-  },600);
-}
-document.querySelectorAll('#cubeNumbers .num-btn').forEach(b=>{b.onclick=()=>{document.querySelectorAll('#cubeNumbers .num-btn').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');cubeSel=parseInt(b.dataset.n)}});
-
-// ========== DURAK ==========
-const SUITS=['♠','♣','♥','♦'];
-const RANKS=['6','7','8','9','10','В','Д','К','Т'];
-let durakDeck=[],durakTrump='',durakPlayerHand=[],durakCpuHand=[],durakTableCards=[],durakAttacker='player',durakPlayerWins=0,durakCpuWins=0,durakPhase='wait',durakDefender='cpu';
-function setDurakBet(v){document.getElementById('durakBet').value=v}
-function durakNewGame(){
-  durakDeck=[];durakTableCards=[];durakPhase='wait';
-  for(const s of SUITS)for(const r of RANKS)durakDeck.push({r,s});
-  durakTrump=SUITS[Math.floor(Math.random()*SUITS.length)];
-  durakDeck=durakDeck.sort(()=>Math.random()-.5);
-  durakPlayerHand=durakDeck.splice(0,6);durakCpuHand=durakDeck.splice(0,6);
-  durakAttacker='player';durakDefender='cpu';durakPhase='player_attack';
-  document.getElementById('trumpDisplay').textContent=durakTrump;
-  document.getElementById('durakNewBtn').style.display='none';
-  document.getElementById('durakPassBtn').style.display='inline-block';
-  document.getElementById('durakTakeBtn').style.display='inline-block';
-  durakRender();
-  durakLog('Новая игра. Козырь: '+durakTrump+' · Вы ходите первым!');
-  document.getElementById('durakResult').textContent='';
-}
-function durakLog(msg){const el=document.getElementById('durakLog');el.innerHTML+=msg+'<br>';el.scrollTop=el.scrollHeight}
-function durakRender(){
-  const ph=document.getElementById('playerHand');
-  ph.innerHTML=durakPlayerHand.map((c,i)=>'<div class="card front '+(c.s==='♥'||c.s==='♦'?'hearts':'spades')+(c.s===durakTrump?' trump':'')+'" onclick="durakPlayCard('+i+')">'+c.r+c.s+'</div>').join('');
-  document.getElementById('playerCardsCount').textContent=durakPlayerHand.length;
-  const ch=document.getElementById('cpuHand');
-  ch.innerHTML=durakCpuHand.map(()=>'<div class="card back">?</div>').join('');
-  document.getElementById('cpuCardsCount').textContent=durakCpuHand.length;
-  const tc=document.getElementById('tableCards');
-  tc.innerHTML=durakTableCards.map(c=>'<div class="card front '+(c.s==='♥'||c.s==='♦'?'hearts':'spades')+(c.s===durakTrump?' trump':'')+'" style="cursor:default">'+c.r+c.s+'</div>').join('');
-}
-function durakPlayCard(idx){
-  if(durakPhase!=='player_attack')return;
-  const c=durakPlayerHand[idx];
-  // check if can throw: can throw any card that matches table rank, or first attack
-  if(durakTableCards.length>0){
-    const ranksOnTable=[...new Set(durakTableCards.map(x=>x.r))];
-    if(!ranksOnTable.includes(c.r)){
-      durakLog('Нельзя подкинуть эту карту — такого ранга нет на столе');
-      return;
-    }
-  }
-  durakPlayerHand.splice(idx,1);durakTableCards.push(c);sndClick();
-  durakRender();durakPhase='cpu_defense';
-  durakLog('Вы походили: '+c.r+c.s);
-  setTimeout(durakCpuDefend,500);
-}
-function durakCpuDefend(){
-  // get the last attacked card (attack pairs: table length is odd -> attacker is last)
-  const attackCards=durakTableCards.filter((_,i)=>i%2===0);
-  const lastAttack=attackCards[attackCards.length-1];
-  // find a card to beat it
-  let beatIdx=-1;
-  for(let i=0;i<durakCpuHand.length;i++){
-    const c=durakCpuHand[i];
-    const isTrump=c.s===durakTrump;
-    const attackIsTrump=lastAttack.s===durakTrump;
-    // same suit higher rank OR trump beats non-trump
-    const rankOrder=RANKS.indexOf(c.r);
-    const attackRankOrder=RANKS.indexOf(lastAttack.r);
-    if(c.s===lastAttack.s&&rankOrder>attackRankOrder){beatIdx=i;break}
-    if(isTrump&&!attackIsTrump){beatIdx=i;break}
-    if(isTrump&&attackIsTrump&&rankOrder>attackRankOrder){beatIdx=i;break}
-  }
-  if(beatIdx>=0){
-    const c=durakCpuHand[beatIdx];
-    durakCpuHand.splice(beatIdx,1);durakTableCards.push(c);sndClick();
-    durakLog('Компьютер отбился: '+c.r+c.s);durakRender();
-    // check if player can throw more
-    durakPhase='player_attack';
-    // check if player has cards that match table ranks
-    if(durakPlayerHand.length===0){
-      durakFinishAttack();return;
-    }
-    const tableRanks=[...new Set(durakTableCards.map(x=>x.r))];
-    const canThrow=durakPlayerHand.some(c=>tableRanks.includes(c.r));
-    if(!canThrow||durakPlayerHand.length===0){
-      durakFinishAttack();
-    }else{
-      durakLog('Можешь подкинуть карту ранга: '+tableRanks.join(', '));
-    }
-  }else{
-    // cpu takes cards
-    durakCpuHand.push(...durakTableCards);durakTableCards=[];sndLose();
-    durakLog('Компьютер берёт карты.');durakRender();
-    durakPhase='player_attack';durakAttacker='cpu';durakDefender='player';
-    // now cpu attacks
-    setTimeout(durakCpuAttack,500);
-  }
-}
-function durakFinishAttack(){
-  durakLog('Атака завершена. Карты сброшены.');
-  durakTableCards=[];
-  // refill hands
-  while(durakPlayerHand.length<6&&durakDeck.length>0)durakPlayerHand.push(durakDeck.pop());
-  while(durakCpuHand.length<6&&durakDeck.length>0)durakCpuHand.push(durakDeck.pop());
-  durakRender();
-  // check win
-  if(durakPlayerHand.length===0&&durakDeck.length===0){
-    durakPlayerWins++;document.getElementById('playerWins').textContent=durakPlayerWins;
-    document.getElementById('durakResult').textContent='🎉 Вы выиграли партию!';
-    const bet=parseInt(document.getElementById('durakBet').value)||500;
-    addBalance(bet*2);
-    durakLog('Вы выиграли партию! +¥'+(bet*2));
-    durakEndGame();return;
-  }
-  if(durakCpuHand.length===0&&durakDeck.length===0){
-    durakCpuWins++;document.getElementById('cpuWins').textContent=durakCpuWins;
-    document.getElementById('durakResult').textContent='Компьютер выиграл партию!';
-    const bet=parseInt(document.getElementById('durakBet').value)||500;
-    addBalance(-bet);
-    durakLog('Компьютер выиграл!');
-    durakEndGame();return;
-  }
-  // switch attacker
-  durakAttacker=durakAttacker==='player'?'cpu':'player';
-  durakDefender=durakDefender==='player'?'cpu':'player';
-  if(durakAttacker==='cpu'){
-    durakPhase='cpu_attack';setTimeout(durakCpuAttack,500);
-  }else{
-    durakPhase='player_attack';durakLog('Вы ходите. Выберите карту.');
-  }
-}
-function durakCpuAttack(){
-  if(durakCpuHand.length===0){durakFinishAttack();return}
-  const idx=Math.floor(Math.random()*durakCpuHand.length);
-  const c=durakCpuHand[idx];
-  durakCpuHand.splice(idx,1);durakTableCards.push(c);sndClick();
-  durakLog('Компьютер походил: '+c.r+c.s);durakRender();
-  durakPhase='player_attack';durakDefender='player';durakAttacker='cpu';
-  durakLog('Ваша защита. Нажмите на карту чтобы отбиться.');
-  // player needs to defend
-}
-function durakPass(){
-  if(durakPhase!=='player_attack'&&durakPhase!=='cpu_attack')return;
-  if(durakAttacker==='player'){
-    // attacker passes -> defender wins
-    durakLog('Вы сказали БИТО. Карты сброшены.');
-    durakTableCards=[];durakRender();
-    while(durakPlayerHand.length<6&&durakDeck.length>0)durakPlayerHand.push(durakDeck.pop());
-    while(durakCpuHand.length<6&&durakDeck.length>0)durakCpuHand.push(durakDeck.pop());
-    durakRender();
-    if(durakPlayerHand.length===0&&durakDeck.length===0){
-      durakPlayerWins++;document.getElementById('playerWins').textContent=durakPlayerWins;
-      document.getElementById('durakResult').textContent='🎉 Вы выиграли партию!';
-      const bet=parseInt(document.getElementById('durakBet').value)||500;
-      addBalance(bet*2);
-      durakLog('Вы выиграли партию! +¥'+(bet*2));
-      durakEndGame();return;
-    }
-    durakAttacker='cpu';durakPhase='cpu_attack';setTimeout(durakCpuAttack,500);
-  }
-}
-function durakTake(){
-  if(durakPhase!=='player_attack'&&durakPhase!=='cpu_attack')return;
-  if(durakDefender==='player'&&durakTableCards.length>0){
-    durakPlayerHand.push(...durakTableCards);durakTableCards=[];sndLose();
-    durakLog('Вы взяли карты.');durakRender();
-    durakPhase='player_attack';durakAttacker='cpu';durakDefender='player';
-    while(durakPlayerHand.length<6&&durakDeck.length>0)durakPlayerHand.push(durakDeck.pop());
-    while(durakCpuHand.length<6&&durakDeck.length>0)durakCpuHand.push(durakDeck.pop());
-    durakRender();
-    setTimeout(durakCpuAttack,500);
-  }
-}
-function durakEndGame(){
-  document.getElementById('durakNewBtn').style.display='inline-block';
-  document.getElementById('durakPassBtn').style.display='none';
-  document.getElementById('durakTakeBtn').style.display='none';
-  durakPhase='wait';
-}
-durakNewGame();
-
-// ========== POKER ==========
-const pokerRanks=['2','3','4','5','6','7','8','9','10','В','К','Д','Т'];
-const pokerSuits=['♠','♥','♦','♣'];
-let pokerDeck=[],pokerPlayer=[],pokerCpu=[],pokerCommunity=[],pokerPot=0,pokerPhase='preflop',pokerPlayerBet=0,pokerCpuBet=0,pokerCurrentBet=0;
-function pokerNewGame(){
-  pokerDeck=[];pokerPlayer=[];pokerCpu=[];pokerCommunity=[];pokerPot=0;pokerPhase='preflop';pokerPlayerBet=0;pokerCpuBet=0;pokerCurrentBet=0;
-  for(const s of pokerSuits)for(const r of pokerRanks)pokerDeck.push({r,s});
-  pokerDeck=pokerDeck.sort(()=>Math.random()-.5);
-  pokerPlayer=[pokerDeck.pop(),pokerDeck.pop()];
-  pokerCpu=[pokerDeck.pop(),pokerDeck.pop()];
-  pokerPot=0;
-  document.getElementById('pokerNewBtn').style.display='none';
-  document.querySelectorAll('#pokerBtns .gold-btn:not(#pokerNewBtn)').forEach(b=>b.style.display='inline-block');
-  document.getElementById('pokerResult').textContent='';
-  document.getElementById('pokerHandName').textContent='';
-  pokerRender();
-}
-function pokerRender(){
-  const ph=document.getElementById('playerPokerHand');
-  ph.innerHTML=pokerPlayer.map(c=>'<div class="card front '+(c.s==='♥'||c.s==='♦'?'hearts':'spades')+'">'+c.r+c.s+'</div>').join('');
-  const ch=document.getElementById('cpuPokerHand');
-  if(pokerPhase==='showdown'){
-    ch.innerHTML=pokerCpu.map(c=>'<div class="card front '+(c.s==='♥'||c.s==='♦'?'hearts':'spades')+'">'+c.r+c.s+'</div>').join('');
-  }else{
-    ch.innerHTML=pokerCpu.map(()=>'<div class="card back">?</div>').join('');
-  }
-  const cc=document.getElementById('communityCards');
-  cc.innerHTML=pokerCommunity.map(c=>'<div class="card front '+(c.s==='♥'||c.s==='♦'?'hearts':'spades')+'">'+c.r+c.s+'</div>').join('');
-  document.getElementById('pokerPot').textContent='¥'+pokerPot.toLocaleString();
-}
-function getHandRank(cards){
-  const all=pokerCommunity.concat(cards);
-  // very simplified: just check for pairs, etc.
-  const ranks=all.map(c=>pokerRanks.indexOf(c.r)).sort((a,b)=>b-a);
-  const suits=all.map(c=>c.s);
-  const rankCounts={};ranks.forEach(r=>{rankCounts[r]=(rankCounts[r]||0)+1});
-  const counts=Object.values(rankCounts).sort((a,b)=>b-a);
-  const isFlush=suits.every(s=>s===suits[0]);
-  // straight (simple)
-  let isStraight=false;
-  const uniqueRanks=[...new Set(ranks)].sort((a,b)=>b-a);
-  if(uniqueRanks.length>=5){
-    for(let i=0;i<=uniqueRanks.length-5;i++){
-      if(uniqueRanks[i]-uniqueRanks[i+4]===4){isStraight=true;break}
-    }
-    // special: A-2-3-4-5 (wheel) — rank 12, 3, 2, 1, 0
-    if(uniqueRanks.includes(12)&&uniqueRanks.slice(0,5).some((_,i,a)=>a.slice(0,5).map(x=>x===12?0:x).sort((a,b)=>b-a)[0]-(...a.slice(0,5).map(x=>x===12?0:x).sort((a,b)=>b-a))[4]===4))isStraight=true;
-  }
-  if(isFlush&&isStraight)return{name:'Стрит-флеш',rank:8};
-  if(counts[0]===4)return{name:'Каре',rank:7};
-  if(counts[0]===3&&counts[1]===2)return{name:'Фулл-хаус',rank:6};
-  if(isFlush)return{name:'Флеш',rank:5};
-  if(isStraight)return{name:'Стрит',rank:4};
-  if(counts[0]===3)return{name:'Тройка',rank:3};
-  if(counts[0]===2&&counts[1]===2)return{name:'Две пары',rank:2};
-  if(counts[0]===2)return{name:'Пара',rank:1};
-  return{name:'Старшая карта',rank:0};
-}
-function compareHands(cards1,cards2){
-  const h1=getHandRank(cards1),h2=getHandRank(cards2);
-  if(h1.rank!==h2.rank)return h1.rank-h2.rank;
-  return 0;
-}
-function pokerFold(){
-  if(pokerPhase==='showdown'||pokerPhase==='wait')return;
-  const bet=parseInt(document.getElementById('pokerBetInput').value)||500;
-  addBalance(-bet);pokerPot+=bet;sndLose();
-  pokerPhase='wait';document.getElementById('pokerResult').textContent='Вы сбросили. Потеряно ¥'+bet;
-  document.getElementById('pokerNewBtn').style.display='inline-block';
-  document.querySelectorAll('#pokerBtns .gold-btn:not(#pokerNewBtn)').forEach(b=>b.style.display='none');
-  pokerRender();
-}
-function pokerCheck(){
-  if(pokerPhase==='showdown'||pokerPhase==='wait')return;
-  pokerDealNext();
-}
-function pokerCall(){
-  const bet=parseInt(document.getElementById('pokerBetInput').value)||500;
-  if(bet>getBalance()){document.getElementById('pokerResult').textContent='Недостаточно фишек!';return}
-  addBalance(-bet);pokerPot+=bet;pokerPlayerBet+=bet;
-  if(pokerCurrentBet>0&&pokerCpuBet<pokerCurrentBet){
-    // bot calls too
-    const cb=Math.min(pokerCurrentBet-pokerCpuBet,getBalance());
-    // simplified
-  }
-  pokerDealNext();
-}
-function pokerRaise(){
-  const bet=parseInt(document.getElementById('pokerBetInput').value)||500;
-  const raiseAmt=bet*2;
-  if(raiseAmt>getBalance()){document.getElementById('pokerResult').textContent='Недостаточно фишек!';return}
-  addBalance(-raiseAmt);pokerPot+=raiseAmt;pokerPlayerBet+=raiseAmt;pokerCurrentBet=raiseAmt;
-  // bot decides
-  setTimeout(()=>{
-    const cpuDecision=Math.random()<.5?'call':'fold';
-    if(cpuDecision==='fold'){
-      addBalance(raiseAmt*2);sndWin();
-      document.getElementById('pokerResult').textContent='Компьютер сбросил! Вы выиграли ¥'+pokerPot+'!';
-      pokerPhase='wait';
-      document.getElementById('pokerNewBtn').style.display='inline-block';
-      document.querySelectorAll('#pokerBtns .gold-btn:not(#pokerNewBtn)').forEach(b=>b.style.display='none');
-    }else{
-      const cb=pokerCurrentBet;
-      if(cb<=getBalance()){/* assume bot has chips */}
-      pokerPot+=cb;pokerCpuBet+=cb;
-      pokerDealNext();
-    }
-    pokerRender();
-  },800);
-}
-function pokerAllIn(){
-  const bal=getBalance();
-  if(bal<=0)return;
-  addBalance(-bal);pokerPot+=bal;pokerPlayerBet+=bal;pokerCurrentBet=Math.max(pokerCurrentBet,bal);
-  // bot folds sometimes
-  setTimeout(()=>{
-    if(Math.random()<.4){
-      addBalance(pokerPot);sndWin();
-      document.getElementById('pokerResult').textContent='Компьютер сбросил от ALL IN! Вы выиграли ¥'+pokerPot+'!';
-    }else{
-      // showdown
-      pokerDoShowdown();
-    }
-    pokerPhase='wait';
-    pokerRender();
-  },1000);
-}
-function pokerDealNext(){
-  sndClick();
-  if(pokerPhase==='preflop'){pokerPhase='flop';pokerCommunity=[pokerDeck.pop(),pokerDeck.pop(),pokerDeck.pop()]}
-  else if(pokerPhase==='flop'){pokerPhase='turn';pokerCommunity.push(pokerDeck.pop())}
-  else if(pokerPhase==='turn'){pokerPhase='river';pokerCommunity.push(pokerDeck.pop())}
-  else if(pokerPhase==='river'){pokerDoShowdown();return}
-  pokerRender();document.getElementById('pokerResult').textContent='';
-  // bot action
-  setTimeout(()=>{
-    const action=Math.random()<.5?'check':'call';
-    if(action==='call'&&pokerCurrentBet>0){
-      const bet=pokerCurrentBet;
-      if(bet<=getBalance()){
-        pokerPot+=bet;pokerCpuBet+=bet;
-        document.getElementById('pokerResult').textContent='Компьютер коллирует';
-      }
-    }
-    pokerRender();
-  },600);
-}
-function pokerDoShowdown(){
-  pokerPhase='showdown';
-  pokerRender();
-  const pWin=compareHands(pokerPlayer,pokerCpu);
-  if(pWin>=0){
-    addBalance(pokerPot);sndWin();
-    document.getElementById('pokerResult').textContent='🎉 Вы выиграли! '+getHandRank(pokerPlayer).name+' против '+getHandRank(pokerCpu).name+' — ¥'+pokerPot;
-  }else{
-    sndLose();
-    document.getElementById('pokerResult').textContent='Компьютер выиграл. '+getHandRank(pokerCpu).name+' против вашей '+getHandRank(pokerPlayer).name;
-  }
-  document.getElementById('pokerHandName').textContent='Ваша комбинация: '+getHandRank(pokerPlayer).name;
-  document.getElementById('pokerNewBtn').style.display='inline-block';
-  document.querySelectorAll('#pokerBtns .gold-btn:not(#pokerNewBtn)').forEach(b=>b.style.display='none');
-}
-pokerNewGame();
-
-// ========== CLICKER ==========
-function clickerHit(){
-  sndClick();
-  const r=Math.random();
-  let amt=0,msg='';
-  if(r<.4){amt=500+Math.floor(Math.random()*4501);addBalance(amt);msg='+¥'+amt;sndWin()}
-  else if(r<.7){amt=-(100+Math.floor(Math.random()*1901));addBalance(amt);msg='-¥'+Math.abs(amt);sndLose()}
-  else{amt=10000+Math.floor(Math.random()*20001);addBalance(amt);msg='ДЖЕКПОТ! +¥'+amt;sndWin()}
-  document.getElementById('clickerResult').textContent=msg;
-}
+function nextSlide(){slideIdx=(slideIdx+1)%slides.length;goToSlide(slideIdx)}
+function prevSlide(){slideIdx=(slideIdx-1+slides.length)%slides.length;goToSlide(slideIdx)}
+setInterval(nextSlide,5000);
 </script>
 </body>
 </html>
