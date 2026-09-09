@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ОРЁЛ/РЕШКА — CASINO RPO-326</title>
+<meta name="description" content="Орёл и решка — честные 50/50. CASINO RPO-326. 18+.">
+<link rel="icon" type="image/png" href="logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#D4AF37;--gold-light:#F0D060;--gold-dark:#B8960F;--bg:#0A0A0F;--text:#F5F0E8;--text2:rgba(245,240,232,0.55);--glass-border:rgba(212,175,55,0.12);--radius:16px}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column}
+h1,h2,h3{font-family:'Playfair Display',serif}
+
+#ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.ambient-glow{position:absolute;border-radius:50%;filter:blur(80px);opacity:.12}
+.ambient-glow:nth-child(1){width:600px;height:600px;background:var(--gold);top:-200px;left:-150px}
+.ambient-glow:nth-child(2){width:400px;height:400px;background:#8b5cf6;bottom:-100px;right:-80px}
+.ambient-glow:nth-child(3){width:300px;height:300px;background:var(--gold-dark);top:40%;left:60%;opacity:.06}
+.particle{position:absolute;border-radius:50%;background:var(--gold);pointer-events:none;opacity:.12;animation:particleDrift linear infinite}
+@keyframes particleDrift{0%{transform:translateY(0)translateX(0)}100%{transform:translateY(-120vh)translateX(80px)}}
+
+header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(10,10,16,0.85);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border-bottom:1px solid var(--glass-border);padding:0 32px;height:72px;display:flex;align-items:center;justify-content:space-between}
+.header-left{display:flex;align-items:center;gap:12px}
+.header-left a{display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none}
+.header-left img{height:48px;width:auto;border-radius:6px}
+.header-left span{font-family:'Playfair Display',serif;font-size:1.4rem;letter-spacing:6px;color:var(--gold);font-weight:700}
+.back-link{color:var(--text2);font-size:.85rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;padding:6px 16px;border:1px solid var(--glass-border);border-radius:30px;transition:all .3s}
+.back-link:hover{color:var(--gold);border-color:var(--gold)}
+.header-right{display:flex;align-items:center;gap:14px}
+.balance-badge{background:linear-gradient(135deg,#B8960F,#D4AF37,#F0D060);color:#0A0A0F;font-weight:800;padding:7px 20px;border-radius:30px;font-size:.88rem;box-shadow:0 0 30px rgba(212,175,55,0.15)}
+.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dark),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;color:#000}
+@media(max-width:600px){header{padding:0 16px;height:64px}.header-left img{height:40px}.header-left span{font-size:1.1rem}.back-link{font-size:.75rem;padding:4px 10px}}
+
+main{flex:1;margin-top:72px;z-index:1;padding:40px 16px 60px;display:flex;flex-direction:column;align-items:center}
+.game-wrap{width:100%;max-width:780px;padding:0 8px}
+.game-header{text-align:center;margin-bottom:24px}
+.game-header h1{font-size:clamp(1.3rem,2.5vw,2rem);color:var(--gold);letter-spacing:4px;font-weight:700}
+.game-header .divider{width:50px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:8px auto 0;border-radius:2px}
+
+.game-panel{background:linear-gradient(150deg,#0e0e20 0%,#06060e 50%,#0d0d22 100%);border:2px solid rgba(212,175,55,0.2);border-radius:var(--radius);padding:24px 20px 28px;box-shadow:0 30px 100px rgba(0,0,0,0.7);position:relative;overflow:hidden}
+.game-panel::before{content:'';position:absolute;top:0;left:10%;right:10%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.4}
+.game-panel h3{font-size:1.2rem;color:var(--gold);letter-spacing:4px;font-weight:700;text-align:center;margin-bottom:16px;text-shadow:0 0 30px rgba(212,175,55,0.15)}
+
+.bet-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin-bottom:14px}
+.bet-field{background:rgba(255,255,255,0.03);border:1px solid rgba(212,175,55,0.2);border-radius:10px;color:var(--text);padding:8px 12px;width:130px;font-size:1rem;font-weight:700;text-align:center;outline:none;transition:border .3s}
+.bet-field:focus{border-color:var(--gold)}
+.bet-chip{background:rgba(212,175,55,0.05);color:var(--gold);border:1px solid rgba(212,175,55,0.15);border-radius:30px;padding:6px 16px;cursor:pointer;font-weight:600;font-size:.78rem;transition:all .3s;letter-spacing:1px}
+.bet-chip:hover{background:rgba(212,175,55,0.12);transform:translateY(-1px)}
+.bet-chip.allin{background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#000;border:none;font-weight:700}
+
+.pick-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.pick-btn{background:rgba(212,175,55,0.06);color:var(--text);border:1px solid rgba(212,175,55,0.25);border-radius:12px;padding:12px 28px;font-size:.95rem;font-weight:600;letter-spacing:1px;cursor:pointer;transition:all .3s}
+.pick-btn:hover{border-color:var(--gold);color:var(--gold)}
+.pick-btn.sel{background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:#000;border-color:var(--gold);font-weight:800}
+
+.coin-stage{display:flex;justify-content:center;margin:24px 0 6px;perspective:800px}
+.coin-p{width:140px;height:140px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#F0D060,#D4AF37 45%,#8a6d1f 100%);display:flex;align-items:center;justify-content:center;font-size:3.5rem;color:#5a4a10;box-shadow:0 8px 50px rgba(212,175,55,0.35),inset 0 -4px 15px rgba(0,0,0,0.3);position:relative;transition:transform .3s}
+.coin-p::after{content:'';position:absolute;inset:5px;border-radius:50%;border:2px dashed rgba(0,0,0,0.2)}
+.coin-p.flip{animation:coinFlip .9s ease-in-out}
+@keyframes coinFlip{0%{transform:rotateY(0)}40%{transform:rotateY(180deg)}70%{transform:rotateY(360deg)}100%{transform:rotateY(720deg)}}
+.coin-p.win{box-shadow:0 0 80px rgba(212,175,55,0.5),inset 0 -4px 15px rgba(0,0,0,0.3)}
+
+.go-btn{display:block;margin:0 auto;padding:13px 44px;background:linear-gradient(135deg,#a08020,#D4AF37 40%,#F0D060 60%,#D4AF37 80%,#a08020);background-size:200% 200%;color:#0A0A0F;font-weight:900;font-size:1.05rem;letter-spacing:5px;border:none;border-radius:50px;cursor:pointer;text-transform:uppercase;box-shadow:0 8px 40px rgba(212,175,55,0.3);transition:all .3s;animation:btnShimmer 3s ease-in-out infinite}
+@keyframes btnShimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.go-btn:hover{transform:scale(1.04);box-shadow:0 12px 60px rgba(212,175,55,0.5)}
+.go-btn:active{transform:scale(.95)}
+.go-btn:disabled{opacity:.35;cursor:not-allowed;transform:none;animation:none}
+.game-result{text-align:center;font-size:1.2rem;font-weight:800;margin-top:16px;min-height:44px;letter-spacing:1px}
+.game-result.win{color:var(--gold);text-shadow:0 0 40px rgba(212,175,55,0.5);animation:resultBounce .4s ease}
+.game-result.lose{color:rgba(255,255,255,0.4)}
+@keyframes resultBounce{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+
+.confetti-piece{position:fixed;width:8px;height:8px;z-index:2000;pointer-events:none;top:-10px;animation:confettiFall linear forwards}
+@keyframes confettiFall{0%{transform:translateY(0)rotate(0);opacity:1}100%{transform:translateY(110vh)rotate(720deg);opacity:.7}}
+
+footer{text-align:center;padding:28px 20px;border-top:1px solid var(--glass-border);color:var(--text2);font-size:.82rem;position:relative;z-index:1}
+footer strong{color:var(--gold);font-size:1rem;display:block;margin-bottom:4px;letter-spacing:2px}
+</style>
+</head>
+<body>
+<div id="ambient"><div class="ambient-glow"></div><div class="ambient-glow"></div><div class="ambient-glow"></div></div>
+
+<header>
+  <div class="header-left"><a href="index.html"><img src="logo.png" alt="CASINO" onerror="this.style.display='none'"><span>CASINO</span></a></div>
+  <div class="header-right">
+    <a href="index.html" class="back-link">← НА ГЛАВНУЮ</a>
+    <div class="balance-badge" data-balance>¥ 100 000</div>
+    <div class="avatar">M</div>
+  </div>
+</header>
+
+<main>
+  <div class="game-wrap">
+    <div class="game-header"><h1>🪙 ОРЁЛ/РЕШКА</h1><div class="divider"></div></div>
+    <div class="game-panel">
+      <h3>УГАДАЙ СТОРОНУ МОНЕТЫ</h3>
+      <div class="bet-row">
+        <input type="number" class="bet-field" id="coinBet" value="1000" min="10" step="100">
+        <span class="bet-chip" onclick="setCB(100)">100</span>
+        <span class="bet-chip" onclick="setCB(1000)">1K</span>
+        <span class="bet-chip" onclick="setCB(5000)">5K</span>
+        <span class="bet-chip allin" onclick="setCB(getBalance())">ALL IN</span>
+      </div>
+      <div class="pick-row">
+        <button class="pick-btn" id="coinEagle" onclick="coinPick('eagle')">ОРЁЛ 🦅</button>
+        <button class="pick-btn" id="coinTails" onclick="coinPick('tails')">РЕШКА 🪙</button>
+      </div>
+      <div class="coin-stage">
+        <div class="coin-p" id="coinEl">🦅</div>
+      </div>
+      <button class="go-btn" id="coinBtn" onclick="flipCoin()">▶ БРОСОК</button>
+      <div class="game-result" id="coinResult"></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <strong>18+ · Демо-сайт · Игра на виртуальные фишки</strong>
+  <p>© 2026 CASINO RPO-326</p>
+</footer>
+
+<script>
+(function(){const a=document.getElementById('ambient');for(let i=0;i<30;i++){const p=document.createElement('div');p.className='particle';const s=1+Math.random()*3;p.style.cssText='width:'+s+'px;height:'+s+'px;left:'+(Math.random()*100)+'%;bottom:-20px;animation-duration:'+(15+Math.random()*25)+'s;animation-delay:'+(Math.random()*10)+'s';a.appendChild(p)}})();
+
+const BAL_KEY='casinoRpoBal';
+function getBalance(){return parseInt(localStorage.getItem(BAL_KEY)||'100000')}
+function setBalance(v){localStorage.setItem(BAL_KEY,v);document.querySelectorAll('[data-balance]').forEach(e=>e.textContent='¥ '+Math.floor(v).toLocaleString('ru-RU'))}
+function addBalance(v){setBalance(getBalance()+v)}setBalance(getBalance());
+
+let actx=null;
+function getA(){if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();return actx}
+function play(freq,dur,type,vol){try{const c=getA(),o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=freq;g.gain.setValueAtTime(vol,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+dur);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+dur)}catch(e){}}
+function sndClick(){play(600,.06,'square',.04)}
+function sndRoll(){play(220,.2,'sawtooth',.05);setTimeout(()=>play(180,.2,'sawtooth',.05),100)}
+function sndWin(){[523,659,784,1047].forEach((f,i)=>setTimeout(()=>play(f,.15,'sine',.07),i*130))}
+function sndLose(){play(170,.4,'sawtooth',.06)}
+
+function confetti(count){const cols=['#D4AF37','#F0D060','#fff','#e33','#4af','#c22'];for(let i=0;i<count;i++){const p=document.createElement('div');p.className='confetti-piece';const s=5+Math.random()*8;p.style.cssText='left:'+(Math.random()*100)+'vw;width:'+s+'px;height:'+s+'px;background:'+cols[Math.floor(Math.random()*cols.length)]+';border-radius:'+(Math.random()<.5?'50%':'2px')+';animation-duration:'+(1.8+Math.random()*2.2)+'s;animation-delay:'+(Math.random()*.4)+'s';document.body.appendChild(p);setTimeout(()=>p.remove(),4500)}}
+
+let coinPick='';
+function setCB(v){document.getElementById('coinBet').value=v}
+function coinPick(x){coinPick=x;document.getElementById('coinEagle').classList.toggle('sel',x==='eagle');document.getElementById('coinTails').classList.toggle('sel',x==='tails');sndClick()}
+function flipCoin(){
+  if(!coinPick){document.getElementById('coinResult').textContent='Выберите орла или решку';document.getElementById('coinResult').className='game-result lose';return}
+  const btn=document.getElementById('coinBtn');if(btn.disabled)return;
+  const bet=parseInt(document.getElementById('coinBet').value)||0;const res=document.getElementById('coinResult');
+  if(bet<10||bet>getBalance()){res.textContent=bet>getBalance()?'Недостаточно фишек':'Минимум 10';res.className='game-result lose';return}
+  btn.disabled=true;addBalance(-bet);sndClick();res.className='game-result';res.textContent='';
+  const el=document.getElementById('coinEl');el.classList.remove('flip','win');void el.offsetWidth;el.classList.add('flip');
+  setTimeout(()=>{
+    el.classList.remove('flip');
+    const side=Math.random()<.5?'eagle':'tails';
+    const sideTxt=side==='eagle'?'Орёл':'Решка';
+    el.textContent=side==='eagle'?'🦅':'🪙';
+    let win=0,msg='';
+    if(coinPick===side){win=bet*2;addBalance(win);msg='Угадал! '+sideTxt+' — ×2! +¥'+win.toLocaleString('ru-RU');el.classList.add('win');sndWin();confetti(50)}
+    else{msg='Не угадал. Выпал: '+sideTxt;sndLose()}
+    res.textContent=msg;res.className=win>0?'game-result win':'game-result lose';btn.disabled=false
+  },1000)
+}
+document.getElementById('coinBet').addEventListener('keydown',e=>{if(e.key==='Enter')flipCoin()});
+</script>
+</body>
+</html>
